@@ -1,0 +1,21 @@
+{% extends "page.html.twig" %}
+
+{% block bodyclass %}main {{ parent() }}{% endblock %}
+
+{% block title %}{{ status_text }}{% endblock %}
+
+{% block body %}
+
+<main class="layoutSection" id="error">
+{% block content %}
+    <h1>{{ status_text }}</h1>
+    <h2>The server returned status "{{ status_code }} {{ status_text }}".</h2>
+
+    <div>
+    {% block error_message %}
+        {{ exception.message }}.
+    {% endblock error_message %}
+    </div>
+{% endblock content %}
+</main>
+{% endblock body %}

@@ -1,0 +1,25 @@
+parameters:
+    assets_version: ''
+    authorizenet.trans_key: ''
+    ciiva_apikey: ''
+    ciiva_password: ''
+    db_password: ''
+    email.password: ''
+    enable_profiler: false
+    gumstix_avalara.password: null
+    gumstix_avalara.username: null
+    gumstix_sso.tokens.consumer_key: ''
+    gumstix_sso.tokens.consumer_secret: ''
+    rialto_email.xmpp_password: ''
+    rialto_purchasing.octopart_catalog_apikey: ''
+    rialto_purchasing.supplier_mailbox_password: ''
+    rialto_wordpress.password: ''
+    secret: ''
+    sentry_dsn: ''
+    taxjar_api_token: ''
+    ups.access_license: ''
+    ups.invoice_password: ''
+    ups.password: ''
+    pcb_ng.api.user: ''
+    pcb_ng.api.password: ''
+

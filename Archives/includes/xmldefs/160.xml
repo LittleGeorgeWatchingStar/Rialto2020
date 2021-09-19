@@ -1,0 +1,26 @@
+<vendor_definition vendor_name='fastener-superstore'>
+	<start_word value="Quantity"></start_word>
+	<end_word value="Thank you for the order!!"></end_word>
+	<line_id value='1'></line_id>
+
+	<table_definition name='tables'>
+		<field name='part_number' order='1'></field>
+		<field name='description' order='2~-3'></field>
+		<field name='shipped' order='0'></field>
+		<field name='each' order='-3'></field>
+		<field name='total' order='-1'></field>
+	</table_definition>
+
+	<globals_definition name='globals'>
+		<global name='purchase_order_no' text='PO Number:' location='right'></global>
+		<global name='invoice_no' text='Invoice #:' location='right'></global>
+		<global name='sales_order_no' text='SALES ORDER NO.' location='below_1'></global>
+		<global name='invoice_date' text='Invoice Date:' location='right'></global>
+		<global name='terms' ></global>
+		<global name='tracking_number' text='WAYBILL NUMBERS' right='eol' location='below_1'></global>
+		<global name='freight_charges' text='ENERGY' location='right'></global>
+		<global name='tax_charged' ></global>
+		<global name='grand_total' text='INVOICE TOTAL:          $' location='right' ></global>
+	</globals_definition>
+
+</vendor_definition>

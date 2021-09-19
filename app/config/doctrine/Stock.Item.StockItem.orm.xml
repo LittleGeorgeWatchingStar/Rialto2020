@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Item\StockItem"
+            repository-class="Rialto\Stock\Item\Orm\StockItemRepository"
+            table="StockMaster"
+            inheritance-type="SINGLE_TABLE">
+
+        <indexes>
+            <index columns="Package,PartValue"
+                   name="PackageInfo"/>
+        </indexes>
+
+        <discriminator-column name="MBflag"
+                              type="string"
+                              length="1"/>
+        <discriminator-map>
+            <discriminator-mapping value="A"
+                                   class="Rialto\Stock\Item\AssemblyStockItem"/>
+            <discriminator-mapping value="D"
+                                   class="Rialto\Stock\Item\DummyStockItem"/>
+            <discriminator-mapping value="B"
+                                   class="Rialto\Stock\Item\PurchasedStockItem"/>
+            <discriminator-mapping value="M"
+                                   class="Rialto\Stock\Item\ManufacturedStockItem"/>
+        </discriminator-map>
+
+        <id name="stockCode"
+            type="string"
+            length="20"
+            column="StockID"/>
+
+        <field name="controlled"
+               type="boolean"
+               nullable="false"
+               column="Controlled">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <field name="description"
+               type="string"
+               nullable="false"
+               column="Description"
+               length="110"/>
+
+        <field name="longDescription"
+               type="text"
+               column="LongDescription"/>
+
+        <field name="dateCreated"
+               type="datetime"
+               nullable="true"/><!-- nullable for legacy reasons only -->
+
+        <field name="flags"
+               type="string"
+               column="Flags"
+               length="32"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="package"
+               type="string"
+               length="50"
+               nullable="false"
+               column="Package">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="partValue"
+               type="string"
+               nullable="false"
+               column="PartValue"
+               length="50">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="units"
+               type="string"
+               column="Units"
+               length="20"
+               nullable="false">
+            <options>
+                <option name="default">each</option>
+            </options>
+        </field>
+
+        <field name="countryOfOrigin"
+               type="string"
+               column="Origin"
+               length="20"
+               nullable="false"/>
+
+        <field name="lastCost"
+               type="decimal"
+               nullable="false"
+               precision="20"
+               scale="4"
+               column="LastCost">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="materialCost"
+               type="decimal"
+               nullable="false"
+               precision="20"
+               scale="4"
+               column="Materialcost">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="labourCost"
+               type="decimal"
+               nullable="false"
+               precision="20"
+               scale="4"
+               column="Labourcost">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="overheadCost"
+               type="decimal"
+               nullable="false"
+               precision="20"
+               scale="4"
+               column="Overheadcost">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="actualCost"
+               type="decimal"
+               nullable="false"
+               precision="20"
+               scale="4"
+               column="ActualCost">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="discontinued"
+               type="smallint"
+               nullable="false"
+               column="Discontinued">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="orderQuantity"
+               type="decimal"
+               column="EOQ"
+               precision="10"
+               scale="2"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="discountCategory"
+               type="string"
+               column="DiscountCategory"
+               length="2"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="decimalPlaces"
+               type="smallint"
+               nullable="false"
+               column="DecimalPlaces">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="eccnCode"
+               type="string"
+               column="ECCN_Code"
+               length="12"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="rohs"
+               type="string"
+               column="RoHS"
+               length="20"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="phaseOutDate"
+               type="date"
+               nullable="true"
+               column="PhaseOut"/>
+
+        <field name="shippingVersion"
+               type="string"
+               column="ShippingVersion"
+               length="31"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="autoBuildVersion"
+               type="string"
+               column="AutoBuildVersion"
+               length="31"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="closeCount"
+               type="boolean"
+               nullable="false"
+               column="CloseCount">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="serialised"
+               type="boolean"
+               nullable="false"
+               column="Serialised">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <one-to-one
+                field="currentStandardCost"
+                target-entity="Rialto\Stock\Cost\StandardCost">
+            <join-column name="currentStandardCost"
+                         referenced-column-name="id"/>
+        </one-to-one>
+
+        <one-to-many
+                field="versions"
+                target-entity="Rialto\Stock\Item\Version\ItemVersion"
+                mapped-by="stockItem">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many
+                field="stockFlags"
+                target-entity="Rialto\Stock\Item\StockFlag"
+                mapped-by="stockItem">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one
+                field="category"
+                target-entity="Rialto\Stock\Category\StockCategory">
+            <join-column
+                    name="CategoryID"
+                    referenced-column-name="CategoryID"
+                    nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="taxAuthority"
+                target-entity="Rialto\Tax\Authority\TaxAuthority">
+            <join-column name="TaxLevel"
+                         referenced-column-name="TaxID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="harmonizationCode"
+                target-entity="Rialto\Shipping\Export\HarmonizationCode">
+            <join-column name="harmonizationCode"
+                         referenced-column-name="id"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Manufacturing\WorkType\WorkType"
+                     field="defaultWorkType">
+            <join-column name="defaultWorkTypeID"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-many
+                field="connectors"
+                target-entity="Rialto\Stock\Item\StockItem"
+                mapped-by="connectsTo">
+        </many-to-many>
+
+        <many-to-many
+                field="connectsTo"
+                target-entity="Rialto\Stock\Item\StockItem"
+                inversed-by="connectors">
+            <join-table name="ComponentConnections">
+                <join-columns>
+                    <join-column name="ConnectsTo"
+                                 referenced-column-name="StockID"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="StockID"
+                                 referenced-column-name="StockID"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>

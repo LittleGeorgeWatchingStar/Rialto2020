@@ -1,0 +1,116 @@
+security:
+    encoders:
+        Rialto\Security\User\User:
+            algorithm:   sha1
+            iterations: 1
+            encode_as_base64: false
+
+    role_hierarchy:
+        # Employee roles
+        ROLE_ADMIN:
+            - ROLE_ACCOUNTING
+            - ROLE_ENGINEER
+            - ROLE_MANUFACTURING
+            - ROLE_PURCHASING
+            - ROLE_RECEIVING
+            - ROLE_SALES
+            - ROLE_SHIPPING
+            - ROLE_STOCK_CREATE
+            - ROLE_WAREHOUSE
+        ROLE_ENGINEER:
+            - ROLE_STOCK
+            - ROLE_MANUFACTURING
+            - ROLE_PURCHASING
+        ROLE_WAREHOUSE:
+            - ROLE_STOCK
+            - ROLE_RECEIVING
+            - ROLE_SHIPPING
+        ROLE_SALES:
+            - ROLE_CUSTOMER_SERVICE
+        ROLE_ACCOUNTING: ROLE_EMPLOYEE
+        ROLE_CUSTOMER_SERVICE: ROLE_STOCK_VIEW
+        ROLE_MANUFACTURING: ROLE_EMPLOYEE
+        ROLE_PURCHASING: ROLE_PURCHASING_DATA
+        ROLE_PURCHASING_DATA: ROLE_STOCK_VIEW
+        ROLE_RECEIVING: ROLE_EMPLOYEE
+        ROLE_SHIPPING: ROLE_EMPLOYEE
+        ROLE_STOCK_CREATE: ROLE_STOCK
+        ROLE_STOCK: ROLE_STOCK_VIEW
+        ROLE_STOCK_VIEW: ROLE_EMPLOYEE
+        # API roles
+        ROLE_STOREFRONT: ROLE_API_CLIENT
+        # Supplier roles
+        ROLE_SUPPLIER_ADVANCED: ROLE_SUPPLIER_SIMPLE
+
+
+    providers:
+        by_uuid_provider:
+            id: Rialto\Security\Firewall\ByUuidProvider
+        by_username_provider:
+            id: Rialto\Security\Firewall\ByUsernameProvider
+        magento2_provider:
+            id: Rialto\Magento2\Firewall\StorefrontUserProvider
+        shopify_provider:
+            id: Rialto\Shopify\Webhook\ShopifyUserProvider
+
+    firewalls:
+        shopify_webhook:
+            pattern: ^/api/shopify/webhook
+            provider: shopify_provider
+            stateless: true
+            simple_preauth:
+                authenticator: Rialto\Shopify\Webhook\WebhookAuthenticator
+        magento2_oauth_callback:
+            pattern:  ^/magento2/oauth/callback
+            provider: magento2_provider
+            stateless: true
+            simple_preauth:
+                authenticator: Rialto\Magento2\Firewall\MagentoAuthenticator
+        api:
+            pattern: ^/api
+            provider: by_uuid_provider
+            guard:
+                authenticators:
+                    - Gumstix\SSOBundle\Security\CookieAuthenticator
+                    - Gumstix\SSOBundle\Security\HeaderAuthenticator
+                entry_point: Gumstix\SSOBundle\Security\HeaderAuthenticator
+            logout_on_user_change: true
+
+        main:
+            pattern: ^/
+            provider: by_uuid_provider
+            guard:
+                authenticators:
+                    - Gumstix\SSOBundle\Security\CookieAuthenticator
+                    - Gumstix\SSOBundle\Security\LoginAuthenticator
+                entry_point: Gumstix\SSOBundle\Security\LoginAuthenticator
+            logout:
+                path:   /logout
+                target: /
+                success_handler: Gumstix\SSOBundle\Service\LogoutService
+            switch_user:
+                role: ROLE_ADMIN
+            logout_on_user_change: true
+
+
+    access_control:
+        - path: ^/login
+          roles: IS_AUTHENTICATED_ANONYMOUSLY
+        - path: ^/$
+          roles: IS_AUTHENTICATED_FULLY
+        - path: ^/css/compiled/
+          roles: IS_AUTHENTICATED_FULLY
+        - path: ^/js/routing$
+          roles: IS_AUTHENTICATED_FULLY
+        - path: ^/supplier
+          roles: [ROLE_SUPPLIER_SIMPLE, ROLE_EMPLOYEE]
+        - path: ^/api
+          roles: ROLE_API_CLIENT
+        - path: ^/status
+          roles: ROLE_ADMIN
+        - path: ^/magento2/oauth/callback
+          roles: ROLE_API_CLIENT
+        - path: ^/admin-jobs
+          roles: ROLE_ADMIN
+        - path: ^/
+          roles: ROLE_EMPLOYEE

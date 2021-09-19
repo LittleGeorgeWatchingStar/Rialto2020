@@ -1,0 +1,33 @@
+# Routing config for the supplier/CM dashboard.
+
+supplier_dashboard:
+  resource: Rialto\Supplier\Web\DashboardController
+  type: annotation
+
+supplier_missing_items:
+  resource: Rialto\Supplier\Stock\Web\MissingItemsController
+  type: annotation
+
+supplier_purchase_order:
+  resource: Rialto\Supplier\Order\Web\PurchaseOrderController
+  type: annotation
+
+supplier_stock_level:
+  resource: Rialto\Supplier\Stock\Web\StockLevelController
+  type: annotation
+
+supplier_stock_move:
+  resource: Rialto\Supplier\Stock\Web\StockMoveController
+  type: annotation
+
+supplier_transfer:
+  resource: Rialto\Supplier\Stock\Web\TransferController
+  type: annotation
+
+supplier_work_order:
+  resource: Rialto\Supplier\Order\Web\WorkOrderController
+  type: annotation
+
+supplier_bin_allocation:
+  resource: Rialto\Supplier\Allocation\Web\BinAllocationController
+  type: annotation

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Ledger\Account\AccountGroup"
+            table="AccountGroups">
+
+        <id name="groupName"
+            column="GroupName"
+            type="string"
+            length="30"/>
+
+        <field name="profitAndLoss"
+               type="boolean"
+               column="PandL">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <field name="sequenceInTB"
+               type="smallint"
+               column="SequenceInTB"/>
+
+        <many-to-one field="section"
+                     target-entity="Rialto\Accounting\Ledger\Account\AccountSection">
+            <join-column name="SectionInAccounts"
+                         nullable="false"/>
+        </many-to-one>
+
+        <view-roles>
+            <role>ROLE_ACCOUNTING</role>
+        </view-roles>
+    </entity>
+</doctrine-mapping>

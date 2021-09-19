@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Level\StockLevelStatus"
+            repository-class="Rialto\Stock\Level\Orm\StockLevelStatusRepository"
+            table="StockLevelStatus">
+
+        <id name="stockItem"
+            association-key="true"/>
+        <id name="location"
+            association-key="true"/>
+
+        <field name="dateUpdated"
+               type="datetime"
+               nullable="true" />
+
+        <field name="qtyInStock"
+               type="decimal"
+               precision="12"
+               scale="2"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="qtyAllocated"
+               type="integer"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="orderPoint"
+               type="integer"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <many-to-one field="stockItem"
+                     target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="stockCode"
+                         referenced-column-name="StockID"/>
+        </many-to-one>
+
+        <many-to-one field="location"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="locationID"
+                         referenced-column-name="LocCode"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

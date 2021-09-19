@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Transaction\Transaction"
+            repository-class="Rialto\Accounting\Transaction\TransactionRepo"
+            table="Accounting_Transaction">
+
+        <indexes>
+            <index columns="sysType,groupNo"/>
+        </indexes>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist"
+                                method="validate"/>
+            <lifecycle-callback type="preUpdate"
+                                method="validate"/>
+        </lifecycle-callbacks>
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="groupNo"
+               type="bigint"
+               nullable="true">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="date"
+               type="datetime"
+               column="transactionDate"
+               nullable="false"/>
+
+        <field name="memo"
+               type="string"
+               length="255"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <one-to-many target-entity="Rialto\Accounting\Ledger\Entry\GLEntry"
+                     mapped-by="transaction"
+                     field="entries">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many target-entity="Rialto\Stock\Move\StockMove"
+                     mapped-by="transaction"
+                     field="stockMoves">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one
+                field="systemType"
+                target-entity="Rialto\Accounting\Transaction\SystemType">
+            <join-column name="sysType"
+                         referenced-column-name="TypeID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="period"
+                target-entity="Rialto\Accounting\Period\Period">
+            <join-column name="period"
+                         referenced-column-name="PeriodNo"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

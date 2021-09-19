@@ -1,0 +1,11 @@
+{% extends "TwigBundle:Exception:error.html.twig" %}
+
+{% block error_message %}
+    The record was modified by someone else while you were working.
+    <ul>
+        <li>
+            <a href="{{ app.request.uri }}">Click here</a>
+            to try again.
+        </li>
+    </ul>
+{% endblock error_message %}

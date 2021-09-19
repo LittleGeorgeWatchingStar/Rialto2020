@@ -1,0 +1,27 @@
+<vendor_definition vendor_name='bestek manufacturing'>
+	<start_word value="ITEM"></start_word>
+	<end_word value="Thank"></end_word>
+	<line_id value='1'></line_id>
+
+	<table_definition name='tables'>
+		<field name='line' order='0'></field>
+		<field name='description' order='1~-4'></field>
+		<field name='shipper' order='-4'></field>
+		<field name='shipped' order='-3'></field>
+		<field name='each' order='-2'></field>
+		<field name='total' order='-1'></field>
+	</table_definition>
+
+	<globals_definition name='globals'>
+		<global name='purchase_order_no' text='P.O. NO.' location='below_2'></global>
+		<global name='invoice_no' text='INVOICE NO.' right='eol' location='below_2'></global>
+		<global name='sales_order_no' text='Sales Order' right='eol' location='below_2'></global>
+		<global name='invoice_date' text='DATE' location='below_2'></global>
+		<global name='terms' ></global>
+		<global name='tracking_number' text='BOX ID' location='right'>></global>
+		<global name='freight_charges'></global>
+		<global name='tax_charged' text='9.25%' location='right'></global>
+		<global name='grand_total' text='Total' location='right' ></global>
+	</globals_definition>
+
+</vendor_definition>

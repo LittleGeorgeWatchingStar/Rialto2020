@@ -1,0 +1,27 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Supplier\Logger:
+    arguments:
+      $logger: "@logger"
+    tags:
+      - name: monolog.logger
+        channel: supplier
+
+  Rialto\Supplier\SupplierVoter: ~
+
+  Rialto\Supplier\Web\SupplierExtension: ~
+
+  Rialto\Supplier\Order\Email\EmailSubscriber: ~
+
+  Rialto\Supplier\Allocation\Web\BinAllocationController:
+    tags: ['controller.service_arguments']
+
+  Rialto\Supplier\Order\Web\TrackingFacades\SupplierInvoiceTrackingFacadesFactory:
+    public: true
+
+  Rialto\Supplier\Order\Web\WorkOrderController:
+    tags: ['controller.service_arguments']

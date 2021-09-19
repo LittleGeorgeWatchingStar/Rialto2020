@@ -1,0 +1,43 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Allocation\Web\AllocationExtension: ~
+
+  Rialto\Allocation\Validator\PurchasingDataExistsValidator: ~
+
+  Rialto\Allocation\Validator\PurchasingDataExistsForChildValidator: ~
+
+  Rialto\Allocation\Allocation\AllocationFactory:
+    public: true
+
+  Rialto\Allocation\Allocation\InvalidAllocationExceptionListener:
+    calls:
+      - [ setSession, [ "@session" ] ]
+
+  Rialto\Allocation\Dispatch\DispatchInstructionSubscriber:
+    arguments:
+      - "@session"
+
+  Rialto\Allocation\Consumer\StockConsumerListener: ~
+
+  Rialto\Allocation\Allocation\EmptyAllocationRemover:
+    tags:
+      - name: kernel.event_listener
+        event: kernel.terminate
+        method: onKernelTerminate
+
+  Rialto\Allocation\Allocation\AllocationTransfer: ~
+
+  Rialto\Allocation\Allocation\AllocationTransferListener: ~
+
+  Rialto\Allocation\Cli\DeleteInvalidAllocationsCommand: ~
+
+  Rialto\Allocation\Cli\DeleteStockBinAllocationsCommand: ~
+
+  Rialto\Allocation\EstimatedArrivalDate\EstimatedArrivalDateGenerator: ~
+
+  Rialto\Allocation\Requirement\RequirementTask\RequirementTaskFactory:
+    public: true

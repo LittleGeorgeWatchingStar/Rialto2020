@@ -1,0 +1,19 @@
+harmonization_code:
+    resource: Rialto\Shipping\Export\Web\HarmonizationCodeController
+    type: annotation
+
+shipment_prohibition:
+    resource: Rialto\Shipping\Export\Web\ShipmentProhibitionController
+    type: annotation
+
+shipper:
+    resource: Rialto\Shipping\Shipper\Web\ShipperController
+    type: annotation
+
+shipping_method:
+    resource: Rialto\Shipping\Method\Web\ShippingMethodController
+    type: annotation
+
+shipping_dashboard:
+    resource: Rialto\Shipping\Web\DashboardController
+    type: annotation

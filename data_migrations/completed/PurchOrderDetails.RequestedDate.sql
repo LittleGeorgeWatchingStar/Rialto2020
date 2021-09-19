@@ -1,0 +1,1 @@
+ALTER TABLE PurchOrderDetails ADD RequestedDate date NOT NULL Default 0;

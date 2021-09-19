@@ -1,0 +1,49 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Purchasing\Catalog\Web\PurchasingDataController:
+    tags: ['controller.service_arguments']
+
+  Rialto\Purchasing\Catalog\Remote\Web\RemoteCatalogController:
+    tags: ['controller.service_arguments']
+
+  Rialto\Purchasing\Catalog\Remote\OctopartCatalogParser: ~
+
+  Rialto\Purchasing\Catalog\Remote\OctopartCatalog:
+    public: true
+    arguments:
+      $apiKey: "%rialto_purchasing.octopart_catalog_apikey%"
+
+  Rialto\Purchasing\Manufacturer\ComplianceFilesystem:
+    public: true
+
+  Rialto\Purchasing\Manufacturer\LogoFilesystem:
+    public: true
+
+  Rialto\Purchasing\Catalog\PurchasingDataSynchronizer: ~
+
+  Rialto\Purchasing\Catalog\Cli\PurchasingDataSynchronizerCommand:
+    public: true
+
+  Rialto\Purchasing\Catalog\Orm\PurchasingDataRepository:
+    shared: false
+    factory: 'doctrine:getRepository'
+    arguments:
+      - Rialto\Purchasing\Catalog\PurchasingData
+
+  Rialto\Purchasing\Catalog\Cli\PurchasingDataStockLevelRefreshCommand:
+    public: true
+    tags:
+    - {name: console.command}
+
+  Rialto\Purchasing\Catalog\Cli\RefreshGeppettoPurchasingDataConsoleCommand:
+    public: true
+    tags:
+    - {name: console.command}
+
+  Rialto\Purchasing\Catalog\Command\RefreshPurchasingDataStockLevelHandler:
+    tags:
+    - {name: tactician.handler, typehints: true}

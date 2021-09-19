@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Manufacturing\Bom\Bag\AddBagToBomListener:
+    public: true
+
+  Rialto\Manufacturing\Bom\Bag\BagAdder: ~
+
+  Rialto\Manufacturing\Bom\Bag\BagFinder: ~
+
+  Rialto\Manufacturing\Bom\Bag\BagFinderGateway:
+    factory: ["@doctrine", getRepository]
+    arguments:
+      - Rialto\Stock\Item\Version\ItemVersion
+
+  Rialto\Manufacturing\Bom\Validator\IsValidBomCsvValidator: ~
+
+  Rialto\Manufacturing\Bom\Bag\BagFitStrategy: ~

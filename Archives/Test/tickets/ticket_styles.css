@@ -1,0 +1,38 @@
+table.ticket_explorer
+{
+width:400px;
+padding:0px;
+border:5px outset #909090;
+margin:0px;
+font-size: 100%;
+font-family: Times;
+font-style: none;
+color:#000066;
+background-color:#000000;
+text-align: center;
+text-transform: capitalize;
+}
+th
+{
+color:#F5D60A;
+background-color:#000000;
+}
+table tr
+{
+background-color: #F3FFFF;
+}
+
+table.ticket_viewer
+{
+width:400px;
+padding:0px;
+border:5px outset #909090;
+margin:0px;
+font-size: 100%;
+font-family: Times;
+font-style: none;
+color:#000066;
+background-color:#000000;
+text-align: center;
+text-transform: capitalize;
+}

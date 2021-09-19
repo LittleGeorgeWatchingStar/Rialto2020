@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Payment\PaymentMethod\PaymentMethod"
+            repository-class="Rialto\Payment\PaymentMethod\Orm\PaymentMethodRepository"
+            table="PaymentMethod">
+
+        <id name="id"
+            type="string"
+            length="4"/>
+
+        <field name="name"
+               type="string"
+               length="50"/>
+
+        <many-to-one field="group"
+                     target-entity="Rialto\Payment\PaymentMethod\PaymentMethodGroup">
+            <join-column name="groupID"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <virtual-field name="baseFee"/>
+        <virtual-field name="feeRate"/>
+
+    </entity>
+</doctrine-mapping>

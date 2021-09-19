@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Accounting\Debtor\DebtorTransactionFactory:
+    public: true
+
+  Rialto\Accounting\Debtor\Orm\DebtorPaymentStatus:
+    public: true

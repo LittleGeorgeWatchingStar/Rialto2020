@@ -1,0 +1,26 @@
+parameters:
+    db_password:
+
+    sentry_dsn:
+
+    email.password:
+    rialto_email.xmpp_password:
+
+    secret:
+    enable_profiler: false
+
+    rialto_purchasing.octopart_catalog_apikey:
+    rialto_purchasing.supplier_mailbox_password:
+
+    ups.access_license:
+    ups.password:
+    ups.invoice_password:
+
+    authorizenet.trans_key:
+
+    pcb_ng.api.user:
+    pcb_ng.api.password:
+
+    rialto_wordpress.password:
+
+    taxjar_api_token:

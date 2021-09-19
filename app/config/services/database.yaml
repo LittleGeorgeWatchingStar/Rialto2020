@@ -1,0 +1,51 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Doctrine\ORM\EntityManager:
+        alias: doctrine.orm.entity_manager
+
+    Doctrine\ORM\EntityManagerInterface:
+        alias: doctrine.orm.entity_manager
+        public: true
+
+    Rialto\Database\Orm\ErpDbManager: ~
+
+    Doctrine\Common\Persistence\ObjectManager:
+        alias: Rialto\Database\Orm\ErpDbManager
+        public: true
+
+    Rialto\Database\Orm\DbManager:
+        alias: Rialto\Database\Orm\ErpDbManager
+        public: true
+
+    Rialto\Database\Orm\DoctrineDbManager:
+        alias: Rialto\Database\Orm\ErpDbManager
+
+    Doctrine\DBAL\Connection:
+        alias: database_connection
+        public: true
+
+    Rialto\Database\Orm\LockExceptionHandler: ~
+
+    Rialto\Entity\DomainEventHandler:
+        tags:
+          - name: doctrine.event_listener
+            event: postPersist
+          - name: doctrine.event_listener
+            event: postUpdate
+          - name: doctrine.event_listener
+            event: postRemove
+          - name: doctrine.event_listener
+            event: postFlush
+
+    MongoDB\Client:
+        arguments:
+          - "mongodb://%mongo_host%:27017"
+
+    MongoDB\Database:
+      factory: ['@MongoDB\Client', selectDatabase]
+      arguments: ["rialto"]
+      public: true

@@ -1,0 +1,1 @@
+alter table SalesOrders add column Priority boolean not null default 0;

@@ -1,0 +1,3 @@
+ups_invoice:
+    resource: Rialto\Ups\Invoice\Web\InvoiceController
+    type: annotation

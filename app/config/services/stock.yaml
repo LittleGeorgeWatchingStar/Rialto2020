@@ -1,0 +1,34 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Stock\Web\StockRouter:
+    public: true
+
+  Rialto\Stock\Web\StockExtension: ~
+
+  Rialto\Stock\EmailEventListener:
+    public: true
+
+  Rialto\Stock\Category\CategoryChange:
+    public: true
+
+  Rialto\Stock\Cost\StandardCostUpdater:
+    public: true
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: flash}
+
+  Rialto\Stock\Count\Web\CsvStockCountFlow:
+    parent: craue.form.flow
+    public: true
+    autowire: true
+    autoconfigure: false
+
+  Rialto\Stock\Count\StockCountVoter: ~
+
+  Rialto\Stock\Shelf\Position\Query\FirstAvailablePositionQuery:
+    class: Rialto\Stock\Shelf\Position\Query\DQL\DqlFirstAvailablePositionQuery

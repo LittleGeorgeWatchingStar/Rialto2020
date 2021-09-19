@@ -1,0 +1,28 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Panelization\PanelizedOrderFactory:
+    public: true
+
+  Rialto\Panelization\Orm\PanelGateway:
+    public: true
+
+  Rialto\Panelization\Layout\TopToBottomLayout: ~
+
+  Rialto\Panelization\Layout\Layout:
+    alias: Rialto\Panelization\Layout\TopToBottomLayout
+    public: true
+
+  Rialto\Panelization\AssetManager:
+    public: true
+
+  Rialto\Panelization\Web\PanelPdfGenerator:
+    public: true
+
+  Rialto\Panelization\IO\PanelizationStorage:
+    public: true
+
+  Rialto\Panelization\Validator\PurchasingDataExistsValidator: ~

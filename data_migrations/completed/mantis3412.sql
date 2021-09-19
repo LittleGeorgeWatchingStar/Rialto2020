@@ -1,0 +1,1 @@
+insert into Role values ('ROLE_CUSTOMER_SERVICE');

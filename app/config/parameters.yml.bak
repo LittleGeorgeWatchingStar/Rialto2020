@@ -1,0 +1,19 @@
+parameters:
+    assets_version: 6618cf5f3
+    authorizenet.trans_key: ''
+    ciiva_apikey: ''
+    ciiva_password: ''
+    db_password: rialto
+    email.password: ''
+    enable_profiler: false
+    rialto_email.xmpp_password: ''
+    rialto_purchasing.octopart_catalog_apikey: e230e6f19b6234a32a9c
+    rialto_purchasing.supplier_mailbox_password: ''
+    rialto_wordpress.password: ''
+    secret: f68f3ec35e620a3a1ca3e55df5d123f233f4ef77169e7a7f74ac00187d20f892
+    sentry_dsn: ''
+    taxjar_api_token: ''
+    ups.access_license: 7BCE6A23028BC75C
+    ups.invoice_password: ''
+    ups.password: saywhat
+

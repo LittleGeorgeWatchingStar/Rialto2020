@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Shipping\Shipper\Shipper"
+        repository-class="Rialto\Shipping\Shipper\Orm\ShipperRepository"
+        table="Shippers">
+
+        <id name="id" type="bigint" column="Shipper_ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <label field="name" />
+
+        <field name="name" type="string" column="ShipperName" />
+        <field name="accountNumber" type="string" length="30" column="AccountNo" />
+        <field name="active" type="boolean" column="Active" />
+        <field name="telephone" type="string" format="telephone" />
+
+        <one-to-many target-entity="Rialto\Shipping\Method\ShippingMethod"
+            field="shippingMethods"
+            mapped-by="shipper" />
+
+    </entity>
+</doctrine-mapping>

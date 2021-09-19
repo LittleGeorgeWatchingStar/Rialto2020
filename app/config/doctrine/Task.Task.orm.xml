@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Task\Task"
+            table="Core_Task"
+            inheritance-type="SINGLE_TABLE">
+
+        <discriminator-column name="taskType"
+                              type="string"
+                              length="30"/>
+        <discriminator-map>
+            <discriminator-mapping
+                    value="production"
+                    class="Rialto\Manufacturing\Task\ProductionTask"/>
+        </discriminator-map>
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="dateCreated"
+               type="datetime"
+               nullable="false"/>
+
+        <field name="roles"
+               type="simple_array"
+               nullable="true"/>
+
+        <field name="name"
+               type="string"
+               length="255"
+               nullable="false"/>
+
+        <field name="routeName"
+               type="string"
+               length="255"
+               nullable="false"/>
+
+        <field name="routeParams"
+               type="json_array"/>
+
+        <field name="status"
+               type="string"
+               length="50"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>

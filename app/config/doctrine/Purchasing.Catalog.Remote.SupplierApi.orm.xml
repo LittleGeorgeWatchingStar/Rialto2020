@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="Rialto\Purchasing\Catalog\Remote\SupplierApi"
+        repository-class="Rialto\Purchasing\Catalog\Remote\Orm\SupplierApiRepository"
+        table="SupplierApi">
+
+        <id name="supplier" association-key="true" />
+
+        <field name="serviceName" type="string" length="50" />
+
+        <one-to-one
+            field="supplier"
+            target-entity="Rialto\Purchasing\Supplier\Supplier" >
+            <join-column name="supplierId" referenced-column-name="SupplierID" />
+        </one-to-one>
+    </entity>
+</doctrine-mapping>

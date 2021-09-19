@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Purchasing\Invoice\SupplierInvoiceItem"
+            repository-class="Rialto\Purchasing\Invoice\Orm\SupplierInvoiceItemRepository"
+            table="SuppInvoiceDetails">
+
+        <id name="id"
+            type="bigint"
+            column="SIDetailID">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="description"
+               type="string"
+               length="120"
+               column="Description"/>
+
+        <field name="qtyOrdered"
+               type="integer"
+               column="Ordered"/>
+
+        <field name="qtyInvoiced"
+               type="integer"
+               column="Invoicing"/>
+
+        <field name="supplierReference"
+               type="string"
+               column="SuppReference"
+               display="detail"/>
+
+        <field name="lineNumber"
+               type="integer"
+               column="LineNo"/>
+
+        <field name="unitCost"
+               type="decimal"
+               column="Price"
+               precision="8"/>
+
+        <field name="extendedCost"
+               type="decimal"
+               column="Total"/>
+
+        <field name="tariff"
+               type="decimal"
+               column="Tariff"/>
+
+        <field name="invoiceDate"
+               type="datetime"
+               column="InvoiceDate"
+               display="detail"/>
+
+        <field name="approved"
+               type="boolean"
+               column="Approved"/>
+
+        <field name="posted"
+               type="boolean"
+               column="Posted"/>
+
+        <field name="harmonizationCode"
+               type="string"
+               display="detail"/>
+
+        <field name="eccnCode"
+               type="string"
+               display="detail"/>
+
+        <field name="countryOfOrigin"
+               type="string"
+               display="detail"/>
+
+        <field name="leadStatus"
+               type="string"
+               display="detail"/>
+
+        <field name="rohsStatus"
+               type="string"
+               display="detail"/>
+
+        <field name="reachStatus"
+               type="string"
+               display="detail"/>
+
+        <field name="reachDate"
+               type="date"
+               nullable="true"
+               display="detail"/>
+
+        <one-to-many field="grnItems"
+                     target-entity="Rialto\Purchasing\Receiving\GoodsReceivedItem"
+                     mapped-by="invoiceItem"/>
+
+        <many-to-one field="supplierInvoice"
+                     target-entity="Rialto\Purchasing\Invoice\SupplierInvoice"
+                     inversed-by="items"
+                     display="detail">
+            <join-column name="invoiceID"
+                         referenced-column-name="id"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+
+        <many-to-one field="supplier"
+                     target-entity="Rialto\Purchasing\Supplier\Supplier"
+                     display="detail">
+            <join-column name="SupplierID"
+                         referenced-column-name="SupplierID"/>
+        </many-to-one>
+
+        <many-to-one field="purchaseOrder"
+                     target-entity="Rialto\Purchasing\Order\PurchaseOrder"
+                     display="detail">
+            <join-column name="PONumber"
+                         referenced-column-name="OrderNo"/>
+        </many-to-one>
+
+        <many-to-one field="stockItem"
+                     target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="StockID"
+                         referenced-column-name="StockID"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="glAccount"
+                     target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="GLCode"
+                    referenced-column-name="AccountCode"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

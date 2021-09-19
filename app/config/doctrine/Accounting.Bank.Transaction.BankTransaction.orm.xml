@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Bank\Transaction\BankTransaction"
+            repository-class="Rialto\Accounting\Bank\Transaction\Orm\BankTransactionRepository"
+            table="BankTrans">
+
+        <indexes>
+            <index columns="Type,TransNo"/>
+        </indexes>
+
+        <id name="id"
+            type="bigint"
+            column="BankTransID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="systemTypeNumber"
+               type="bigint"
+               column="TransNo"
+               nullable="false"/>
+
+        <field name="reference"
+               type="string"
+               column="Ref"
+               length="250"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="date"
+               type="date"
+               column="TransDate"
+               nullable="false"/>
+
+        <field name="bankTransType"
+               type="string"
+               column="BankTransType"
+               length="30"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="amount"
+               type="decimal"
+               column="Amount"
+               precision="16"
+               scale="2"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="amountCleared"
+               type="decimal"
+               column="AmountCleared"
+               precision="16"
+               scale="2"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="printed"
+               type="boolean"
+               column="Printed"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="chequeNumber"
+               type="integer"
+               column="ChequeNo"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <one-to-many
+                field="matches"
+                target-entity="Rialto\Accounting\Bank\Statement\BankStatementMatch"
+                mapped-by="bankTransaction">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one target-entity="Rialto\Accounting\Transaction\Transaction"
+                     field="transaction">
+            <join-column name="transactionId"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="systemType"
+                target-entity="Rialto\Accounting\Transaction\SystemType">
+            <join-column
+                    name="Type"
+                    referenced-column-name="TypeID"
+                    nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="bankAccount"
+                target-entity="Rialto\Accounting\Bank\Account\BankAccount">
+            <join-column
+                    name="BankAct"
+                    referenced-column-name="AccountCode"
+                    nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

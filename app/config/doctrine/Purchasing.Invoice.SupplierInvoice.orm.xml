@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+            name="Rialto\Purchasing\Invoice\SupplierInvoice"
+            repository-class="Rialto\Purchasing\Invoice\Orm\SupplierInvoiceRepository"
+            table="SupplierInvoice">
+
+        <unique-constraints>
+            <!-- Each invoice for a PO should have a unique invoice number. -->
+            <unique-constraint columns="purchaseOrderID,supplierReference"/>
+        </unique-constraints>
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="supplierReference"
+               type="string"/>
+        <field name="trackingNumber"
+               type="string"/>
+        <field name="totalCost"
+               type="decimal"/>
+        <field name="invoiceDate"
+               type="datetime"
+               format="date"/>
+        <field name="approved"
+               type="boolean"/>
+        <field name="filename"
+               type="string"
+               display="detail"/>
+
+        <one-to-many
+                field="items"
+                target-entity="Rialto\Purchasing\Invoice\SupplierInvoiceItem"
+                mapped-by="supplierInvoice"
+                orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one
+                field="supplier"
+                target-entity="Rialto\Purchasing\Supplier\Supplier">
+            <join-column
+                    name="supplierID"
+                    referenced-column-name="SupplierID"
+                    nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="purchaseOrder"
+                target-entity="Rialto\Purchasing\Order\PurchaseOrder">
+            <join-column
+                    name="purchaseOrderID"
+                    referenced-column-name="OrderNo"
+                    nullable="true"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

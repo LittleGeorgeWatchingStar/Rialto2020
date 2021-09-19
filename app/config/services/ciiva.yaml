@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Ciiva\CiivaClient:
+    public: true
+    arguments:
+      $apiKey: "%ciiva_apikey%"
+      $apiPassword: "%ciiva_password%"
+      $cookieFile: "%kernel.root_dir%/../var/ciivaCookies"

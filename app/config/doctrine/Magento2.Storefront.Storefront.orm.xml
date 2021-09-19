@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Magento2\Storefront\Storefront"
+            repository-class="Rialto\Magento2\Storefront\StorefrontRepository"
+            table="Magento2_Storefront">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="storeUrl"
+               type="string"
+               unique="true"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="apiKey"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="consumerKey"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="consumerSecret"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="oauthVerifier"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="accessToken"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="accessTokenSecret"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+
+        <one-to-one target-entity="Rialto\Security\User\User"
+                     field="user">
+            <join-column name="userID"
+                         referenced-column-name="UserID"
+                         nullable="false"/>
+        </one-to-one>
+
+        <many-to-one target-entity="Rialto\Sales\Type\SalesType"
+                     field="salesType">
+            <join-column name="salesTypeID"
+                         referenced-column-name="TypeAbbrev"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Sales\Type\SalesType"
+                     field="quoteType">
+            <join-column name="quoteTypeID"
+                         referenced-column-name="TypeAbbrev"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Sales\Salesman\Salesman"
+                     field="salesman">
+            <join-column name="salesmanID"
+                         referenced-column-name="SalesmanCode"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Stock\Facility\Facility"
+                     field="shipFromFacility">
+            <join-column name="stockLocationID"
+                         referenced-column-name="LocCode"
+                         nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

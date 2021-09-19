@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Shipping\Export\HarmonizationCode"
+            repository-class="Rialto\Shipping\Export\Orm\HarmonizationCodeRepository"
+            table="Shipping_HarmonizationCode">
+
+        <id name="id"
+            type="string"
+            length="10"/>
+
+        <field name="name"
+               type="string"
+               length="255"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="description"
+               type="string"
+               length="255"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="active"
+               type="boolean"
+               column="active"
+               nullable="false">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>

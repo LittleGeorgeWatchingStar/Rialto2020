@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Stock\Publication\PublicationFilesystem:
+    public: true
+
+  Rialto\Stock\Publication\PublicationPrintManager:
+    public: true

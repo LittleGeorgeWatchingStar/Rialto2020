@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+
+    Aws\S3\S3Client:
+        arguments:
+          - region: "%aws_region%"
+            version: latest
+
+    GuzzleHttp\Client:
+        shared: false  # each dependee receives a new instance

@@ -1,0 +1,12 @@
+diff --git a/DependencyInjection/JMSJobQueueExtension.php b/DependencyInjection/JMSJobQueueExtension.php
+index b8be3fa..c0d6674 100644
+--- a/DependencyInjection/JMSJobQueueExtension.php
++++ b/DependencyInjection/JMSJobQueueExtension.php
+@@ -67,7 +67,6 @@ class JMSJobQueueExtension extends Extension implements PrependExtensionInterfac
+                 'types' => array(
+                     'jms_job_safe_object' => array(
+                         'class' => SafeObjectType::class,
+-                        'commented' => true,
+                     )
+                 )
+             )

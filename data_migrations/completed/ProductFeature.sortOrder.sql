@@ -1,0 +1,1 @@
+alter table ProductFeature add column `sortOrder` SMALLINT not null default 0;

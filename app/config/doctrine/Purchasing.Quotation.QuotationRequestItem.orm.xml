@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Purchasing\Quotation\QuotationRequestItem">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="version"
+               type="string"
+               length="31"
+               nullable="false">
+            <options>
+                <option name="default">-any-</option>
+            </options>
+        </field>
+
+        <field name="quantities"
+               type="simple_array"
+               nullable="true"/>
+
+        <field name="leadTimes"
+               type="simple_array"
+               nullable="true"/>
+
+        <many-to-one target-entity="Rialto\Purchasing\Quotation\QuotationRequest"
+                     field="quotationRequest"
+                     inversed-by="items"
+                     display="detail">
+            <join-column name="quotationRequestId"
+                         referenced-column-name="id"
+                         nullable="false"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Stock\Item\StockItem"
+                     field="stockItem">
+            <join-column name="sku"
+                         referenced-column-name="StockID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Manufacturing\Customization\Customization"
+                     field="customization">
+            <join-column name="customizationId"
+                         referenced-column-name="id"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Purchasing\Catalog\PurchasingData"
+                     field="purchasingData">
+            <join-column name="purchasingDataId"
+                         referenced-column-name="ID"
+                         nullable="true"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

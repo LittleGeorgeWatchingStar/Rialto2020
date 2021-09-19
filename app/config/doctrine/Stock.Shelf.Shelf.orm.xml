@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Shelf\Shelf"
+            table="Stock_Shelf">
+
+        <id name="id"
+            type="integer">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="indexNo"
+               type="integer"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="velocity"
+               type="string"
+               length="20"
+               nullable="false"/>
+
+        <one-to-many target-entity="Rialto\Stock\Shelf\ShelfPosition"
+                     mapped-by="shelf"
+                     field="positions"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one target-entity="Rialto\Stock\Shelf\Rack"
+                     field="rack"
+                     inversed-by="shelves">
+            <join-column name="rack"
+                         referenced-column-name="id"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+
+        <many-to-many target-entity="Rialto\Stock\Bin\BinStyle"
+                      field="binStyles">
+            <join-table name="Stock_Shelf_BinStyle">
+                <join-columns>
+                    <join-column name="shelf"
+                                 referenced-column-name="id"
+                                 on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="binStyle"
+                                 referenced-column-name="id"
+                                 on-delete="RESTRICT"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>

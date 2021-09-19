@@ -1,0 +1,39 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Manufacturing\Web\ManufacturingRouter:
+    public: true
+
+  Rialto\Manufacturing\Web\ManufacturingExtension: ~
+
+  Rialto\Manufacturing\WorkOrder\Filesystem\FlashFilesystem: ~
+
+  Rialto\Purchasing\EmailEventSubscriber:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Manufacturing\Log\Logger:
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: manufacturing}
+
+  Rialto\Manufacturing\Log\ProductionLogProcessor:
+    tags:
+      - name: monolog.processor
+        method: processRecord
+        handler: production
+
+  Rialto\Manufacturing\ClearToBuild\ClearToBuildFactory:
+    public: true
+
+  Rialto\Manufacturing\Allocation\Orm\StockAllocationRepository:
+    class: Rialto\Manufacturing\Allocation\Orm\DQL\DqlStockAllocationRepository
+    public: true
+
+  Rialto\Manufacturing\WorkOrder\Web\WorkOrderController:
+    public: true

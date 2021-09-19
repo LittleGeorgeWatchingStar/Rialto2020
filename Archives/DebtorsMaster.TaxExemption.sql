@@ -1,0 +1,1 @@
+ALTER TABLE `DebtorsMaster` ADD COLUMN `TaxExemption` VARCHAR(50) NOT NULL DEFAULT '' AFTER `StateStatus`;

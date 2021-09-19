@@ -1,0 +1,20 @@
+[local]
+## Required Configuration
+#sso_key= Key from accounts.mystix.com -> Admin -> Client_Api -> Consumers -> Rialto.
+#sso_secret= Secret from accounts.mystix.com -> Admin -> Client_Api -> Consumers -> Rialto.
+db_name=rialto_sample
+db_host=localhost
+#db_admin_user= The local MySQL root user.
+#db_admin_password= The password for the local MySQL root user.
+db_app_user=rialto_sample
+#db_app_password= The password for the local MySQL application user.
+#logdir= Directory to place log files.
+#cfgdir= Directory to place configuration (NGINX) files.
+
+## Optional Configuration
+email_password=
+xmpp_password=
+octopart_key=
+ciiva_key=
+ciiva_password=
+

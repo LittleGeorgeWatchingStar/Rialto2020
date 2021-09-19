@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Category\StockCategory"
+            repository-class="Rialto\Stock\Category\Orm\StockCategoryRepository"
+            table="StockCategory">
+
+        <id name="id"
+            type="string"
+            length="6"
+            column="CategoryID"/>
+
+        <field name="name"
+               type="string"
+               length="20"
+               column="CategoryDescription"
+               nullable="false"/>
+
+        <field name="stockType"
+               type="string"
+               length="1"
+               column="StockType"
+               nullable="false"/>
+
+        <many-to-one
+                field="stockAccount"
+                target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="StockAct"
+                    referenced-column-name="AccountCode"
+                    nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="adjustmentAccount"
+                target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="AdjGLAct"
+                    referenced-column-name="AccountCode"
+                    nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="purchasePriceVarianceAccount"
+                target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="PurchPriceVarAct"
+                    referenced-column-name="AccountCode"
+                    nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="materialUsageVarianceAccount"
+                target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="MaterialUseageVarAc"
+                    referenced-column-name="AccountCode"
+                    nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="wipAccount"
+                target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="WIPAct"
+                    referenced-column-name="AccountCode"
+                    nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

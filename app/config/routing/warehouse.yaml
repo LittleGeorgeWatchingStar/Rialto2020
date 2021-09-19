@@ -1,0 +1,7 @@
+warehouse_dashboard:
+    resource: Rialto\Warehouse\Web\DashboardController
+    type: annotation
+
+warehouse_purchaseorder:
+    resource: Rialto\Warehouse\Web\PurchaseOrderController
+    type: annotation

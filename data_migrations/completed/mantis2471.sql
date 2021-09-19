@@ -1,0 +1,1 @@
+update SalesOrders set CustomerRef = '' where CustomerRef = concat('OSC# ', SourceID);

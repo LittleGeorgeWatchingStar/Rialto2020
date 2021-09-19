@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Cost\StandardCost"
+            repository-class="Rialto\Stock\Cost\Orm\StandardCostRepository"
+            table="StandardCost">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="materialCost"
+               type="decimal"/>
+        <field name="labourCost"
+               type="decimal"/>
+        <field name="overheadCost"
+               type="decimal"/>
+        <field name="previousCost"
+               type="decimal"/>
+        <field name="startDate"
+               type="datetime"/>
+
+        <many-to-one field="stockItem"
+                     target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="stockCode"
+                         referenced-column-name="StockID"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

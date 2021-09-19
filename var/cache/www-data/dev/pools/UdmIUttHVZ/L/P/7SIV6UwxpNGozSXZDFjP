@@ -1,0 +1,4 @@
+<?php return array (
+  0 => 9223372036854775807,
+  1 => 'a:2:{i:0;O:72:"Rialto\\Manufacturing\\Customization\\Validator\\CustomizationMatchesVersion":2:{s:7:"payload";N;s:6:"groups";a:1:{i:0;s:7:"Default";}}i:1;O:59:"Rialto\\Manufacturing\\WorkOrder\\Validator\\ParentIsCompatible":2:{s:7:"payload";N;s:6:"groups";a:1:{i:0;s:7:"Default";}}}',
+);

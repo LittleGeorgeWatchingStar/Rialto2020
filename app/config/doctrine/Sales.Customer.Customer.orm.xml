@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Sales\Customer\Customer"
+            repository-class="Rialto\Sales\Customer\Orm\CustomerRepository"
+            table="DebtorsMaster">
+
+        <id name="id"
+            type="bigint"
+            column="DebtorNo">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="name"
+               type="string"
+               column="Name"/>
+
+        <field name="companyName"
+               type="string"
+               column="CompanyName"/>
+
+        <field name="taxId"
+               type="string"
+               column="FederalTaxID"
+               length="100">
+            <options>
+                <option name="default" />
+            </options>
+        </field>
+
+        <field name="customerSince"
+               type="datetime"
+               column="ClientSince"/>
+
+        <field name="discountRate"
+               type="decimal"
+               column="Discount"
+               precision="16"
+               scale="4">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="creditLimit"
+               type="decimal"
+               column="CreditLimit"
+               precision="16"
+               scale="2">
+            <options>
+                <option name="default">1000</option>
+            </options>
+        </field>
+
+        <field name="addressedAtBranch"
+               type="string"
+               column="InvAddrBranch"/>
+
+        <field name="EDIReference"
+               type="string"
+               column="EDIReference"
+               length="20">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="email"
+               type="string"
+               column="EDIAddress"/>
+
+        <field name="taxExemptionStatus"
+               type="string"
+               column="StateStatus"
+               length="31">
+            <options>
+                <option name="default">Taxable</option>
+            </options>
+        </field>
+
+        <field name="taxExemptionNumber"
+               type="string"
+               column="TaxExemption"
+               length="50">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="internalCustomer"
+               type="boolean">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <one-to-many field="branches"
+                     target-entity="Rialto\Sales\Customer\CustomerBranch"
+                     mapped-by="customer"/>
+
+        <many-to-one field="address"
+                     target-entity="Rialto\Geography\Address\Address">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="addressID"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="paymentTerms"
+                     target-entity="Rialto\Accounting\Terms\PaymentTerms">
+            <join-column name="PaymentTerms"
+                         referenced-column-name="TermsIndicator"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="currency"
+                     target-entity="Rialto\Accounting\Currency\Currency">
+            <join-column name="CurrCode"
+                         referenced-column-name="CurrAbrev"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="salesType"
+                     target-entity="Rialto\Sales\Type\SalesType">
+            <join-column
+                    name="SalesType"
+                    referenced-column-name="TypeAbbrev"
+                    nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="holdReason"
+                     target-entity="Rialto\Sales\Customer\HoldReason">
+            <join-column name="HoldReason"
+                         referenced-column-name="ReasonCode"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

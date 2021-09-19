@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Terms\PaymentTerms"
+            table="PaymentTerms">
+
+        <label field="name"/>
+
+        <id name="id"
+            type="string"
+            length="2"
+            column="TermsIndicator"/>
+
+        <field name="name"
+               type="string"
+               length="40"
+               column="Terms"
+               nullable="false"
+               unique="true"/>
+
+        <field name="daysBeforeDue"
+               type="smallint"
+               column="DaysBeforeDue"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="dayInFollowingMonth"
+               type="smallint"
+               column="DayInFollowingMonth"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+    </entity>
+</doctrine-mapping>

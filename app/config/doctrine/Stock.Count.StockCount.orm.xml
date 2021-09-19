@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Count\StockCount"
+        repository-class="Rialto\Stock\Count\Orm\StockCountRepository"
+        table="StockCount">
+
+        <id name="id" type="bigint">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="dateRequested" type="datetime" />
+
+        <one-to-many
+                field="binCounts"
+                target-entity="Rialto\Stock\Count\BinCount"
+                mapped-by="stockCount"
+                orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
+
+        <many-to-one
+            field="location"
+            target-entity="Rialto\Stock\Facility\Facility">
+            <join-column
+                name="locationID"
+                referenced-column-name="LocCode" />
+        </many-to-one>
+
+        <many-to-one
+            field="requestedBy"
+            target-entity="Rialto\Security\User\User">
+            <join-column
+                name="requestedBy"
+                referenced-column-name="UserID" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

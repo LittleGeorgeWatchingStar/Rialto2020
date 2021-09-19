@@ -1,0 +1,54 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Purchasing\Invoice\Reader\Email\AutoImporter: ~
+
+  Rialto\Purchasing\Invoice\Reader\Email\Cli\AutoImportInvoices: ~
+
+  Rialto\Purchasing\Invoice\Cli\FindUninvoicedOrders: ~
+
+  Rialto\Purchasing\Invoice\Reader\Email\SupplierMailbox:
+    public: true
+    arguments:
+      $host: "%rialto_purchasing.supplier_mailbox_server%"
+      $username: "%rialto_purchasing.supplier_mailbox_username%"
+      $password: "%rialto_purchasing.supplier_mailbox_password%"
+
+  Rialto\Purchasing\Invoice\SupplierInvoiceFilesystem:
+    public: true
+
+  Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocatorAttachment: ~
+
+  Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocatorBodyLink: ~
+
+  Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocatorUpsBodyLink: ~
+
+  Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocatorInterface:
+    class: Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocator
+    calls:
+      - [ registerStrategy, [ '@Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocatorAttachment' ] ]
+      - [ registerStrategy, [ '@Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocatorBodyLink' ] ]
+      - [ registerStrategy, [ '@Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocatorUpsBodyLink' ] ]
+
+  Rialto\Purchasing\Invoice\Reader\Email\AttachmentConverter: ~
+
+  Rialto\Purchasing\Invoice\Parser\SupplierInvoiceParser: ~
+
+  Rialto\Purchasing\Invoice\Reader\Email\AttachmentParser:
+    public: true
+
+  Rialto\Purchasing\Invoice\Web\SupplierInvoiceItemApprovalType: ~
+
+  Rialto\Purchasing\Recurring\Cli\AutoInvoiceCommand: ~
+
+  Rialto\Purchasing\Invoice\SupplierInvoiceZipper:
+    public: true
+
+  Rialto\Purchasing\Invoice\Command\UploadSupplierInvoiceFileHandler:
+    public: true
+
+  Rialto\Purchasing\Invoice\Web\SupplierInvoiceController:
+    tags: ['controller.service_arguments']

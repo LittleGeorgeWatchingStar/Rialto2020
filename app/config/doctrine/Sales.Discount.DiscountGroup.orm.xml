@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="Rialto\Sales\Discount\DiscountGroup"
+        repository-class="Rialto\Sales\Discount\Orm\DiscountGroupRepository"
+        table="DiscountGroup">
+
+        <id name="id" type="bigint">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="name" type="string" length="30" />
+
+        <one-to-many
+            field="rates"
+            target-entity="Rialto\Sales\Discount\DiscountRate"
+            mapped-by="discountGroup"
+            orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
+
+        <many-to-many
+            field="items"
+            target-entity="Rialto\Stock\Item\StockItem" >
+            <join-table name="StockItemToDiscountGroup">
+                <join-columns>
+                    <join-column name="discountGroupId" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="stockCode" referenced-column-name="StockID" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+    </entity>
+</doctrine-mapping>

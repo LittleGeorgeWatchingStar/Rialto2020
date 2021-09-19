@@ -1,0 +1,3 @@
+geppetto_design:
+    resource: Rialto\Geppetto\Design\Web\DesignController
+    type: annotation

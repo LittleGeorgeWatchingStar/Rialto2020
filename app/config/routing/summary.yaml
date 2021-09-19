@@ -1,0 +1,8 @@
+admin_dashboard:
+    resource: Rialto\Summary\Dashboard\Admin\AdminDashboardController
+    type: annotation
+
+
+summary_menu:
+    resource: Rialto\Summary\Menu\Web\SummaryController
+    type: annotation

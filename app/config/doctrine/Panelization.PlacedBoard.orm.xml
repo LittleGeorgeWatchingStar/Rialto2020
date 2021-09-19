@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Panelization\PlacedBoard"
+            table="Panelization_PlacedBoard">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="panelIndex"
+               type="smallint"
+               nullable="false"/>
+
+        <embedded name="pose"
+                  class="Rialto\Panelization\Pose"
+                  use-column-prefix="false"/>
+
+        <many-to-one field="workOrder"
+                    target-entity="Rialto\Manufacturing\WorkOrder\WorkOrder">
+            <join-column name="workOrderId"
+                         referenced-column-name="id"
+                         nullable="false"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+
+        <many-to-one field="panel"
+                     target-entity="Rialto\Panelization\Panel"
+                     inversed-by="boards">
+            <join-column name="panelId"
+                         referenced-column-name="id"
+                         nullable="false"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+umask(0002);
+
+require_once __DIR__.'/../app/autoload.php';
+require_once __DIR__.'/../app/AppKernel.php';
+
+use JMS\JobQueueBundle\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Debug\Debug;
+
+$input = new ArgvInput();
+$env = $input->getParameterOption(['--env', '-e'], getSymfonyEnvironment('dev'));
+$debug = isDevEnvironment($env);
+$debug = $debug && !$input->hasParameterOption(['--no-debug', '']);
+
+if ($debug) {
+    Debug::enable();
+}
+
+$kernel = new AppKernel($env, $debug);
+$application = new Application($kernel);
+$application->run($input);

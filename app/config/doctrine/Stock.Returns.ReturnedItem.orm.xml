@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Returns\ReturnedItem"
+            repository-class="Rialto\Stock\Returns\ReturnedItemRepository"
+            table="ReturnedItem">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="dateCreated"
+               type="datetime"
+               nullable="false"/>
+
+        <field name="manufacturerCode"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="catalogNumber"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="supplierReference"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="quantity"
+               type="integer"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <one-to-one field="bin"
+                    target-entity="Rialto\Stock\Bin\StockBin">
+            <join-column name="binId"
+                         referenced-column-name="SerialNo"
+                         nullable="true"/>
+            <!--
+                Unique (one-to-one) because these records are deleted once
+                they are resolved. There should only be one unresolved item
+                per bin.
+            -->
+        </one-to-one>
+
+        <many-to-one field="returnedFrom"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="returnedFromId"
+                         referenced-column-name="LocCode"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="returnedTo"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="returnedToId"
+                         referenced-column-name="LocCode"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="item"
+                     target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="stockCode"
+                         referenced-column-name="StockID"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="binStyle"
+                     target-entity="Rialto\Stock\Bin\BinStyle">
+            <join-column name="binStyle"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="buildPO"
+                     target-entity="Rialto\Purchasing\Order\PurchaseOrder">
+            <join-column name="buildPO"
+                         referenced-column-name="OrderNo"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="partsPO"
+                     target-entity="Rialto\Purchasing\Order\PurchaseOrder">
+            <join-column name="partsPO"
+                         referenced-column-name="OrderNo"
+                         nullable="true"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

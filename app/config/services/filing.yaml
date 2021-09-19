@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Filing\DocumentFilesystem:
+    public: true
+
+  Rialto\Filing\DocumentGenerator: ~

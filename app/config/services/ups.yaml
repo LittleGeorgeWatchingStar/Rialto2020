@@ -1,0 +1,82 @@
+parameters:
+    ups.denied_party.enabled: 1
+
+    # screen_type: "Party" or "Country"
+    ups.denied_party.screen_type: Party
+
+    # match_level: "High", "Medium", or "Low"
+    ups.denied_party.match_level: High
+
+    ups.supply_chain_id: 108
+
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Ups\UpsAccount:
+    arguments:
+      - "%ups.access_license%"
+      - "%ups.user_id%"
+      - "%ups.password%"
+
+  Rialto\Ups\Shipping\Export\UpsDeniedPartyScreener:
+    arguments:
+      $baseUri: "%ups.webservices.uri%"
+    calls:
+      - [ setEnabled, [ "%ups.denied_party.enabled%" ] ]
+      - [ setScreenType, [ "%ups.denied_party.screen_type%" ] ]
+      - [ setMatchLevel, [ "%ups.denied_party.match_level%" ] ]
+
+  Rialto\Ups\Shipping\Label\ShippingLabelListener:
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: flash}
+
+  rialto_ups.http_client:
+    class: GuzzleHttp\Client
+    arguments:
+      - base_uri: "%ups.webservices.uri%"
+
+  Rialto\Ups\Shipping\Webservice\UpsApiService:
+    arguments:
+      $http: '@rialto_ups.http_client'
+
+  Rialto\Ups\Shipping\UpsShipmentFactory: ~
+
+  Rialto\Ups\Shipping\Webservice\UpsExtension: ~
+
+  Rialto\Ups\Invoice\XmlInvoiceParser:
+    arguments:
+      $supplyChainId: "%ups.supply_chain_id%"
+
+  Rialto\Ups\Invoice\CsvInvoiceParser:
+      arguments:
+        $supplyChainId: "%ups.supply_chain_id%"
+
+  Rialto\Ups\Invoice\InvoiceLoader:
+    public: true
+    arguments:
+      - "%ups.invoice_host%"
+      - "%ups.invoice_username%"
+      - "%ups.invoice_password%"
+    calls:
+      - [ registerParser, [ '@Rialto\Ups\Invoice\XmlInvoiceParser'] ]
+      - [ registerParser, [ '@Rialto\Ups\Invoice\CsvInvoiceParser'] ]
+
+  Rialto\Ups\TrackingRecord\Cli\PollTrackingNumbersCommand:
+    public: true
+
+  Rialto\Ups\TrackingRecord\Cli\UpdatePOTrackingRecordsCommand:
+    public: true
+
+  Rialto\Ups\TrackingRecord\Cli\UpdateSalesTrackingRecordsCommand:
+    public: true
+
+  Rialto\Ups\TrackingRecord\Web\TrackingExtension: ~
+
+  Rialto\Ups\TrackingRecord\Command\UpdateTrackingRecordHandler:
+    tags:
+    - {name: tactician.handler, typehints: true}

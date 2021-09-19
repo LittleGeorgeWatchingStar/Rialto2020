@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Manufacturing\Customization\Substitution"
+            repository-class="Rialto\Manufacturing\Customization\Orm\SubstitutionRepository"
+            table="Substitutions">
+
+        <id name="id"
+            type="bigint"
+            column="ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="type"
+               type="string"
+               length="10"
+               nullable="false"/>
+
+        <field name="instructions"
+               type="string"
+               column="Instructions"/>
+
+        <field name="dnpDesignators"
+               type="simple_array"
+               nullable="true"/><!-- simple_array must be nullable -->
+
+        <field name="addDesignators"
+               type="simple_array"
+               nullable="true"/><!-- simple_array must be nullable -->
+
+        <field name="priceAdjustment"
+               type="decimal"
+               precision="12"
+               scale="2"
+               column="PriceChange"/>
+
+        <field name="flags"
+               type="simple_array"
+               nullable="true"/><!-- simple_array must be nullable -->
+
+        <many-to-one
+                field="dnpComponent"
+                target-entity="Rialto\Stock\Item\StockItem">
+            <join-column
+                    name="ComponentID"
+                    referenced-column-name="StockID"
+                    nullable="true"/>
+        </many-to-one>
+
+        <many-to-one
+                field="addComponent"
+                target-entity="Rialto\Stock\Item\StockItem">
+            <join-column
+                    name="SubstituteID"
+                    referenced-column-name="StockID"
+                    nullable="true"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Manufacturing\WorkType\WorkType"
+                     field="workType">
+            <join-column name="workTypeID"
+                         nullable="true"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

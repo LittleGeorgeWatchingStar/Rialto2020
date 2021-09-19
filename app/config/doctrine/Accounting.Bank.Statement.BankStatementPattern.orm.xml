@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="Rialto\Accounting\Bank\Statement\BankStatementPattern"
+        repository-class="Rialto\Accounting\Bank\Statement\Orm\BankStatementPatternRepository"
+        table="BankStatementPattern">
+
+        <id name="id" type="bigint" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="strategy" type="string" />
+        <field name="statementPattern" type="string" />
+        <field name="additionalStatementPattern" type="string" />
+        <field name="additionalStatementDateConstraint" type="integer" display="detail" />
+        <field name="referencePattern" type="string" />
+        <field name="dateConstraint" type="integer" />
+        <field name="amountConstraint" type="decimal" precision="2"/>
+        <field name="updatePattern" type="string" />
+        <field name="sortOrder" type="integer" display="detail"/>
+
+        <many-to-one
+            field="supplier"
+            target-entity="Rialto\Purchasing\Supplier\Supplier">
+            <join-column name="supplierId" referenced-column-name="SupplierID" />
+        </many-to-one>
+
+        <many-to-one
+            field="adjustmentAccount"
+            target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column name="adjustmentAccountId" referenced-column-name="AccountCode" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

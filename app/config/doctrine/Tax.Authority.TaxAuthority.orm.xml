@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Tax\Authority\TaxAuthority"
+        repository-class="Rialto\Tax\Authority\Orm\TaxAuthorityRepository"
+        table="TaxAuthorities">
+
+        <label field="description" />
+
+        <id name="id" type="smallint" column="TaxID" />
+        <field name="description" type="string" length="20" column="Description" />
+
+        <many-to-one
+            field="account"
+            target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="TaxGLCode"
+                    referenced-column-name="AccountCode" />
+        </many-to-one>
+
+        <many-to-one
+            field="purchaseAccount"
+            target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                name="PurchTaxGLAccount"
+                referenced-column-name="AccountCode" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

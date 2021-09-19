@@ -1,0 +1,1 @@
+alter table ComponentConnections drop column ConnectionType;

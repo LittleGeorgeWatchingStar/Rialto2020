@@ -1,0 +1,7 @@
+shopify_storefront:
+    resource: Rialto\Shopify\Storefront\Web\StorefrontController
+    type: annotation
+
+shopify_webhook:
+    resource: Rialto\Shopify\Webhook\Web\WebhookController
+    type: annotation

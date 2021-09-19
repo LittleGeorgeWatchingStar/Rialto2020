@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Filing\Document\Document"
+            repository-class="Rialto\Filing\Document\Orm\DocumentRepository">
+        <id name="uuid" type="guid">
+            <generator strategy="UUID" />
+        </id>
+        <field name="name" type="string"/>
+        <field name="dateCreated" type="datetime" />
+        <field name="dateUpdated" type="datetime" />
+        <field name="templateFilename" type="string" />
+        <field name="scheduleDay" type="integer" />
+        <field name="scheduleMonths" type="string" />
+        <one-to-many
+            target-entity="Rialto\Filing\Document\DocumentField"
+            field="fields"
+            mapped-by="document"
+            orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

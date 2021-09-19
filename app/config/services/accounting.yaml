@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Accounting\Web\AccountingRouter:
+    public: true
+
+  Rialto\Accounting\Web\AccountingExtension: ~
+
+  Rialto\Accounting\Bank\Account\AvailableChequeNumberValidator:
+    public: true
+
+  Rialto\Accounting\Period\Web\PeriodController:
+    public: true
+
+  Rialto\Accounting\PaymentTransaction\Cli\RecalculateSettled: ~
+
+  Rialto\Accounting\Bank\Account\Repository\BankAccountRepository:
+    class: Rialto\Accounting\Bank\Account\Repository\DQL\DqlBankAccountRepository
+    public: true
+
+  Rialto\Accounting\Bank\Transfer\BankTransferController:
+    tags: ['controller.service_arguments']
+

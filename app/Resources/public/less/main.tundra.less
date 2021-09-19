@@ -1,0 +1,61 @@
+/****************
+ * elements
+ ****************/
+body.main.tundra {
+    background-color: #333333;
+
+    a {
+        color: #333333;
+    }
+
+    .po.notSent {
+        color: red;
+    }
+
+    &.iframe {
+        background: transparent;
+    }
+
+    /****************
+     * layout
+     ****************/
+    > header {
+        border-bottom-color: #666666;
+    }
+
+    > header > nav a {
+        background: linear-gradient(#ebebeb, #c3c3c3);
+        border-top-color: #666666;
+        border-right-color: #666666;
+        border-left-color: #666666;
+    }
+
+    > header > nav a:hover {
+        background: linear-gradient(#adadad, #484848);
+        color: #FFFFFF;
+    }
+
+    > footer {
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: #999999;
+        border-bottom-color: #666666;
+    }
+
+    > main {
+        background-image: url('/css/images/base-grade.png');
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: #666666;
+    }
+
+    /****************
+     * content
+     ****************/
+    table.standard > thead > tr,
+    table.standard > tbody > tr > th {
+        background: linear-gradient(#fafafa, #f4f4f4);
+    }
+}

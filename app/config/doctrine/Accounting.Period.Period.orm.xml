@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Period\Period"
+            repository-class="Rialto\Accounting\Period\Orm\PeriodRepository"
+            table="Periods">
+
+        <id name="id"
+            type="smallint"
+            column="PeriodNo">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="endDate"
+               type="date"
+               column="LastDate_in_Period"
+               unique="true"/>
+    </entity>
+</doctrine-mapping>

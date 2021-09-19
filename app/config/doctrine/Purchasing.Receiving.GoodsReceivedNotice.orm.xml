@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Purchasing\Receiving\GoodsReceivedNotice"
+            repository-class="Rialto\Purchasing\Receiving\GoodsReceivedNoticeRepository"
+            table="GoodsReceivedNotice">
+
+        <id name="id"
+            type="bigint"
+            column="BatchID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="date"
+               type="datetime"
+               nullable="false"
+               column="DeliveryDate"/>
+
+        <many-to-one field="purchaseOrder"
+                     target-entity="Rialto\Purchasing\Order\PurchaseOrder"
+                     inversed-by="receipts">
+            <join-column name="PurchaseOrderNo"
+                         referenced-column-name="OrderNo"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="receiver"
+                     target-entity="Rialto\Security\User\User">
+            <join-column name="ReceivedBy"
+                         referenced-column-name="UserID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="systemType"
+                     target-entity="Rialto\Accounting\Transaction\SystemType">
+            <join-column name="systemTypeID"
+                         referenced-column-name="TypeID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <one-to-many field="items"
+                     target-entity="Rialto\Purchasing\Receiving\GoodsReceivedItem"
+                     mapped-by="goodsReceivedNotice">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
+        <virtual-parent field="supplier"
+                        target-entity="Rialto\Purchasing\Supplier\Supplier"/>
+
+        <virtual-child field="GLEntries"
+                       target-entity="Rialto\Accounting\Ledger\Entry\GLEntry"/>
+
+        <virtual-child field="stockMoves"
+                       target-entity="Rialto\Stock\Move\StockMove"/>
+
+        <virtual-field name="inventoryAmount"
+                       format="float"
+                       precision="2"/>
+
+    </entity>
+</doctrine-mapping>

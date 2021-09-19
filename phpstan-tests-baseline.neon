@@ -1,0 +1,75 @@
+
+
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Rialto\\\\Accounting\\\\Debtor\\\\Refund\\\\FakeDataSource\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Accounting\\\\Debtor\\\\Refund\\\\RefundDataSource\\.$#"
+			count: 1
+			path: tests/Rialto/Accounting/Debtor/Refund/BankRefundTest.php
+
+		-
+			message: "#^Rialto\\\\Catalina\\\\FakeCatalinaClient\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Catalina\\\\CatalinaClient\\.$#"
+			count: 1
+			path: tests/Rialto/Catalina/FakeCatalinaClient.php
+
+		-
+			message: "#^Rialto\\\\Payment\\\\Sweep\\\\Cli\\\\FakeSweepGateway\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Payment\\\\Sweep\\\\Orm\\\\SweepGateway\\.$#"
+			count: 1
+			path: tests/Rialto/Payment/Sweep/Cli/FakeSweepGateway.php
+
+		-
+			message: "#^Rialto\\\\Purchasing\\\\Invoice\\\\MockItem\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Purchasing\\\\Invoice\\\\SupplierInvoiceItem\\.$#"
+			count: 1
+			path: tests/Rialto/Purchasing/Invoice/MockItem.php
+
+		-
+			message: "#^Rialto\\\\Purchasing\\\\Invoice\\\\MockTransaction\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Accounting\\\\Transaction\\\\Transaction\\.$#"
+			count: 1
+			path: tests/Rialto/Purchasing/Invoice/SupplierInvoiceItemTest.php
+
+		-
+			message: "#^Rialto\\\\Purchasing\\\\Producer\\\\FakeWorkOrderFactory\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Manufacturing\\\\WorkOrder\\\\WorkOrderFactory\\.$#"
+			count: 1
+			path: tests/Rialto/Purchasing/Producer/StockProducerFactoryTest.php
+
+		-
+			message: "#^Rialto\\\\Purchasing\\\\Producer\\\\FakePurchaseOrderFactory\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Purchasing\\\\Order\\\\PurchaseOrderFactory\\.$#"
+			count: 1
+			path: tests/Rialto/Purchasing/Producer/StockProducerFactoryTest.php
+
+		-
+			message: "#^Rialto\\\\Purchasing\\\\Receiving\\\\FakeItemReceiver\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Purchasing\\\\Receiving\\\\ItemReceiver\\.$#"
+			count: 1
+			path: tests/Rialto/Purchasing/Receiving/ReceiverTest.php
+
+		-
+			message: "#^Rialto\\\\Sales\\\\Order\\\\FakeTransactionFactory\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Accounting\\\\Debtor\\\\DebtorTransactionFactory\\.$#"
+			count: 1
+			path: tests/Rialto/Sales/Order/SalesOrderPaymentProcessorTest.php
+
+		-
+			message: "#^Rialto\\\\Sales\\\\Returns\\\\Receipt\\\\MockSalesReturnItemReceipt\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Sales\\\\Returns\\\\Receipt\\\\SalesReturnItemReceipt\\.$#"
+			count: 1
+			path: tests/Rialto/Sales/Returns/Receipt/SalesReturnReceiverTest.php
+
+		-
+			message: "#^Rialto\\\\Security\\\\FakeSingleSignOn\\:\\:__construct\\(\\) does not call parent constructor from Gumstix\\\\SSO\\\\Service\\\\SingleSignOn\\.$#"
+			count: 1
+			path: tests/Rialto/Security/FakeSingleSignOn.php
+
+		-
+			message: "#^Rialto\\\\Stock\\\\Shelf\\\\Position\\\\FakeAssigner\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Stock\\\\Shelf\\\\Position\\\\PositionAssigner\\.$#"
+			count: 1
+			path: tests/Rialto/Stock/Shelf/Position/AssignmentListenerTest.php
+
+		-
+			message: "#^Rialto\\\\Tax\\\\FakeTaxJarApi\\:\\:__construct\\(\\) does not call parent constructor from TaxJar\\\\Client\\.$#"
+			count: 1
+			path: tests/Rialto/Tax/FakeTaxJarApi.php
+
+		-
+			message: "#^Rialto\\\\Web\\\\Response\\\\FakeForm\\:\\:__construct\\(\\) does not call parent constructor from Symfony\\\\Component\\\\Form\\\\Form\\.$#"
+			count: 1
+			path: tests/Rialto/Web/Response/JsonResponseTest.php
+
+

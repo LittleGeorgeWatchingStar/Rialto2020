@@ -1,0 +1,11 @@
+madison_feature:
+    resource: Rialto\Madison\Feature\Web\StockItemFeatureController
+    type: annotation
+
+madison_stockitem:
+    resource: Rialto\Madison\StockItem\Web\StockItemController
+    type: annotation
+
+madison_stocklevel:
+    resource: Rialto\Madison\StockLevel\Web\StockLevelController
+    type: annotation

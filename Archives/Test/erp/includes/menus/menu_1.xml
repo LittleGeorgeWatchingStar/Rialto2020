@@ -1,0 +1,38 @@
+<menu>
+	<BRANCH NAME='San Jose Office'>
+		<BRANCH NAME= 'Sales'>
+			<LEAF NAME='Direct'>SELECTION</LEAF>
+			<LEAF NAME='osCommerce'>Alternative;</LEAF>
+			<LEAF NAME='RMA'>Alternative;</LEAF>
+		</BRANCH>
+		<BRANCH NAME='Kits'>
+			<LEAF NAME='Bestek'>SELECTTION THREE;</LEAF>
+			<LEAF NAME='CircuitCo'>SELECTION FOUR</LEAF>
+			<LEAF NAME='Innerstep'>SELECTION FOUR</LEAF>
+		</BRANCH>
+		<BRANCH NAME='Receiving'>
+			<LEAF NAME='Bestek'>SELECTTION THREE;</LEAF>
+			<LEAF NAME='CircuitCo'>SELECTION FOUR</LEAF>
+			<LEAF NAME='Innerstep'>SELECTION FOUR</LEAF>
+			<LEAF NAME='Others'>SELECTION FOUR</LEAF>
+		</BRANCH>
+	</BRANCH>
+	<BRANCH NAME='Finacials'>
+		<BRANCH NAME= 'Vendors'>
+			<LEAF NAME='Pending'>SELECTION 5</LEAF>
+			<LEAF NAME='Invoices'>SELECTION 66;</LEAF>
+			<LEAF NAME='Payables'>SELECTION 66;</LEAF>
+			<LEAF NAME='Cheques'>SELECTION 66;</LEAF>
+		</BRANCH>
+		<BRANCH NAME='Banking'>
+			<LEAF NAME='Wires'>SELECTTION 777;</LEAF>
+			<LEAF NAME='Balances'>SELECTTION 777;</LEAF>
+			<LEAF NAME='Allocations'>SELECTION 888</LEAF>
+		</BRANCH>
+		<BRANCH NAME='Performance'>
+			<LEAF NAME='Sales'>SELECTTION 777;</LEAF>
+			<LEAF NAME='Shipping'>SELECTTION 777;</LEAF>
+			<LEAF NAME='Balances'>SELECTION 888</LEAF>
+		</BRANCH>
+	</BRANCH>
+</menu>

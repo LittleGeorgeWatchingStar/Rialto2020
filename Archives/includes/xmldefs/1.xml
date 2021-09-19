@@ -1,0 +1,27 @@
+<vendor_definition vendor_name='arrow'>
+	<start_word value="ITEM"></start_word>
+	<end_word value="THANK YOU FOR YOUR BUSINESS"></end_word>
+
+	<table_definition name='tables'>
+		<field name='line' order='0'></field>
+		<field name='ordered' order='1'></field>
+		<field name='shipped' order='2'></field>
+		<field name='description' order='3'></field>
+		<field name='units' order='4'></field>
+		<field name='each' order='5'></field>
+		<field name='total' order='6'></field>
+	</table_definition>
+
+	<globals_definition name='globals'>
+		<global name='purchase_order_no' text='CUSTOMER ORDER NO:' location='right'></global>
+		<global name='invoice_no' text='INVOICE NO:' location='right'></global>
+		<global name='sales_order_no' text='SALES ORDER NO.' location='below_1'></global>
+		<global name='invoice_date' text='INVOICE DATE:' location='right'></global>
+		<global name='terms' ></global>
+		<global name='tracking_number' text='WAYBILL NUMBERS' right='eol' location='below_1'></global>
+		<global name='freight_charges' text='ENERGY' location='right'></global>
+		<global name='tax_charged' ></global>
+		<global name='grand_total' text='PAY THIS AMT' location='right' ></global>
+	</globals_definition>
+
+</vendor_definition>

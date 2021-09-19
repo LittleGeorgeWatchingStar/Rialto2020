@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Shipping\Method\ShippingMethod"
+        repository-class="Rialto\Shipping\Method\Orm\ShippingMethodRepository"
+        table="ShippingMethod">
+
+        <id name="shipper" association-key="true" />
+        <id name="code" type="string" />
+
+        <label field="code" />
+
+        <field name="name" type="string" />
+        <field name="showByDefault" type="boolean" />
+        <field name="trackingNumberRequired" type="boolean" />
+
+        <many-to-one target-entity="Rialto\Shipping\Shipper\Shipper"
+            field="shipper"
+            inversed-by="shippingMethods">
+            <join-column name="shipperId" referenced-column-name="Shipper_ID" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

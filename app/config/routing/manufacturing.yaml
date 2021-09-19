@@ -1,0 +1,67 @@
+bom:
+    resource: Rialto\Manufacturing\Bom\Web\BomController
+    type: annotation
+
+bom_item:
+    resource: Rialto\Manufacturing\Bom\Web\BomItemController
+    type: annotation
+
+bom_turnkey_exclusion:
+    resource: Rialto\Manufacturing\Bom\Web\TurnkeyExclusionController
+    type: annotation
+
+build_files:
+    resource: Rialto\Manufacturing\BuildFiles\Web\BuildFilesController
+    type: annotation
+
+customization:
+    resource: Rialto\Manufacturing\Customization\Web\CustomizationController
+    type: annotation
+
+customization_substitution:
+    resource: Rialto\Manufacturing\Customization\Web\SubstitutionController
+    type: annotation
+
+manufacturing_dashboard:
+    resource: Rialto\Manufacturing\Web\DashboardController
+    type: annotation
+
+manufacturing_kit:
+    resource: Rialto\Manufacturing\Kit\Web\KitController
+    type: annotation
+
+manufacturing_label:
+    resource: Rialto\Manufacturing\WorkType\Web\LabelController
+    type: annotation
+
+manufacturing_requirement:
+    resource: Rialto\Manufacturing\Requirement\Web\RequirementController
+    type: annotation
+
+manufacturing_scrapcount:
+    resource: Rialto\Manufacturing\Requirement\Web\ScrapCountController
+    type: annotation
+
+manufacturing_worktype:
+    resource: Rialto\Manufacturing\WorkType\Web\WorkTypeController
+    type: annotation
+
+production_log:
+    resource: Rialto\Manufacturing\Log\Web\ProductionLogController
+    type: annotation
+
+production_task:
+    resource: Rialto\Manufacturing\Task\Web\ProductionTaskController
+    type: annotation
+
+rework_order:
+    resource: Rialto\Manufacturing\WorkOrder\Web\ReworkOrderController
+    type: annotation
+
+work_order:
+    resource: Rialto\Manufacturing\WorkOrder\Web\WorkOrderController
+    type: annotation
+
+work_order_issue:
+    resource: Rialto\Manufacturing\WorkOrder\Issue\Web\WorkOrderIssueController
+    type: annotation

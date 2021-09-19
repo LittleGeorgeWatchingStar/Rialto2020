@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Rialto\Port\FormatConversion\PostScriptToPdfConverter:
+    class: Infrastructure\FormatConversion\GhostscriptConverter

@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Purchasing\Manufacturer\Cli\BulkPushModuleManufacturersConsoleCommand:
+    tags:
+      - { name: 'console.command', command: 'purchasing:push-module-manufacturers' }
+
+  Rialto\Purchasing\Manufacturer\Command\PushManufacturerFeatureHandler: ~

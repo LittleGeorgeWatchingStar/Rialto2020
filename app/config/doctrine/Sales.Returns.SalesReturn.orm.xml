@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Sales\Returns\SalesReturn"
+            repository-class="Rialto\Sales\Returns\SalesReturnRepository"
+            table="SalesReturn">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="dateAuthorized"
+               type="datetime"
+               nullable="false"/>
+
+        <field name="caseNumber"
+               type="integer"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="trackingNumber"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <many-to-one
+                field="authorizedBy"
+                target-entity="Rialto\Security\User\User">
+            <join-column name="authorizedBy"
+                         referenced-column-name="UserID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="engineerBranch"
+                target-entity="Rialto\Sales\Customer\CustomerBranch">
+            <join-column
+                    name="engineerBranch"
+                    referenced-column-name="id"
+                    nullable="true"/>
+        </many-to-one>
+
+        <many-to-one
+                field="originalInvoice"
+                target-entity="Rialto\Accounting\Debtor\DebtorInvoice">
+            <join-column
+                    name="originalInvoice"
+                    referenced-column-name="ID"
+                    nullable="false"/>
+        </many-to-one>
+
+        <one-to-many
+                field="lineItems"
+                target-entity="Rialto\Sales\Returns\SalesReturnItem"
+                mapped-by="salesReturn"
+                orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-one
+                field="replacementOrder"
+                target-entity="Rialto\Sales\Order\SalesOrder">
+            <join-column
+                    name="replacementOrder"
+                    referenced-column-name="OrderNo"
+                    nullable="true"/>
+        </one-to-one>
+
+    </entity>
+</doctrine-mapping>

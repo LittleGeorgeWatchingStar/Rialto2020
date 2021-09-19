@@ -1,0 +1,21 @@
+<menu>
+	<BRANCH NAME='Projects'>
+		<BRANCH NAME= 'SUB'>
+			<LEAF NAME='osc'>Alternative;</LEAF>
+		</BRANCH>
+		<BRANCH NAME='TWO'>
+			<LEAF NAME='webERP ABC' TARGET='GRID'></LEAF>
+			<LEAF NAME='osc A'></LEAF>
+		</BRANCH>
+	</BRANCH>
+	<BRANCH NAME='Bugs'>
+		<BRANCH NAME= 'SUB-BRANCH'>
+			<LEAF NAME='webERP 3'></LEAF>
+			<LEAF NAME='osc 3'></LEAF>
+		</BRANCH>
+		<BRANCH NAME='THREE'>
+			<LEAF NAME='webERP Z'></LEAF>
+			<LEAF NAME='osc Z'></LEAF>
+		</BRANCH>
+	</BRANCH>
+</menu>

@@ -1,0 +1,55 @@
+customer:
+    resource: Rialto\Sales\Customer\Web\CustomerController
+    type: annotation
+
+customer_branch:
+    resource: Rialto\Sales\Customer\Web\CustomerBranchController
+    type: annotation
+
+discount_group:
+    resource: Rialto\Sales\Discount\Web\DiscountGroupController
+    type: annotation
+
+gauge:
+    resource: Rialto\Sales\Gauge\Web\GaugeController
+    type: annotation
+
+product_price:
+    resource: Rialto\Sales\Price\Web\ProductPriceController
+    type: annotation
+
+sales_gl_posting:
+    resource: Rialto\Sales\GLPosting\Web\SalesGLPostingController
+    type: annotation
+
+sales_invoice:
+    resource: Rialto\Sales\Invoice\Web\SalesInvoiceController
+    type: annotation
+
+sales_order:
+    resource: Rialto\Sales\Order\Web\SalesOrderController
+    type: annotation
+
+sales_order_item:
+    resource: Rialto\Sales\Order\Allocation\Web\SalesOrderAllocationController
+    type: annotation
+
+sales_order_date:
+    resource: Rialto\Sales\Order\Dates\Web\OrderDateController
+    type: annotation
+
+sales_return:
+    resource: Rialto\Sales\Returns\Web\SalesReturnController
+    type: annotation
+
+sales_stats:
+    resource: Rialto\Sales\Stats\Web\SalesStatsController
+    type: annotation
+
+sales_type:
+    resource: Rialto\Sales\Type\Web\SalesTypeController
+    type: annotation
+
+salesman:
+    resource: Rialto\Sales\Salesman\Web\SalesmanController
+    type: annotation

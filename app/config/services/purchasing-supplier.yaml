@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Purchasing\Supplier\SupplierPaymentStatus:
+    public: true
+
+  Rialto\Purchasing\Supplier\Attribute\Web\SupplierAttributeType: ~

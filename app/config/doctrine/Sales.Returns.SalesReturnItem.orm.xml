@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Sales\Returns\SalesReturnItem"
+            repository-class="Rialto\Sales\Returns\Orm\SalesReturnItemRepository"
+            table="SalesReturnItem">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="qtyAuthorized"
+               type="integer">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="qtyReceived"
+               type="integer">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="qtyPassed"
+               type="integer">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="qtyFailed"
+               type="integer">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="passDisposition"
+               type="string"
+               length="50"/>
+
+        <field name="failDisposition"
+               type="string"
+               length="50"/>
+
+        <many-to-one field="salesReturn"
+                     target-entity="Rialto\Sales\Returns\SalesReturn"
+                     inversed-by="lineItems"
+                     display="detail">
+            <join-column name="salesReturn"
+                         referenced-column-name="id"
+                         on-delete="CASCADE"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="originalStockMove"
+                     target-entity="Rialto\Stock\Move\StockMove"
+                     display="detail">
+            <join-column name="originalStockMoveID"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="originalWorkOrder"
+                     target-entity="Rialto\Manufacturing\WorkOrder\WorkOrder">
+            <join-column name="originalWorkOrder"
+                         referenced-column-name="id"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="reworkOrder"
+                     target-entity="Rialto\Manufacturing\WorkOrder\WorkOrder">
+            <join-column name="reworkOrder"
+                         referenced-column-name="id"/>
+        </many-to-one>
+
+        <unique-constraints>
+            <unique-constraint columns="salesReturn,originalStockMoveID,originalWorkOrder"/>
+        </unique-constraints>
+
+        <virtual-parent field="stockItem"/>
+
+    </entity>
+</doctrine-mapping>

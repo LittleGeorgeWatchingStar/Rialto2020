@@ -1,0 +1,23 @@
+api_heartbeat:
+    resource: Rialto\Web\HeartbeatController
+    type: annotation
+
+audit_report:
+    resource: Rialto\Web\Report\AuditController
+    type: annotation
+
+automation_log:
+    resource: Rialto\Logging\Web\AutomationLogController
+    type: annotation
+
+index:
+    resource: Rialto\Web\IndexController
+    type: annotation
+
+redirect:
+    resource: Rialto\Web\RedirectController
+    type: annotation
+
+status:
+    resource: Rialto\Web\StatusController
+    type: annotation

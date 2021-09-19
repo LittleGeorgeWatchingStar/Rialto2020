@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Manufacturing\Task\ProductionTaskFactory:
+    public: true
+
+  Rialto\Manufacturing\Task\ProductionTaskRefreshListener:
+    tags:
+      - name: doctrine.event_listener
+        event: postUpdate
+
+  Rialto\Manufacturing\Task\Cli\TasksCommand:
+    arguments:
+      $logger: "@logger"
+    tags:
+      - { name: monolog.logger, channel: automation }
+
+  Rialto\Manufacturing\Task\Cli\RefreshProductionTasksCommand: ~
+
+  Rialto\Manufacturing\Task\Cli\ProductionTaskReminderCommand: ~
+
+  Rialto\Manufacturing\Task\Cli\JobsCommand: ~

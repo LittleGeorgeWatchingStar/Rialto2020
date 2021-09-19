@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Purchasing\Supplier\Supplier"
+            repository-class="Rialto\Purchasing\Supplier\Orm\SupplierRepository"
+            table="Suppliers">
+
+        <indexes>
+            <index columns="SuppName"/>
+        </indexes>
+
+        <id name="id"
+            type="bigint"
+            column="SupplierID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="name"
+               type="string"
+               length="50"
+               column="SuppName"/>
+
+        <field name="website"
+               type="string"
+               column="webpage"/>
+
+        <field name="supplierSince"
+               type="date"
+               column="SupplierSince"/>
+
+        <field name="customerNumber"
+               type="string"
+               length="20"
+               column="CustomerNumber"/>
+
+        <field name="customerAccount"
+               type="string"
+               length="20"
+               column="CustomerAccount"/>
+
+        <field name="lastPaid"
+               type="decimal"
+               column="LastPaid"/>
+
+        <field name="lastPaidDate"
+               type="datetime"
+               column="LastPaidDate"/>
+
+        <field name="bankAccount"
+               type="string"
+               length="16"
+               column="BankAct"/>
+
+        <field name="bankReference"
+               type="string"
+               length="12"
+               column="BankRef"/>
+
+        <field name="bankParticulars"
+               type="string"
+               length="12"
+               column="BankPartics"/>
+
+        <field name="remittanceAdviceRequired"
+               type="boolean"
+               column="Remittance"/>
+
+        <many-to-one field="orderAddress"
+                     target-entity="Rialto\Geography\Address\Address">
+            <cascade>
+                <cascade-persist />
+            </cascade>
+            <join-column
+                    name="orderAddressID"
+                    referenced-column-name="id" />
+        </many-to-one>
+
+        <many-to-one field="paymentAddress"
+                     target-entity="Rialto\Geography\Address\Address">
+            <cascade>
+                <cascade-persist />
+            </cascade>
+            <join-column
+                    name="paymentAddressID"
+                    referenced-column-name="id" />
+        </many-to-one>
+
+        <one-to-many target-entity="Rialto\Purchasing\Supplier\Attribute\SupplierAttribute"
+                     field="attributes"
+                     mapped-by="supplier"/>
+
+        <many-to-one field="currency"
+                     target-entity="Rialto\Accounting\Currency\Currency"
+                     >
+            <join-column
+                    name="CurrCode"
+                    referenced-column-name="CurrAbrev"/>
+        </many-to-one>
+
+        <many-to-one field="paymentTerms"
+                     target-entity="Rialto\Accounting\Terms\PaymentTerms"
+                     >
+            <join-column
+                    name="PaymentTerms"
+                    referenced-column-name="TermsIndicator"/>
+        </many-to-one>
+
+        <many-to-one field="taxAuthority"
+                     target-entity="Rialto\Tax\Authority\TaxAuthority"
+                     >
+            <join-column
+                    name="TaxAuthority"
+                    referenced-column-name="TaxID"/>
+        </many-to-one>
+
+        <one-to-many field="contacts"
+                     target-entity="Rialto\Purchasing\Supplier\Contact\SupplierContact"
+                     mapped-by="supplier"
+                     />
+
+        <one-to-one field="facility"
+                    target-entity="Rialto\Stock\Facility\Facility"
+                    mapped-by="supplier"/>
+
+        <many-to-one field="parent"
+                     target-entity="Rialto\Purchasing\Supplier\Supplier">
+            <join-column
+                    name="parentID"
+                    referenced-column-name="SupplierID"/>
+        </many-to-one>
+
+        <one-to-one field="manufacturer"
+                    target-entity="Rialto\Purchasing\Manufacturer\Manufacturer"
+                    mapped-by="supplier"/>
+
+    </entity>
+</doctrine-mapping>

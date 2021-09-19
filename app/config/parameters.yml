@@ -1,0 +1,25 @@
+parameters:
+    assets_version: 2a685dc7e
+    authorizenet.trans_key: ''
+    ciiva_apikey: ''
+    ciiva_password: ''
+    db_password: rialto
+    email.password: ''
+    enable_profiler: false
+    pcb_ng.api.password: '03500208Gs'
+    pcb_ng.api.user: 'stefan.zhang@gumstix.com'
+    rialto_email.xmpp_password: ''
+    rialto_purchasing.octopart_catalog_apikey: ''
+    rialto_purchasing.supplier_mailbox_password: ''
+    rialto_wordpress.password: ''
+    secret: dbe2ad5133a4f5cc31bf35299e956df963ff944bb385d89e9b2b078d902c2816
+    sentry_dsn: ''
+    taxjar_api_token: ''
+    ups.access_license: 7BCE6A23028BC75C
+    ups.invoice_password: ''
+    ups.password: saywhat
+    fedex.key: 'nn5npVFwcV3i7sFf'
+    fedex.password: 'ZnvePMF2ZNJWUL5Eq92eoYTnR'
+    fedex.account_number: '510087780'
+    fedex.meter_number: '119167837'
+

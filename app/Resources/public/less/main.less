@@ -1,0 +1,384 @@
+@largescreen: 900px;
+
+body.main {
+    /****************
+     * elements
+     ****************/
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    line-height: 1.5em;
+    font-size: 12pt;
+    color: #131313;
+
+    blockquote {
+        margin-top: 3.272em;
+        margin-bottom: 3.272em;
+        line-height: 1.636em;
+        padding: 1.636em;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+    ol li, ul li {
+        margin: 3px 0;
+    }
+    pre, code {
+        font-family: inherit;
+        background-color: #efefef;
+        border: 1px solid #ccc;
+    }
+    pre {
+        border-width: 1px 0;
+        padding: 1.5em;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /****************
+     * layout
+     ****************/
+    display: grid;
+    padding: 10px;
+    grid-gap: 10px;
+    grid-template-areas:
+        "header"
+        "main"
+        "menu"
+        "footer"
+    ;
+
+    @media screen and (min-width: @largescreen) {
+        font-size: 10pt;
+        line-height: normal;
+        p {
+            line-height: 1.3em;
+        }
+
+        grid-template-columns: 320px auto;
+        grid-template-rows: 40px auto min-content;
+        grid-template-areas:
+            "header header"
+            "menu main"
+            "footer footer"
+        ;
+
+        main, #menu {
+            overflow: auto;
+        }
+
+        #menu-jump {
+            display: none;
+        }
+    }
+
+    .layoutSection {
+        padding: 10px;
+        background-color: white;
+    }
+
+    header.layoutSection {
+        grid-area: header;
+        padding-bottom: 0;
+        overflow: visible;
+        display: grid;
+        grid-template-columns: 40% 60%;
+
+        > nav {
+            position: relative;
+            vertical-align: bottom;
+
+            a {
+                display: inline-block;
+                line-height: 23px;
+                margin-left: 5px;
+                padding: 3px 10px;
+                background-repeat: repeat-x;
+                background-position: left center;
+                border-width: 1px;
+                border-style: solid;
+                font-weight: bold;
+                margin-right: 0;
+                border-radius: 5px;
+
+                @media screen and (min-width: @largescreen) {
+                    /* Make the links look like tabs. */
+                    border-bottom-width: 0;
+                    border-radius: 5px 5px 0 0;
+                }
+            }
+
+            a:hover {
+                text-decoration: none;
+                background-repeat: repeat-x;
+                background-position: left center;
+            }
+
+            form.switch-user {
+                display: inline-block;
+                margin-bottom: 10px;
+                margin-left: 3px;
+            }
+        }
+
+        #headerLinks {
+            text-align: right;
+        }
+    }
+
+    footer {
+        grid-area: footer;
+        background-image: url('/css/images/footer-logo.png');
+        background-repeat: no-repeat;
+        background-position: 99% 50%;
+
+        .appEnv {
+            font-weight: bold;
+        }
+
+        .footer_section {
+            display: inline-block;
+            margin-right: 20px;
+
+            form {
+                display: inline-block;
+                input {
+                    width: 100px;
+                }
+            }
+        }
+        .buttons {
+            margin-right: 50px; /* Leave space for the logo */
+            float: right;
+        }
+    }
+
+    #menu {
+        grid-area: menu;
+        background-repeat: repeat-x;
+        background-position: left bottom;
+
+        .summary.parent {
+            cursor: ns-resize;
+            font-weight: bolder;
+        }
+    }
+    main {
+        grid-area: main;
+        background-repeat: repeat-x;
+        background-position: left bottom;
+
+        h1 {
+            background-color: #eee;
+            padding: 10px;
+            border: 1px solid #CCCCCC;
+        }
+    }
+
+    #error {
+        position: relative;
+        width: 60%;
+        height: 60%;
+        margin: 20px auto;
+        left: auto;
+    }
+
+    nav.page-links {
+        margin-top: 2em;
+    }
+
+    /*****************
+     * tables
+     *****************/
+    table.standard {
+        background-color: #eee;
+        border: 1px solid #CCCCCC;
+        border-collapse: collapse;
+        page-break-after: always;
+
+        > thead > tr {
+            border-bottom: 1px solid #666;
+        }
+        > thead > tr > th,
+        > tbody > tr > th {
+            border-bottom: 1px solid #666;
+            font-weight: bold;
+            padding: 4px;
+            border-left: 1px solid #fff;
+        }
+
+        > tfoot > tr {
+            background-color: #ccc;
+        }
+        > tfoot > tr > td {
+            border-left: 1px solid #eee;
+            padding: 4px;
+        }
+
+        > tbody > tr {
+            border-bottom: 1px dotted #666;
+        }
+        > tbody > tr > td {
+            padding: 4px;
+            border-left: 1px solid #ccc;
+        }
+        > tbody > tr:nth-child(even) > td {
+            background-color: #ddd;
+        }
+    }
+
+    tr.totals > td {
+        border-top: 1px solid #666;
+        font-weight: bold;
+    }
+
+    tr.highlighted > td {
+        background-color: #ffc;
+    }
+    tr.highlighted:nth-child(even) > td {
+        background-color: #ffa;
+    }
+
+    /*******************
+     * spans and divs
+     *******************/
+
+    .warning {
+        font-weight: bold;
+        color: maroon;
+    }
+
+    .error,
+    .error a {
+        font-weight: bold;
+        color: red;
+    }
+
+    .pleaseWait {
+        line-height: 25px;
+    }
+
+    ul.icons {
+        list-style: none;
+        padding-left: 10px;
+    }
+
+    /***********************
+     * REST models/entities
+     ***********************/
+    .model {
+        vertical-align: top;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .modelFunctions {
+        float: right;
+        width: 33%;
+        vertical-align: top;
+        padding-left: 10px;
+
+        h2 {
+            margin: 5px 0;
+        }
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .model {
+        .field {
+            margin-top: .5em;
+            display: inline-block;
+            width: 49%;
+            vertical-align: top;
+
+            .label, .fieldLabel {
+                display: inline-block;
+                font-weight: bold;
+                min-width: 33%;
+                vertical-align: top;
+            }
+            .value, .fieldValue {
+                display: inline-block;
+                margin-left: 20px;
+                vertical-align: top;
+            }
+        }
+
+        &.children .field {
+            .value, .fieldValue {
+                display: block;
+            }
+        }
+
+        section {
+            display: inline-block;
+            min-width: 20em;
+            width: 47%;
+            border: 1px solid lightgrey;
+            border-radius: 8px;
+            padding: 5px;
+            padding-top: 0;
+            margin-bottom: 4px;
+            vertical-align: top;
+
+            .field {
+                display: block;
+                width: auto;
+            }
+        }
+    }
+    .model .field .fieldValue img,
+    .modelList img {
+        max-height: 100px;
+        max-width: 100px;
+    }
+    .modelList td.listItem {
+        white-space: nowrap;
+    }
+    .children .field {
+        display: block;
+        width: auto;
+    }
+    .children .field .fieldLabel,
+    .children .field .fieldValue {
+        display: block;
+        width: auto;
+    }
+
+    .emptyField,
+    .null {
+        font-style: italic;
+        color: #888;
+    }
+
+
+    /****************
+     * Popup dialogs
+     ****************/
+    .dialogAnchor {
+        position: relative;
+        .dialogPopup {
+            position: absolute;
+            top: -1em;
+            z-index: 1;
+            display: none;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 5px;
+            box-shadow: 5px 5px 3px;
+        }
+    }
+
+    .dijitDialog {
+        max-width: 80%;
+        max-height: 80%;
+    }
+
+    .ui-dialog {
+        box-shadow: 5px 5px 5px;
+    }
+}

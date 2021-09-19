@@ -1,0 +1,49 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Stock\Item\Web\ActionsController:
+    public: true
+
+  Rialto\Stock\Item\NewSkuValidator: ~
+
+  Rialto\Stock\Item\StockCodeGenerator: ~
+
+  Rialto\Stock\Item\StockItemFactory:
+    public: true
+
+  Rialto\Stock\Item\StockItemDeleteService: ~
+
+  Rialto\Stock\Item\Web\StockItemAttributeType: ~
+
+  Rialto\Stock\Item\Web\StockItemTemplateType: ~
+
+  Rialto\Stock\Item\Web\EditType: ~
+
+  Rialto\Stock\Item\Version\Web\ItemVersionSelectorType: ~
+
+  Rialto\Stock\Item\Version\Orm\ItemVersionRepository:
+    shared: false
+    factory: 'doctrine:getRepository'
+    arguments:
+      - Rialto\Stock\Item\Version\ItemVersion
+
+  Rialto\Stock\Item\BatchStockUpdater:
+    public: true
+
+  Rialto\Stock\Item\Cli\BulkSetDefaultWorkOrderCommand: ~
+
+  Rialto\Stock\Item\EventListener\DefaultWorkTypeListener:
+    tags:
+      - { name: doctrine.event_subscriber, connection: default}
+
+  Rialto\Stock\Item\Cli\StockLevelRefreshCommand:
+    public: true
+    tags:
+     - {name: console.command}
+
+  Rialto\Stock\Item\Command\RefreshStockLevelHandler:
+    tags:
+     - {name: tactician.handler, typehints: true}

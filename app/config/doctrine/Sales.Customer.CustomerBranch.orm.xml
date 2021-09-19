@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Sales\Customer\CustomerBranch"
+            repository-class="Rialto\Sales\Customer\Orm\CustomerBranchRepository"
+            table="CustBranch">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="branchCode"
+               type="string"
+               column="BranchCode"
+               length="10"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="branchName"
+               type="string"
+               column="BrName"/>
+
+        <field name="contactName"
+               type="string"
+               column="ContactName"/>
+
+        <field name="email"
+               type="string"
+               column="Email"/>
+
+        <field name="contactPhone"
+               type="string"
+               column="PhoneNo"
+               length="50">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="fax"
+               type="string"
+               column="FaxNo"
+               length="50">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="customerBranchCode"
+               type="string"
+               column="CustBranchCode"/>
+
+        <field name="deniedPartyExemption"
+               type="string"
+               length="500">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <many-to-one field="address"
+                     target-entity="Rialto\Geography\Address\Address">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="addressID"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="customer"
+                     target-entity="Rialto\Sales\Customer\Customer"
+                     inversed-by="branches">
+            <join-column name="DebtorNo"
+                         referenced-column-name="DebtorNo"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="salesman"
+                     target-entity="Rialto\Sales\Salesman\Salesman">
+            <join-column name="Salesman"
+                         referenced-column-name="SalesmanCode"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="salesArea"
+                     target-entity="Rialto\Sales\Customer\SalesArea">
+            <join-column name="Area"
+                         referenced-column-name="AreaCode"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="defaultLocation"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="DefaultLocation"
+                         referenced-column-name="LocCode"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="defaultShipper"
+                     target-entity="Rialto\Shipping\Shipper\Shipper">
+            <join-column name="DefaultShipVia"
+                         referenced-column-name="Shipper_ID"/>
+        </many-to-one>
+
+        <many-to-one field="taxAuthority"
+                     target-entity="Rialto\Tax\Authority\TaxAuthority">
+            <join-column name="TaxAuthority"
+                         referenced-column-name="TaxID"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

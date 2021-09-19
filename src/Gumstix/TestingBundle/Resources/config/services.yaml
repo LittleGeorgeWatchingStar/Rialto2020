@@ -1,0 +1,4 @@
+services:
+#    gumstix_testing.example:
+#        class: %gumstix_testing.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

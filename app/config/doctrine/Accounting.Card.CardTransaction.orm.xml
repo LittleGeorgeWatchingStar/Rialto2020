@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Accounting\Card\CardTransaction"
+            repository-class="Rialto\Accounting\Card\Orm\CardTransactionRepository"
+            table="CardTrans">
+
+        <indexes>
+            <index columns="Type,TransNo"/>
+            <index columns="CardID,TransactionID"/>
+        </indexes>
+
+        <id name="id"
+            type="bigint"
+            column="CardTransID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="systemTypeNumber"
+               type="bigint"
+               column="TransNo"
+               nullable="true"/>
+
+        <field name="transactionId"
+               type="bigint"
+               column="TransactionID"/>
+
+        <field name="authCode"
+               type="string"
+               length="20"
+               column="AuthorizationCode"/>
+
+        <field name="amountAuthorized"
+               type="decimal"
+               precision="12"
+               scale="2"
+               column="Amount"/>
+
+        <field name="dateCreated"
+               type="datetime"/>
+
+        <field name="amountCaptured"
+               type="decimal"
+               precision="12"
+               scale="2"
+               column="amountCaptured">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="dateCaptured"
+               type="datetime"
+               nullable="true"/>
+
+        <field name="postDate"
+               type="date"
+               column="PostDate"
+               nullable="true"/>
+
+        <field name="approved"
+               type="boolean"
+               column="Approved"/>
+
+        <field name="settled"
+               type="boolean"
+               column="Posted"/>
+
+        <field name="void"
+               type="boolean"
+               column="Voided"/>
+
+        <one-to-one field="referenceTransaction"
+                    target-entity="Rialto\Accounting\Card\CardTransaction">
+            <join-column name="referenceTransactionID"
+                         referenced-column-name="CardTransID"
+                         nullable="true"
+                         on-delete="SET NULL"/>
+        </one-to-one>
+
+        <many-to-one target-entity="Rialto\Accounting\Transaction\Transaction"
+                     field="accountingTransaction">
+            <join-column name="accountingTransactionId"
+                         referenced-column-name="id"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="systemType"
+                     target-entity="Rialto\Accounting\Transaction\SystemType">
+            <join-column name="Type"
+                         referenced-column-name="TypeID"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="creditCard"
+                     target-entity="Rialto\Payment\PaymentMethod\PaymentMethod">
+            <join-column name="CardID"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="customer"
+                     target-entity="Rialto\Sales\Customer\Customer">
+            <join-column name="customerID"
+                         referenced-column-name="DebtorNo"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="salesOrder"
+                     target-entity="Rialto\Sales\Order\SalesOrder"
+                     inversed-by="cardTransactions">
+            <join-column name="salesOrderID"
+                         referenced-column-name="OrderNo"
+                         nullable="true"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

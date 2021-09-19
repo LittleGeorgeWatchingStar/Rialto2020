@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  rialto_wordpress.http_client:
+    class: GuzzleHttp\Client
+    arguments:
+      - base_uri: "%rialto_wordpress.base_url%"
+        http_errors: false
+
+  Gumstix\Wordpress\Service\RpcClient:
+    arguments:
+      - "@rialto_wordpress.http_client"
+      - "%rialto_wordpress.username%"
+      - "%rialto_wordpress.password%"
+
+  Rialto\Wordpress\ChangeNoticeListener:
+    arguments:
+      $postType: "%rialto_wordpress.post_type%"

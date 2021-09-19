@@ -1,0 +1,7 @@
+security_nda:
+    resource: Rialto\Security\Nda\Web\NdaController
+    type: annotation
+
+security_user:
+    resource: Rialto\Security\User\Web\UserController
+    type: annotation

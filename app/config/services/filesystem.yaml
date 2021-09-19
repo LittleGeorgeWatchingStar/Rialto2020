@@ -1,0 +1,18 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Filesystem\Filesystem:
+    abstract: true
+    arguments:
+      - "%rialto.root_dir%"
+
+  Gumstix\Storage\FileStorage:
+    public: true
+    factory: [Gumstix\Storage\GaufretteStorage, awsS3]
+    arguments:
+      $bucketName: "%data_bucket%"
+
+  Rialto\Filesystem\TempFilesystem: ~

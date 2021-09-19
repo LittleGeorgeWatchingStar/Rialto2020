@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Printing\Printer\Printer"
+            table="Printer"
+            repository-class="Rialto\Printing\Printer\PrinterRepo"
+            inheritance-type="SINGLE_TABLE">
+
+        <discriminator-column name="printerType"
+                              type="string"
+                              length="10"/>
+        <discriminator-map>
+            <discriminator-mapping value="standard"
+                                   class="Rialto\Printing\Printer\StandardPrinter"/>
+            <discriminator-mapping value="label"
+                                   class="Rialto\Printing\Printer\LabelPrinter"/>
+            <discriminator-mapping value="zebra"
+                                   class="Rialto\Printing\Printer\ZebraPrinter"/>
+            <!-- value "ups" is deprecated -->
+            <discriminator-mapping value="ups"
+                                   class="Rialto\Printing\Printer\UpsPrinter"/>
+        </discriminator-map>
+
+        <id name="id"
+            type="string"
+            length="20"/>
+
+        <field name="description"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="host"
+               type="string"
+               length="100"
+               nullable="false"/>
+
+        <field name="port"
+               type="smallint"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass
+        name="Rialto\Purchasing\Catalog\CostBreakAbstract">
+
+        <field name="minimumOrderQty" type="integer" />
+        <field name="manufacturerLeadTime" type="smallint" />
+        <field name="supplierLeadTime" type="smallint" nullable="true" />
+        <field name="unitCost" type="decimal" />
+
+    </mapped-superclass>
+</doctrine-mapping>

@@ -1,0 +1,32 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Email\MailerInterface:
+    alias: Rialto\Email\Mailer
+    public: true
+
+  Rialto\Email\Mailer:
+    tags:
+      - name: monolog.logger
+        channel: email
+
+  Rialto\Email\Attachment\AttachmentZipper:
+    public: true
+
+  Rialto\Email\Web\EmailExtension: ~
+
+  Fabiang\Xmpp\Options:
+    arguments:
+      - "tls://talk.google.com:5223"
+    calls:
+      - [setUsername, ["bob.t.erbauer"] ]
+      - [setPassword, ["%rialto_email.xmpp_password%"] ]
+      - [setTo, ["gmail.com"] ]
+      - [setTimeout, [10] ]
+
+  Fabiang\Xmpp\Client:
+    arguments:
+      - '@Fabiang\Xmpp\Options'

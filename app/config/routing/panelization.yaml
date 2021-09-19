@@ -1,0 +1,7 @@
+panelization:
+    resource: Rialto\Panelization\Web\PanelizationController
+    type: annotation
+
+panelization_asset:
+    resource: Rialto\Panelization\Web\AssetsController
+    type: annotation

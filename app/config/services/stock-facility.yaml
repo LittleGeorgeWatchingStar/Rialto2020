@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Stock\Facility\Orm\FacilityRepository:
+    shared: false
+    factory: 'doctrine:getRepository'
+    arguments:
+      - Rialto\Stock\Facility\Facility

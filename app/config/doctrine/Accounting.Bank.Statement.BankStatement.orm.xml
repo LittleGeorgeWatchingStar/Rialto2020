@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Accounting\Bank\Statement\BankStatement"
+            repository-class="Rialto\Accounting\Bank\Statement\Orm\BankStatementRepository"
+            table="BankStatements">
+
+        <id name="id"
+            type="integer"
+            column="BankStatementID">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one field="bankAccount"
+                     target-entity="Rialto\Accounting\Bank\Account\BankAccount">
+            <join-column name="accountID"
+                         referenced-column-name="AccountCode"
+                         nullable="false"/>
+        </many-to-one>
+
+        <field name="date"
+               type="date"
+               column="BankPostDate"/>
+        <field name="amount"
+               type="decimal"
+               column="Amount"
+               precision="2"/>
+        <field name="description"
+               type="string"
+               column="BankDescription"
+               length="255"/>
+        <field name="bankReference"
+               type="bigint"
+               column="BankRef"/>
+        <field name="customerReference"
+               type="bigint"
+               column="CustRef"/>
+        <field name="bankText"
+               type="text"
+               column="BankText"/>
+
+        <one-to-many
+                field="matches"
+                target-entity="Rialto\Accounting\Bank\Statement\BankStatementMatch"
+                mapped-by="bankStatement">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

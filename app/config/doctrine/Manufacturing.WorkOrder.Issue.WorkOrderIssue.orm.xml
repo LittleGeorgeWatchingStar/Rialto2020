@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Manufacturing\WorkOrder\Issue\WorkOrderIssue"
+        repository-class="Rialto\Manufacturing\WorkOrder\Issue\Orm\WorkOrderIssueRepository"
+        table="WOIssues">
+
+        <id name="id" type="integer" column="IssueNo">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="dateIssued" type="date" column="IssueDate" />
+        <field name="qtyIssued" type="decimal"/>
+        <field name="qtyReceived" type="decimal"/>
+
+        <many-to-one
+            field="workOrder"
+            target-entity="Rialto\Manufacturing\WorkOrder\WorkOrder"
+            inversed-by="issues">
+            <join-column
+                name="WorkOrderID"
+                referenced-column-name="id" />
+        </many-to-one>
+
+        <many-to-one
+            field="location"
+            target-entity="Rialto\Stock\Facility\Facility">
+            <join-column
+                name="LocCode"
+                referenced-column-name="LocCode" />
+        </many-to-one>
+
+        <one-to-many
+            field="issuedItems"
+            target-entity="Rialto\Manufacturing\WorkOrder\Issue\WorkOrderIssueItem"
+            mapped-by="workOrderIssue">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+    </entity>
+</doctrine-mapping>

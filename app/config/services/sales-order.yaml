@@ -1,0 +1,57 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Sales\Order\Dates\InitTargetDateCommand: ~
+
+  Rialto\Sales\Order\Dates\TargetShipDateCalculator:
+    public: true
+
+  Rialto\Sales\Order\Dates\TargetShipDateListener: ~
+
+  Rialto\Sales\Order\Email\OrderEmailListener:
+    arguments:
+      $manager: "%default_po_owner%"
+
+  Rialto\Sales\Shipping\SalesOrderShippingApproval:
+    public: true
+
+  Rialto\Sales\Shipping\ApproveToShipEventListener: ~
+
+  Rialto\Sales\Discount\DiscountCalculator:
+    public: true
+
+  Rialto\Sales\Order\SalesOrderPaymentProcessor:
+    public: true
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: flash}
+
+  Rialto\Sales\Order\OrderUpdateListener: ~
+
+  Rialto\Sales\Order\Allocation\AllocationEventListener:
+    public: true
+
+  Rialto\Sales\Order\Import\OrderImporter:
+    public: true
+
+  Rialto\Sales\Order\Import\OrderImporterDataSource: ~
+
+  Rialto\Sales\Order\CustomerPartNoPopulator:
+    public: true
+
+  Rialto\Sales\Order\SoftwareInvoicer: ~
+
+  Rialto\Sales\Order\Dates\Web\OrderDateController:
+    tags: ['controller.service_arguments']
+
+  Rialto\Sales\Order\Email\OrderToEmailFilter:
+    public: true
+
+  Rialto\Sales\Order\Allocation\Command\CreateStockItemOrderHandler:
+    public: true
+    tags:
+    - {name: tactician.handler, typehints: true}

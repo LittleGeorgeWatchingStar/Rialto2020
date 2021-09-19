@@ -1,0 +1,11 @@
+email_log:
+    resource: Rialto\Email\Log\Web\EmailLogController
+    type: annotation
+
+email_test:
+    resource: Rialto\Email\Test\Web\TestController
+    type: annotation
+
+user_subscription:
+    resource: Rialto\Email\Subscription\Web\UserSubscriptionController
+    type: annotation

@@ -1,0 +1,7 @@
+payment_method:
+    resource: Rialto\Payment\PaymentMethod\Web\PaymentMethodController
+    type: annotation
+
+sweep:
+    resource: Rialto\Payment\Sweep\Web\SweepController
+    type: annotation

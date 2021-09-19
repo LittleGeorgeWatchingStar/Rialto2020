@@ -1,0 +1,7 @@
+includes:
+    - %rootDir%/conf/config.level1.neon
+    - phpstan-baseline.neon
+
+parameters:
+    customRulesetUsed: true
+    bootstrap: app/autoload.php

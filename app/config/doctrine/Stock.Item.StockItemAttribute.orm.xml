@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Stock\Item\StockItemAttribute"
+            repository-class="Rialto\Stock\Item\Orm\StockItemAttributeRepository">
+
+        <id name="stockItem"
+            association-key="true"/>
+
+        <many-to-one field="stockItem"
+                     target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="stockCode"
+                         referenced-column-name="StockID"
+                         nullable="false"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,105 @@
+accounting:
+  resource: routing/accounting.yaml
+
+allocation:
+  resource: routing/allocation.yaml
+
+catalina:
+  resource: routing/catalina.yaml
+
+cms:
+  resource: routing/cms.yaml
+
+company:
+  resource: Rialto\Company\Web\CompanyController
+  type: annotation
+
+core:
+  resource: routing/core.yaml
+
+debtor:
+  resource: routing/debtor.yaml
+
+email:
+  resource: routing/email.yaml
+
+filing:
+  resource: routing/filing.yaml
+
+geppetto:
+  resource: routing/geppetto.yaml
+
+madison:
+  resource: routing/madison.yaml
+
+magento2:
+  resource: routing/magento2.yaml
+
+manufacturing:
+  resource: routing/manufacturing.yaml
+
+panelization:
+  resource: routing/panelization.yaml
+
+payment:
+  resource: routing/payment.yaml
+
+printing:
+  resource: routing/printing.yaml
+
+purchasing:
+  resource: routing/purchasing.yaml
+
+sales:
+  resource: routing/sales.yaml
+
+security:
+  resource: routing/security.yaml
+
+shipping:
+  resource: routing/shipping.yaml
+
+shopify:
+  resource: routing/shopify.yaml
+
+stock:
+  resource: routing/stock.yaml
+
+summary:
+  resource: routing/summary.yaml
+
+supplier:
+  resource: routing/supplier.yaml
+
+tax:
+  resource: routing/tax.yaml
+
+ups:
+  resource: routing/ups.yaml
+
+warehouse:
+  resource: routing/warehouse.yaml
+
+rialto_sales_config:
+  path: /Sales/Config/
+  defaults:
+    _controller: FrameworkBundle:Template:template
+    template: 'sales/config/config.html.twig'
+
+
+# FOS Javascript routing
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+logout:
+    path: /logout
+
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /admin
+
+jms_job_queue_bundle:
+    resource: "@JMSJobQueueBundle/Controller/"
+    type: annotation
+    prefix: /admin-jobs

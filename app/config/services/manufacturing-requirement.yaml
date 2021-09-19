@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Manufacturing\Requirement\RequirementFactory:
+    public: true
+
+  Rialto\Manufacturing\Requirement\ScrapCalculator: ~

@@ -1,0 +1,29 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Stock\Bin\Label\BinLabelListener:
+    public: true
+
+  Rialto\Stock\Bin\StockBinUpdateListener:
+    public: true
+
+  Rialto\Stock\Bin\Label\BinLabelPrintQueue:
+    public: true
+
+  Rialto\Stock\Bin\StockBinSplitter:
+    public: true
+
+  Rialto\Stock\Bin\Web\StockAdjustmentType: ~
+
+  Rialto\Stock\Bin\Web\BinUpdateAllocType: ~
+
+  Rialto\Stock\Bin\StockBinVoter: ~
+
+  Rialto\Stock\Bin\Label\Web\LabelController:
+    tags: ['controller.service_arguments']
+
+  Rialto\Stock\Bin\Web\StockBinController:
+    tags: ['controller.service_arguments']

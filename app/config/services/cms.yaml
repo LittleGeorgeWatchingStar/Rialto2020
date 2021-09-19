@@ -1,0 +1,27 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Cms\ExceptionHandler:
+    tags:
+      - name: kernel.event_listener
+        event: kernel.exception
+        method: onException
+        priority: 0
+
+  # Enable Twig to load templates directly from strings, not just from
+  # template files.
+  Rialto\Cms\CmsLoader: ~
+
+  Rialto\Cms\CmsEngine:
+    public: true
+    arguments:
+      $extensions:
+        - '@twig.extension.routing'
+        - '@Gumstix\GeographyBundle\Twig\GeographyExtension'
+
+  Rialto\Cms\CmsExtension: ~
+
+  Rialto\Cms\Web\CmsEntryType: ~

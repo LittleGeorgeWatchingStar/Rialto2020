@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Shipping\Export\ShipmentProhibition"
+        repository-class="Rialto\Shipping\Export\Orm\ShipmentProhibitionRepository"
+        table="ShipmentProhibition">
+
+        <id name="id" type="integer" column="id">
+            <generator />
+        </id>
+
+        <field name="prohibitedCountry" type="string" />
+        <field name="eccnCode" type="string" />
+        <field name="notes" type="string" />
+
+        <many-to-one
+            field="stockItem"
+            target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="stockId" referenced-column-name="StockID" />
+        </many-to-one>
+
+        <many-to-one
+            field="stockCategory"
+            target-entity="Rialto\Stock\Category\StockCategory">
+            <join-column name="categoryId" referenced-column-name="CategoryID" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

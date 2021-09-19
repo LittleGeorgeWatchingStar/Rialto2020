@@ -1,0 +1,2 @@
+ALTER TABLE CustBranch CHANGE BrAddr1 BrAddr1 varchar(100) NOT NULL DEFAULT '';
+ALTER TABLE CustBranch CHANGE BrAddr2 BrAddr2 varchar(100) NOT NULL DEFAULT '';

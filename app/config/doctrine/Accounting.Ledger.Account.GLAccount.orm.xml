@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="Rialto\Accounting\Ledger\Account\GLAccount"
+        repository-class="Rialto\Accounting\Ledger\Account\Orm\GLAccountRepository"
+        table="ChartMaster">
+
+        <id name="id" type="integer" column="AccountCode">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="name" type="string" length="50" column="AccountName" />
+
+        <many-to-one
+            field="accountGroup"
+            target-entity="Rialto\Accounting\Ledger\Account\AccountGroup">
+           <join-column name="Group_" referenced-column-name="GroupName" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

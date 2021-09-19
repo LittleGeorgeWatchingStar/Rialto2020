@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Manufacturing\WorkOrder\WorkOrder"
+            repository-class="Rialto\Manufacturing\WorkOrder\Orm\WorkOrderRepository"
+            table="StockProducer">
+
+        <field name="qtyIssued"
+               type="decimal"
+               precision="16"
+               scale="4"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="instructions"
+               type="text"/>
+
+        <field name="rework"
+               type="boolean"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <one-to-one field="parent"
+                    target-entity="Rialto\Manufacturing\WorkOrder\WorkOrder"
+                    inversed-by="child">
+            <join-column name="parentID"
+                         referenced-column-name="id"
+                         nullable="true"/>
+        </one-to-one>
+
+        <one-to-one field="child"
+                    target-entity="Rialto\Manufacturing\WorkOrder\WorkOrder"
+                    mapped-by="parent"/>
+
+        <one-to-many field="requirements"
+                     target-entity="Rialto\Manufacturing\Requirement\Requirement"
+                     mapped-by="workOrder"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="issues"
+                     target-entity="Rialto\Manufacturing\WorkOrder\Issue\WorkOrderIssue"
+                     mapped-by="workOrder"/>
+
+        <many-to-one field="customization"
+                     target-entity="Rialto\Manufacturing\Customization\Customization">
+            <join-column name="customizationID"
+                         referenced-column-name="id"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Supplier\SupplierTransaction"
+            repository-class="Rialto\Accounting\Supplier\SupplierTransactionRepository"
+            table="SuppTrans">
+
+        <indexes>
+            <index columns="Type,TransNo"/>
+        </indexes>
+
+        <id name="id"
+            type="bigint"
+            column="ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="systemTypeNumber"
+               type="bigint"
+               column="TransNo"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="date"
+               type="datetime"
+               column="TranDate"
+               nullable="false"/>
+
+        <field name="rate"
+               type="decimal"
+               column="Rate"
+               precision="16"
+               scale="6"
+               nullable="false">
+            <options>
+                <option name="default">1.0</option>
+            </options>
+        </field>
+
+        <field name="subtotalAmount"
+               type="decimal"
+               column="OvAmount"
+               precision="16"
+               scale="4"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="taxAmount"
+               type="decimal"
+               column="OvGST"
+               precision="16"
+               scale="4"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="amountAllocated"
+               type="decimal"
+               column="Alloc"
+               precision="16"
+               scale="4"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="dueDate"
+               type="date"
+               column="DueDate"
+               nullable="true"/>
+
+        <field name="reference"
+               type="string"
+               length="50"
+               column="SuppReference"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="memo"
+               type="text"
+               column="TransText"
+               nullable="true"/>
+
+        <field name="settled"
+               type="boolean"
+               column="Settled"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="hold"
+               type="boolean"
+               column="Hold"
+               nullable="false">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <one-to-many
+                field="invoiceAllocations"
+                target-entity="Rialto\Accounting\Supplier\SupplierAllocation"
+                mapped-by="invoice"
+                orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many
+                field="creditAllocations"
+                target-entity="Rialto\Accounting\Supplier\SupplierAllocation"
+                mapped-by="credit"
+                orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one target-entity="Rialto\Accounting\Transaction\Transaction"
+                     field="transaction">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="transactionId"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="systemType"
+                target-entity="Rialto\Accounting\Transaction\SystemType">
+            <join-column name="Type"
+                         referenced-column-name="TypeID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="supplier"
+                target-entity="Rialto\Purchasing\Supplier\Supplier">
+            <join-column name="SupplierNo"
+                         referenced-column-name="SupplierID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="recurringInvoice"
+                target-entity="Rialto\Purchasing\Recurring\RecurringInvoice">
+            <join-column name="RecurringTransID"
+                         referenced-column-name="RecurringID"
+                         nullable="true"
+                         on-delete="SET NULL"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

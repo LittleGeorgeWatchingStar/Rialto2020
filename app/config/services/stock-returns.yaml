@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+
+  Rialto\Stock\Returns\ReturnedItemService:
+    public: true
+
+  Rialto\Stock\Returns\Problem\ReturnedItemResolver:
+    public: true
+    tags:
+      - {name: monolog.logger, channel: receiving}
+
+  Rialto\Stock\Returns\Web\ReturnedItemsFlow:
+    parent: craue.form.flow
+    public: true
+    autowire: true
+
+  Rialto\Stock\Returns\Cli\GenerateMissingAdjustmentGlRecordsCommand:
+    tags:
+    - { name: console.command }

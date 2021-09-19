@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Purchasing\Supplier\Contact\SupplierContact"
+            repository-class="Rialto\Purchasing\Supplier\Contact\Orm\SupplierContactRepository"
+            table="SupplierContacts">
+
+        <id name="id"
+            type="bigint"
+            column="ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="name"
+               type="string"
+               length="30"
+               column="Contact"
+               nullable="false"/>
+
+        <field name="position"
+               type="string"
+               length="30"
+               column="Position"
+               nullable="false"/>
+
+        <field name="phone"
+               type="string"
+               length="30"
+               column="Tel"
+               nullable="false"/>
+
+        <field name="fax"
+               type="string"
+               length="30"
+               column="Fax"
+               nullable="false"/>
+
+        <field name="mobilePhone"
+               type="string"
+               length="30"
+               column="Mobile"
+               nullable="false"/>
+
+        <field name="email"
+               type="string"
+               length="55"
+               column="Email"
+               nullable="false"/>
+
+        <field name="contactForOrders"
+               type="boolean"
+               column="OrderContact"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="contactForStats"
+               type="boolean"
+               column="StatContact"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="contactForKits"
+               type="boolean"
+               column="KitContact"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="active"
+               type="boolean"
+               column="Active">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <many-to-one field="supplier"
+                     target-entity="Rialto\Purchasing\Supplier\Supplier"
+                     inversed-by="contacts">
+            <join-column name="SupplierID"
+                         referenced-column-name="SupplierID"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

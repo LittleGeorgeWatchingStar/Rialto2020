@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Purchasing\Receiving\GoodsReceivedItem"
+            repository-class="Rialto\Purchasing\Receiving\GoodsReceivedItemRepository"
+            table="GoodsReceivedItem">
+
+        <id name="id"
+            type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one
+                field="goodsReceivedNotice"
+                target-entity="Rialto\Purchasing\Receiving\GoodsReceivedNotice"
+                inversed-by="items"
+                display="detail">
+            <join-column
+                    name="grnID"
+                    referenced-column-name="BatchID"/>
+        </many-to-one>
+
+        <many-to-one
+                field="producer"
+                target-entity="Rialto\Purchasing\Producer\StockProducer"
+                display="detail">
+            <join-column
+                    name="producerID"
+                    referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one
+                field="receivedInto"
+                target-entity="Rialto\Stock\Facility\Facility">
+            <join-column
+                    name="receivedInto"
+                    referenced-column-name="LocCode"/>
+        </many-to-one>
+
+        <field name="dateReceived"
+               type="datetime"
+               display="detail"/>
+
+        <field name="qtyReceived"
+               type="decimal"
+               format="integer"/>
+
+        <field name="qtyInvoiced"
+               type="decimal"
+               format="integer"/>
+
+        <many-to-one
+                field="invoiceItem"
+                target-entity="Rialto\Purchasing\Invoice\SupplierInvoiceItem"
+                inversed-by="grnItems">
+            <join-column
+                    name="invoiceItemID"
+                    referenced-column-name="SIDetailID"/>
+        </many-to-one>
+
+        <field name="standardUnitCost"
+               type="decimal"
+               display="detail"/>
+
+        <field name="discarded"
+               type="boolean"/>
+
+        <many-to-one
+                field="binStyle"
+                target-entity="Rialto\Stock\Bin\BinStyle">
+            <join-column
+                    name="binStyle"
+                    referenced-column-name="id"/>
+        </many-to-one>
+
+        <virtual-parent field="stockItem"/>
+        <virtual-field name="itemDescription"/>
+    </entity>
+</doctrine-mapping>

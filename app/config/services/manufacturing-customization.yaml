@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Manufacturing\Customization\ExtendedTemperatureCustomization:
+    arguments:
+      $minTemp: -40
+      $maxTemp: 85
+
+  Rialto\Manufacturing\Customization\Customizer:
+    calls:
+      - [ register, ['ext-temp', '@Rialto\Manufacturing\Customization\ExtendedTemperatureCustomization' ]]
+
+  Rialto\Manufacturing\Customization\Web\CustomizationStrategyType: ~
+
+  Rialto\Manufacturing\Customization\CustomizationErrorHandler: ~
+
+  Rialto\Manufacturing\Customization\Cli\ValidateSubstitutionsCommand: ~

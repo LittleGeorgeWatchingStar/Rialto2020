@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Allocation\Allocation\ProducerAllocation"
+            repository-class="Rialto\Allocation\Allocation\Orm\StockAllocationRepository"
+            table="StockAllocation">
+
+        <many-to-one field="source"
+                     target-entity="Rialto\Purchasing\Producer\StockProducer"
+                     inversed-by="allocations">
+            <join-column name="SourceNo"
+                         referenced-column-name="id"
+                         nullable="false"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>

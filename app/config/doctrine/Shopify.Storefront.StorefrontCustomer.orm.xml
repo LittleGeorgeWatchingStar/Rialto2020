@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Rialto\Shopify\Storefront\StorefrontCustomer"
+          repository-class="Rialto\Shopify\Storefront\StorefrontCustomerRepository"
+          table="Shopify_StorefrontCustomer">
+
+    <id name="storefront" association-key="true" />
+    <id name="customer" association-key="true" />
+
+    <many-to-one
+        target-entity="Rialto\Shopify\Storefront\Storefront"
+        field="storefront">
+        <join-column
+            name="storefrontID"
+            referenced-column-name="id"
+            nullable="false" />
+    </many-to-one>
+
+    <many-to-one
+        target-entity="Rialto\Sales\Customer\Customer"
+        field="customer">
+        <join-column
+            name="customerID"
+            referenced-column-name="DebtorNo"
+            nullable="false" />
+    </many-to-one>
+
+    <field name="remoteID" type="string" nullable="false" />
+  </entity>
+</doctrine-mapping>

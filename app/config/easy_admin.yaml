@@ -1,0 +1,84 @@
+easy_admin:
+    site_name: Rialto
+    list:
+        max_results: 30
+    design:
+        menu:
+            - { label: Home, route: index }
+            - GLAccount
+            - Role
+            - BinStyle
+            - TaxAuthority
+            - Company
+    entities:
+        # Accounting #
+        GLAccount:
+            class: Rialto\Accounting\Ledger\Account\GLAccount
+            label: "Accounting : GL Account"
+            disabled_actions: [delete]
+            list:
+                fields:
+                    - id
+                    - name
+                    - groupName
+                sort: ['id', 'ASC']
+            form:
+                fields:
+                    - id
+                    - name
+                    - accountGroup
+
+        # Security #
+        Role:
+            class: Rialto\Security\Role\Role
+            label: "Security : Role"
+            disabled_actions: [new, delete]
+            list:
+                fields:
+                    - role
+                    - group
+                    - label
+            form:
+                fields:
+                    - group
+                    - label
+
+        # Stock #
+        BinStyle:
+            class: Rialto\Stock\Bin\BinStyle
+            label: "Stock : Bin style"
+            disabled_actions: [delete]
+            list:
+                fields:
+                    - id
+                    - name
+                    - numLabels
+            new:
+                fields:
+                    - id
+                    - name
+                    - numLabels
+
+        # Tax #
+        TaxAuthority:
+            class: Rialto\Tax\Authority\TaxAuthority
+            label: "Tax : Tax Authority"
+            disabled_actions: [new, delete]
+
+        Company:
+            class: Rialto\Company\Company
+            label: "Company"
+            disabled_actions: [new, delete]
+            list:
+                fields:
+                    - id
+                    - name
+                    - regOffice1
+                    - regOffice2
+                    - regOffice3
+            form:
+                fields:
+                    - name
+                    - regOffice1
+                    - regOffice2
+                    - regOffice3

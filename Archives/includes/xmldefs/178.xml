@@ -1,0 +1,25 @@
+<vendor_definition vendor_name=''>
+	<start_word value="Qua"></start_word>
+	<end_word value="Total"></end_word>
+	<line_id value='1'></line_id>
+
+	<table_definition name='tables'>
+		<field name='shipped' order='0'></field>
+		<field name='description' order='1~-2'></field>
+		<field name='each' order='-2'></field>
+		<field name='total' order='-1'></field>
+	</table_definition>
+
+	<globals_definition name='globals'>
+		<global name='purchase_order_no' text='P.O. Number' location='below_2'></global>
+		<global name='invoice_no' text='Invoice #' right='eol' location='below_2'></global>
+		<global name='sales_order_no' text='Project' right='eol' location='below_2'></global>
+		<global name='invoice_date' text='Date' right='Invoice' location='below_2'></global>
+		<global name='terms' ></global>
+		<global name='tracking_number' text='BOX ID' location='right'>></global>
+		<global name='freight_charges'></global>
+		<global name='tax_charged' ></global>
+		<global name='grand_total' text='Total' location='right' ></global>
+	</globals_definition>
+
+</vendor_definition>

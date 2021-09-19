@@ -1,0 +1,11 @@
+filing_calendar:
+    resource: Rialto\Filing\Calendar\Web\CalendarController
+    type: annotation
+
+filing_document:
+    resource: Rialto\Filing\Document\Web\DocumentController
+    type: annotation
+
+filing_entry:
+    resource: Rialto\Filing\Entry\Web\EntryController
+    type: annotation

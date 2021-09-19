@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Bank\Transfer\BankTransfer"
+            table="BankTransfer">
+
+        <id name="id"
+            type="bigint"
+            column="ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <one-to-one field="fromTransaction"
+                     target-entity="Rialto\Accounting\Bank\Transaction\BankTransaction">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="fromTransactionID"
+                         referenced-column-name="BankTransID"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </one-to-one>
+
+        <one-to-one field="toTransaction"
+                     target-entity="Rialto\Accounting\Bank\Transaction\BankTransaction">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="toTransactionID"
+                         referenced-column-name="BankTransID"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </one-to-one>
+
+    </entity>
+</doctrine-mapping>

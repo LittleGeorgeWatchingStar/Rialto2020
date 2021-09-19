@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Manufacturing\Bom\BomItem"
+            repository-class="Rialto\Manufacturing\Bom\Orm\BomItemRepository"
+            table="BOM">
+
+        <unique-constraints>
+            <unique-constraint columns="Parent,ParentVersion,Component"/>
+        </unique-constraints>
+
+        <id name="id"
+            type="bigint"
+            column="ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="version"
+               type="string"
+               length="31"
+               column="ComponentVersion"/>
+
+        <field name="quantity"
+               type="decimal"
+               column="Quantity"
+               precision="12"
+               scale="4"/>
+
+        <field name="primary"
+               type="boolean"
+               column="isPrimary"/>
+
+        <field name="designators"
+               type="simple_array"
+               column="Designators"
+               nullable="true"/>
+
+        <many-to-one field="parent"
+                     target-entity="Rialto\Stock\Item\Version\ItemVersion"
+                     inversed-by="bomItems"
+                     fetch="EAGER">
+            <join-columns>
+                <join-column name="Parent"
+                             referenced-column-name="stockCode"
+                             nullable="false"/>
+                <join-column name="ParentVersion"
+                             referenced-column-name="version"
+                             nullable="false"/>
+            </join-columns>
+        </many-to-one>
+
+        <many-to-one field="component"
+                     target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="Component"
+                         referenced-column-name="StockID"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="workType"
+                     target-entity="Rialto\Manufacturing\WorkType\WorkType">
+            <join-column name="workTypeID"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="customization"
+                     target-entity="Rialto\Manufacturing\Customization\Customization">
+            <join-column name="customizationID"
+                         referenced-column-name="id"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

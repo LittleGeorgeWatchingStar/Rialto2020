@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Sales\GLPosting\CogsGLPosting"
+            repository-class="Rialto\Sales\GLPosting\Orm\CogsGLPostingRepository"
+            table="COGSGLPostings">
+
+        <unique-constraints>
+            <unique-constraint columns="Area,StkCat,SalesType"/>
+        </unique-constraints>
+
+        <id name="id"
+            type="integer"
+            column="ID">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one field="salesArea"
+                     target-entity="Rialto\Sales\Customer\SalesArea">
+            <join-column name="Area"
+                         referenced-column-name="AreaCode"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="stockCategory"
+                     target-entity="Rialto\Stock\Category\StockCategory">
+            <join-column name="StkCat"
+                         referenced-column-name="CategoryID"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="salesType"
+                     target-entity="Rialto\Sales\Type\SalesType">
+            <join-column name="SalesType"
+                         referenced-column-name="TypeAbbrev"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="account"
+                     target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column name="GLCode"
+                         referenced-column-name="AccountCode"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

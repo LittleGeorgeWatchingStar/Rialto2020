@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Tax\TaxLookup:
+    alias: Rialto\Tax\TaxJarLookup
+    public: true
+
+  TaxJar\Client:
+    factory: ['TaxJar\Client', withApiKey]
+    arguments:
+      - "%taxjar_api_token%"
+
+  Rialto\Tax\TaxJarLookup: ~
+
+  Rialto\Tax\Web\TaxExtension: ~
+
+  Rialto\Tax\Regime\Cli\LoadTaxRegimesCommand: ~

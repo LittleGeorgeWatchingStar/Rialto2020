@@ -1,0 +1,29 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Shopify\Webhook\WebhookAuthenticator: ~
+
+  Rialto\Shopify\Webhook\ShopifyUserProvider: ~
+
+  Rialto\Shopify\Webhook\Cli\WebhookCustomCommand: ~
+
+  Rialto\Shopify\Order\PaymentProcessor:
+    tags:
+      - name: kernel.event_listener
+        event: rialto_sales.capture_payment
+        method: capturePayment
+
+  Rialto\Shopify\Order\FulfillmentListener:
+    tags:
+      - name: kernel.event_listener
+        event: rialto_sales.order_invoice
+        method: onOrderInvoice
+
+  Rialto\Shopify\Order\OrderClosedListener:
+    tags:
+      - name: kernel.event_listener
+        event: rialto_sales.order_closed
+        method: onOrderClosed

@@ -1,0 +1,69 @@
+<menu>
+        <BRANCH NAME='Payables'   IMAGE='actions/edit-undo.png'>
+		<LEAF NAME='Read invoices' IMAGE="places/oxygen-style/mail-folder-inbox.png"  moveTo="Emails" TARGET='Emails'>Review emailed invoices</LEAF>
+                <LEAF NAME='Entering PDF Invoice' IMAGE="mimetypes/gnome-style/application-pdf-2.png"  moveTo="main"> Entering PDF Invoice</LEAF>
+                <LEAF NAME='Reading UPS emails' IMAGE="actions/mail-attach-2.png"  moveTo="main"> Reading UPS emails</LEAF>
+                <LEAF NAME='Allocate uploaded payments' IMAGE="others/money.png"  moveTo="main">Allocate uploaded payments</LEAF>
+                <LEAF NAME='Mark email as read' IMAGE="actions/mail-forward.png"  moveTo="main"> Mark email as read</LEAF>
+                <LEAF NAME='Checks to print' IMAGE="actions/document-print.png"  moveTo="main"> Checks to print</LEAF>
+	 </BRANCH>
+
+        <BRANCH NAME='Purchasing' IMAGE='apps/accessories-text-editor.png'>
+                <LEAF NAME='Correct stock levels' IMAGE="actions/edit-find-replace.png"  moveTo="main"> Correct stock levels</LEAF>
+                <LEAF NAME='Place online orders' IMAGE="apps/internet-web-browser-7.png"  moveTo="main"> Place online orders</LEAF>
+                <LEAF NAME='Email orders' IMAGE="places/oxygen-style/mail-folder-outbox.png"  moveTo="main"> Email orders</LEAF>
+        </BRANCH>
+
+        <BRANCH NAME='Stock' IMAGE='mimetypes/package-x-generic.png'>
+                <LEAF NAME='Manage Stock Items' IMAGE="actions/edit-undo.png"  moveTo="main"> Manage Stock Items</LEAF>
+                <LEAF NAME='Manage stock quotations' IMAGE="actions/edit-undo.png"  moveTo="main"> Manage stock quotations</LEAF>
+		<LEAF NAME='Create customization' IMAGE="actions/edit-undo.png"  moveTo="main"> Create customization</LEAF>
+                <LEAF NAME='Review stock errors' IMAGE="actions/edit-undo.png"  moveTo="main"> Review stock errors</LEAF>
+                <LEAF NAME='Designs to review' IMAGE="actions/edit-undo.png"  moveTo="main"> Designs to review</LEAF>
+                <LEAF NAME='Files to upload' IMAGE="actions/edit-undo.png"  moveTo="main"> Files to upload</LEAF>
+                <LEAF NAME='Review COGS' IMAGE="actions/edit-undo.png"  moveTo="main"> Review COGS</LEAF>
+        </BRANCH>
+
+        <BRANCH NAME='Sales' IMAGE='mimetypes/x-office-address-book.png'>
+                <LEAF NAME='Allocate receipts' IMAGE="actions/edit-undo.png"  moveTo="main"> Allocate receipts</LEAF>
+                <LEAF NAME='Allocate sales details' IMAGE="actions/edit-undo.png"  moveTo="main"> Allocate sales details</LEAF>
+                <LEAF NAME='Approve sales order' IMAGE="actions/edit-undo.png"  moveTo="main"> Approve sales order</LEAF>
+        </BRANCH>
+
+        <BRANCH NAME='HR' IMAGE='apps/system-users.png'>
+                <LEAF NAME='Submitting expenses' IMAGE="mimetypes/oxygen-style/application-vnd.ms-excel.png"  moveTo="main"> Submitting expenses</LEAF>
+                <LEAF NAME='Review priorities' IMAGE="actions/format-list-ordered.png"  moveTo="main"> Review priorities</LEAF>
+        </BRANCH>
+
+        <BRANCH NAME='Financials' IMAGE='emblems/emblem-money.png'>
+                <LEAF NAME='SVB daily loads' IMAGE="apps/internet-download_manager-2.png"  moveTo="main"> SVB daily loads</LEAF>
+                <LEAF NAME='SVB balance checked' IMAGE="actions/mail-filters-apply.png"  moveTo="main"> SVB balance checked</LEAF>
+                <LEAF NAME='Alter sweeps' IMAGE="actions/edit-clear-3.png"  moveTo="main"> Alter sweeps</LEAF>
+                <LEAF NAME='Uploading a budget' IMAGE="actions/arrow-up-double-2.png"  moveTo="main"> Uploading a budget</LEAF>
+	</BRANCH>
+
+        <BRANCH NAME='Logistics' IMAGE='categories/applications-system.png'>
+                <LEAF NAME='Orders overdue orders' IMAGE="actions/edit-undo.png"  moveTo="main"> Orders overdue orders</LEAF>
+                <LEAF NAME='Kits to ship' IMAGE="actions/edit-undo.png"  moveTo="main"> Kits to ship</LEAF>
+                <LEAF NAME='POs waiting for to ship' IMAGE="actions/edit-undo.png"  moveTo="main"> POs waiting for to ship</LEAF>
+                <LEAF NAME='What will be short' IMAGE="actions/edit-undo.png"  moveTo="main"> What will be short</LEAF>
+        </BRANCH>
+
+        <BRANCH NAME='Marketing' IMAGE='actions/edit-find.png'>
+                <LEAF NAME='Press stock text to validate' IMAGE="actions/edit-undo.png"  moveTo="main"> Press stock text to validate</LEAF>
+                <LEAF NAME='Tests to approve' IMAGE="actions/edit-undo.png"  moveTo="main"> Tests to approve</LEAF>
+                <LEAF NAME='Stocking orders' IMAGE="actions/edit-undo.png"  moveTo="main"> Stocking orders</LEAF>
+                <LEAF NAME='Samples sent out' IMAGE="actions/edit-undo.png"  moveTo="main"> Samples sent out</LEAF>
+        </BRANCH>
+
+	<BRANCH NAME='nFinancials'>
+		<LEAF NAME='Read invoices' 		TARGET='Emails'></LEAF>
+		<LEAF NAME='Verify sweeps'		TARGET='Sweeps'></LEAF>
+		<LEAF NAME='Accounting'		  	TARGET='Profits'></LEAF>
+	</BRANCH>
+        <BRANCH NAME='nProjects'>
+                <LEAF NAME='Show Mantis Boards'  TARGET='Projects'></LEAF>
+                <LEAF NAME='Show Gauges'         TARGET='Gauges'></LEAF>
+        </BRANCH>
+
+</menu>

@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Task\TaskVoter: ~
+
+  Rialto\Security\Firewall\ByUuidProvider: ~
+
+  Rialto\Security\Firewall\ByUsernameProvider: ~
+
+  Rialto\Security\Firewall\UsernameNotFoundExceptionHandler: ~
+
+  Rialto\Security\Nda\NdaFormListener: ~
+
+  Rialto\Security\Logging\SentryContextProcessor:
+    tags:
+      - { name: monolog.processor, method: processRecord, handler: sentry }
+
+  Rialto\Security\Web\SecurityExtension: ~

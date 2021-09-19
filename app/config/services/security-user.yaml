@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Security\User\Orm\UserRepository:
+    shared: false
+    factory: 'doctrine:getRepository'
+    arguments:
+      - Rialto\Security\User\User
+
+  Rialto\Security\User\Cli\CreateUserCommand: ~
+
+  Rialto\Security\User\Cli\PromoteUserCommand: ~
+
+  Rialto\Security\User\Cli\AddUuidCommand: ~
+
+  Rialto\Security\User\Web\UserType: ~
+
+  Rialto\Security\User\UserVoter: ~
+
+  Rialto\Security\User\UserManager:
+      class: Rialto\Security\User\SymfonyUserManager
+
+  Rialto\Security\User\LastLoginUpdater: ~

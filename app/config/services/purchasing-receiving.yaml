@@ -1,0 +1,34 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Purchasing\Receiving\ItemReceiver:
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: flash}
+
+  Rialto\Purchasing\Receiving\Receiver:
+    public: true
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: flash}
+
+  Rialto\Purchasing\Receiving\GoodsReceivedLogger:
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: receiving}
+
+  Rialto\Purchasing\Receiving\Web\GoodsReceivedType: ~
+
+  Rialto\Purchasing\Receiving\Auth\ReceiveIntoVoter: ~
+
+  Rialto\Purchasing\Receiving\Auth\CanReceiveIntoValidator: ~
+
+  Rialto\Purchasing\Receiving\Notify\XmppEventSubscriber: ~
+
+  Rialto\Purchasing\Receiving\Notify\TestXmppCommand: ~

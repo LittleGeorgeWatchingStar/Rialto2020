@@ -1,0 +1,31 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Magento2\Firewall\MagentoAuthenticator: ~
+
+  Rialto\Magento2\Firewall\StorefrontUserProvider: ~
+
+  Rialto\Magento2\Order\PaymentProcessor: ~
+
+  Rialto\Magento2\Order\ShipmentListener: ~
+
+  Rialto\Magento2\Order\OrderClosedListener: ~
+
+  Rialto\Magento2\Stock\StockUpdateListener: ~
+
+  Rialto\Magento2\Stock\Cli\SyncStockLevelsCommand: ~
+
+  Rialto\Magento2\Order\Cli\SyncOrdersCommand: ~
+
+  Rialto\Magento2\Order\OrderSynchronizerInterface:
+    class: Rialto\Magento2\Order\OrderSynchronizer
+    public: true
+
+  Rialto\Magento2\Api\Rest\RestApiFactory:
+    public: true
+
+  Rialto\Magento2\Order\SuspectedFraudListener: ~
+

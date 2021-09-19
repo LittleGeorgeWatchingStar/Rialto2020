@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Rialto\Manufacturing\Kit\Reminder\SendEmailCommand: ~
+
+    Rialto\Manufacturing\Kit\Reminder\EmailScheduler: ~

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Bank\Statement\BankStatementMatch"
+        repository-class="Rialto\Accounting\Bank\Statement\Match\BankStatementMatchRepository"
+        table="BankStatementMatch">
+
+        <id name="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="amountCleared" type="decimal" column="amountCleared" />
+
+        <many-to-one
+            field="bankStatement"
+            target-entity="Rialto\Accounting\Bank\Statement\BankStatement"
+            inversed-by="matches">
+           <join-column name="statementID" referenced-column-name="BankStatementID" />
+        </many-to-one>
+
+        <many-to-one
+            field="bankTransaction"
+            target-entity="Rialto\Accounting\Bank\Transaction\BankTransaction"
+            inversed-by="matches">
+           <join-column name="transactionID" referenced-column-name="BankTransID" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

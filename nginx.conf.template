@@ -1,0 +1,74 @@
+# Sample Nginx configuration for Rialto.
+
+server {
+    server_name rialto.%(domain)s;
+    root %(appdir)s/web;
+
+    listen 80;
+
+    error_log %(logdir)s/nginx/rialto.error.log;
+
+    client_max_body_size 100m;
+
+    # Prevent the back button from showing the most recent
+    # AJAX JSON response.
+    add_header Vary Accept;
+
+    # Down for maintenance trigger.
+    if (-f %(appdir)s/maintenance.trigger) {
+        return 503;
+    }
+
+    # Send / to index.php
+    location = / {
+        return 301 /index.php;
+    }
+
+    # Pass PHP scripts to FastCGI server
+    location ~ \.php {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        fastcgi_param SYMFONY_ENV %(app_env)s;
+        fastcgi_param HTTPS "%(https)s";
+        # AWS credentials -- for local dev environment only!
+        # EC2 instances should use IAM roles.
+        #fastcgi_param AWS_ACCESS_KEY_ID "%(aws_key)s";
+        #fastcgi_param AWS_SECRET_ACCESS_KEY "%(aws_secret)s";
+
+        # Make sure buffers are large enough
+        fastcgi_buffers 8 64k;
+        fastcgi_buffer_size 64k;
+
+        # Longer timeout for the occasional slow request.
+        fastcgi_read_timeout 120s;
+
+        access_log %(logdir)s/nginx/rialto.access.log;
+    }
+
+    # Deny access to hidden files
+    location ~ /\. {
+        deny all;
+    }
+
+    # Only allow local requests to documentation
+    location /doc/ {
+        autoindex on;
+        allow 127.0.0.1;
+        deny all;
+    }
+
+    # Serve any other non-PHP files.
+    location / {
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        try_files $uri $uri/ =404;
+    }
+}
+
+

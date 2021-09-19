@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Facility\Facility"
+            repository-class="Rialto\Stock\Facility\Orm\FacilityRepository"
+            table="Locations">
+
+        <id name="id"
+            type="string"
+            length="5"
+            column="LocCode"/>
+
+        <field name="name"
+               type="string"
+               column="LocationName"
+               length="50"
+               nullable="false"/>
+
+        <field name="contactName"
+               type="string"
+               column="Contact"
+               length="30"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="phone"
+               type="string"
+               column="Tel"
+               length="30"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="fax"
+               type="string"
+               column="Fax"
+               length="30"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="email"
+               type="string"
+               column="Email"
+               length="255"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="active"
+               type="boolean"
+               column="Active"
+               nullable="false">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <field name="allocateFromCM"
+               type="boolean"
+               column="AllocateFromCM"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <many-to-one target-entity="Rialto\Geography\Address\Address"
+                     field="address">
+            <join-column name="addressId"
+                         referenced-column-name="id"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <one-to-one field="supplier"
+                    target-entity="Rialto\Purchasing\Supplier\Supplier"
+                    inversed-by="facility">
+            <join-column name="SupplierID"
+                         referenced-column-name="SupplierID"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </one-to-one>
+
+        <many-to-one field="taxAuthority"
+                     target-entity="Rialto\Tax\Authority\TaxAuthority">
+            <join-column name="TaxAuthority"
+                         referenced-column-name="TaxID"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="parentLocation"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="parentID"
+                         referenced-column-name="LocCode"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

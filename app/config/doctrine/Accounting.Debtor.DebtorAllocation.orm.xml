@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Debtor\DebtorAllocation"
+            table="CustAllocns">
+
+        <unique-constraints>
+            <unique-constraint columns="TransID_AllocFrom,TransID_AllocTo"/>
+        </unique-constraints>
+
+        <id name="id"
+            type="bigint"
+            column="ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="amount"
+               type="decimal"
+               column="Amt"
+               precision="16"
+               scale="2"/>
+
+        <field name="date"
+               type="date"
+               column="DateAlloc"/>
+
+        <many-to-one field="credit"
+                     target-entity="Rialto\Accounting\Debtor\DebtorCredit"
+                     inversed-by="allocations">
+            <join-column name="TransID_AllocFrom"
+                         referenced-column-name="ID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="invoice"
+                     target-entity="Rialto\Accounting\Debtor\DebtorInvoice"
+                     inversed-by="allocations">
+            <join-column name="TransID_AllocTo"
+                         referenced-column-name="ID"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

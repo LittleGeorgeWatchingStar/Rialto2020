@@ -1,0 +1,95 @@
+batch_update:
+    resource: Rialto\Stock\Item\Web\BatchUpdateController
+    type: annotation
+
+change_notice:
+    resource: Rialto\Stock\ChangeNotice\Web\ChangeNoticeController
+    type: annotation
+
+inventory_report:
+    resource: Rialto\Stock\Web\InventoryReportController
+    type: annotation
+
+item_version:
+    resource: Rialto\Stock\Item\Version\Web\ItemVersionController
+    type: annotation
+
+order_point:
+    resource: Rialto\Stock\Level\Web\OrderPointController
+    type: annotation
+
+publication:
+    resource: Rialto\Stock\Publication\Web\PublicationController
+    type: annotation
+
+standard_cost:
+    resource: Rialto\Stock\Cost\Web\StandardCostController
+    type: annotation
+
+stock_bin:
+    resource: Rialto\Stock\Bin\Web\StockBinController
+    type: annotation
+
+stock_bin_binstyle:
+    resource: Rialto\Stock\Bin\Web\BinStyleController
+    type: annotation
+
+stock_category:
+    resource: Rialto\Stock\Category\Web\StockCategoryController
+    type: annotation
+
+stock_consumption:
+    resource: Rialto\Stock\Consumption\Web\StockConsumptionController
+    type: annotation
+
+stock_count:
+    resource: Rialto\Stock\Count\Web\StockCountController
+    type: annotation
+
+stock_facility:
+    resource: Rialto\Stock\Facility\Web\FacilityController
+    type: annotation
+
+stock_item:
+    resource: Rialto\Stock\Item\Web\StockItemController
+    type: annotation
+
+stock_item_attribute:
+    resource: Rialto\Stock\Item\Web\StockItemAttributeController
+    type: annotation
+
+stock_item_connections:
+    resource: Rialto\Stock\Item\Web\StockItemConnectionsController
+    type: annotation
+
+stock_label:
+    resource: Rialto\Stock\Bin\Label\Web\LabelController
+    type: annotation
+
+stock_level:
+    resource: Rialto\Stock\Level\Web\StockLevelController
+    type: annotation
+
+stock_move:
+    resource: Rialto\Stock\Move\Web\StockMoveController
+    type: annotation
+
+stock_returns:
+    resource: Rialto\Stock\Returns\Web\ReturnedItemController
+    type: annotation
+
+stock_shelf_assign:
+    resource: Rialto\Stock\Shelf\Position\Web\AssignmentController
+    type: annotation
+
+stock_shelf_rack:
+    resource: Rialto\Stock\Shelf\Rack\Web\RackController
+    type: annotation
+
+stock_sku:
+    resource: Rialto\Stock\Item\Web\SkuController
+    type: annotation
+
+stock_transfer:
+    resource: Rialto\Stock\Transfer\Web\TransferController
+    type: annotation

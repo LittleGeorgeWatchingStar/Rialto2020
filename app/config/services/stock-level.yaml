@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Stock\Level\StockLevelSynchronizer:
+    public: true
+
+  Rialto\Stock\Level\Cli\StockLevelSyncCommand:
+    tags:
+      - { name: monolog.logger, channel: automation }
+
+  Rialto\Stock\Level\StockLevelService:
+    public: true

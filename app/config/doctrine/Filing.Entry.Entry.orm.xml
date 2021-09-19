@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Filing\Entry\Entry"
+            table="Filing_Entry"
+            repository-class="Rialto\Filing\Entry\Orm\EntryRepository">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one field="document"
+                 target-entity="Rialto\Filing\Document\Document">
+            <join-column name="documentID" referenced-column-name="uuid" />
+        </many-to-one>
+
+        <many-to-one field="filedBy"
+                 target-entity="Rialto\Security\User\User">
+            <join-column name="filedBy" referenced-column-name="UserID" />
+        </many-to-one>
+
+        <field name="dateFiled" type="datetime" column="dateFiled"/>
+
+        <field name="filename" type="string" column="filename" length="255"/>
+
+        <view-roles>
+            <role>ROLE_ACCOUNTING</role>
+        </view-roles>
+    </entity>
+</doctrine-mapping>

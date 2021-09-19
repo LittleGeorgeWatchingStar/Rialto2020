@@ -1,0 +1,113 @@
+# Configuration for staging environment (devstix.com)
+
+imports:
+    - { resource: config.yaml }
+
+parameters:
+    db_host: dev-rialto-rds.c9kpdp26dpn1.us-west-2.rds.amazonaws.com
+    mongo_host: 10.1.21.106
+    data_bucket: devstix-rialto-files
+
+    # Set the default request context for generatings URLs in console commands
+    router.request_context.host: rialto.devstix.com
+    router.request_context.scheme: https
+    router.request_context.base_url: /index.php
+
+    trusted_hosts:
+        - devstix.com
+        - '%pcb_ng.storefront.base_uri%'
+    cors_hosts:
+        - ^https://(.+.)?devstix.com
+    use_ssl: true
+
+    user.admin: ianfp
+    user.webmaster: ianfp
+
+    ups.webservices.uri: https://wwwcie.ups.com
+    ups.user_id: craighughes
+    ups.invoice_host: ftp2.ups.com
+    ups.invoice_username: gumstix0316
+
+    authorizenet.login: 6e79LeRw
+    authorizenet.sandbox: 1
+
+    pcb_ng.storefront.base_uri: 'https://staging-storefront.pcbng.com/'
+    pcb_ng.api.base_uri: 'https://api-staging.pcbng.com/api/'
+
+    gumstix_sso.service.server: https://accounts.devstix.com/
+    rialto_wordpress.base_url: https://www.devstix.com
+    rialto_madison.madison_url: https://madison.devstix.com/app.php
+    catalina.base_url: https://catalina.devstix.com
+    geppetto.base_url: https://geppetto.devstix.com
+
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+swiftmailer:
+    disable_delivery: true
+
+monolog:
+    handlers:
+        sentry:  # Only report fatal errors from devstix
+            type: raven
+            dsn: "%sentry_dsn%"
+            level: critical
+            channels: "!flash"
+        php: # Report PHP deprecations, etc, to Sentry
+            type: raven
+            dsn: "%sentry_dsn%"
+            level: warning
+            channels: php
+        production:
+            type: mongo
+            mongo:
+                host: "%mongo_host%"
+                database: rialto
+                collection: production
+            level: info
+            channels:
+                - supplier
+                - manufacturing
+                - receiving
+        automation:
+            type: mongo
+            mongo:
+                host: "%mongo_host%"
+                database: rialto
+                collection: automation
+            level: info
+            channels:
+                - automation
+        email:
+            type: mongo
+            mongo:
+                host: "%mongo_host%"
+                database: rialto
+                collection: email
+            level: info
+            channels:
+                - email
+        flash:
+            type: service
+            id: Rialto\Logging\FlashHandler
+            channels: flash
+
+        # Use logger for console command output.
+        # See http://symfony.com/doc/current/cookbook/logging/monolog_console.html
+        console:
+            type: console
+            level: info
+            channels: "!doctrine"
+
+
+services:
+    Rialto\Purchasing\Invoice\Reader\Email\SupplierMailbox:
+        class: Rialto\Purchasing\Invoice\Reader\Email\FakeMailbox
+
+    Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocator:
+        class: Rialto\Purchasing\Invoice\Reader\Email\FakeAttachmentLocator
+

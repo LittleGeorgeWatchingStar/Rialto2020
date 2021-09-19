@@ -1,0 +1,5 @@
+Code	Location	Description	Capacity	OverheadPerHour	OverheadRecoveryAct	SetUpHrs
+BESTK	9	BesTek	1.0000	0.0000	0	0.0000
+GARAG	7	Meadowood	1.0000	0.0000	0	0.0000
+INNSV	8	Innerstep	1.0000	0.0000	0	0.0000
+MYROP	10	Programming	1.0000	0.0000	57000	0.0000

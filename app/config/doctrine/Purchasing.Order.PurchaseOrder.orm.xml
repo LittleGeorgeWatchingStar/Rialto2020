@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Purchasing\Order\PurchaseOrder"
+            repository-class="Rialto\Purchasing\Order\Orm\PurchaseOrderRepository"
+            table="PurchOrders">
+
+        <id name="id"
+            type="bigint"
+            column="OrderNo">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <!-- Concurrency control field; see
+        http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/transactions-and-concurrency.html#optimistic-locking
+        -->
+        <field name="editNo"
+               type="integer"
+               version="true"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="comments"
+               type="text"
+               column="Comments"
+               nullable="true"/>
+
+        <field name="productionNotes"
+               type="text"
+               column="ProductionNotes"
+               nullable="true"/>
+
+        <field name="orderDate"
+               type="datetime"
+               column="OrdDate"
+               nullable="false"/>
+
+        <field name="exchangeRate"
+               type="decimal"
+               column="Rate"
+               precision="16"
+               scale="4"
+               nullable="false">
+            <options>
+                <option name="default">1.0</option>
+            </options>
+        </field>
+
+        <field name="dateUpdated"
+               type="datetime"
+               nullable="false"/>
+
+        <field name="datePrinted"
+               type="datetime"
+               column="DatePrinted"
+               nullable="true"/>
+
+        <field name="shippingMethod"
+               type="string"
+               column="ShippingMethod"
+               length="12"
+               nullable="true"/>
+
+        <field name="approvalStatus"
+               type="string"
+               column="ApprovalStatus"
+               length="20"
+               nullable="false">
+            <options>
+                <option name="default">pending</option>
+            </options>
+        </field>
+
+        <field name="approvalReason"
+               type="string"
+               column="ApprovalReason"
+               length="255"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="initiator"
+               type="string"
+               column="Initiator"
+               length="10"
+               nullable="false"/>
+
+        <field name="supplierReference"
+               type="string"
+               column="SupplierReference"
+               length="50"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="autoAddItems"
+               type="boolean"
+               nullable="false">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <field name="autoAllocateTo"
+               type="boolean"
+               nullable="false">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <one-to-many field="items"
+                     target-entity="Rialto\Purchasing\Producer\StockProducer"
+                     mapped-by="purchaseOrder"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="receipts"
+                     target-entity="Rialto\Purchasing\Receiving\GoodsReceivedNotice"
+                     mapped-by="purchaseOrder"/>
+
+        <one-to-many target-entity="Rialto\Manufacturing\Task\ProductionTask"
+                     mapped-by="purchaseOrder"
+                     field="tasks"/>
+
+        <one-to-many target-entity="Rialto\Purchasing\Order\OrderSent"
+                     field="sendHistory"
+                     mapped-by="purchaseOrder">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="supplier"
+                     target-entity="Rialto\Purchasing\Supplier\Supplier">
+            <join-column name="SupplierNo"
+                         referenced-column-name="SupplierID"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="buildLocation"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="locationID"
+                         referenced-column-name="LocCode"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="owner"
+                     target-entity="Rialto\Security\User\User">
+            <join-column name="Owner"
+                         referenced-column-name="UserID"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="shipper"
+                     target-entity="Rialto\Shipping\Shipper\Shipper">
+            <join-column name="ShipperID"
+                         referenced-column-name="Shipper_ID"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="deliveryLocation"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="IntoStockLocation"
+                         referenced-column-name="LocCode"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Rialto\Geography\Address\Address"
+                     field="deliveryAddress">
+            <join-column name="deliveryAddressId"
+                         referenced-column-name="id"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

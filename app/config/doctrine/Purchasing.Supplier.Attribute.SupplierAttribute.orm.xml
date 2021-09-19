@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Purchasing\Supplier\Attribute\SupplierAttribute"
+            repository-class="Rialto\Purchasing\Supplier\Attribute\Orm\SupplierAttributeRepository">
+
+        <id name="supplier"
+            association-key="true"/>
+
+        <many-to-one
+                field="supplier"
+                target-entity="Rialto\Purchasing\Supplier\Supplier"
+                inversed-by="attributes">
+            <join-column
+                    name="supplierID"
+                    referenced-column-name="SupplierID"
+                    nullable="false"
+                    on-delete="CASCADE"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,43 @@
+# Define aliases for Symfony's built-in services.
+
+services:
+    _defaults:
+        public: true
+
+    Symfony\Component\EventDispatcher\EventDispatcherInterface:
+        alias: event_dispatcher
+
+    JMS\Serializer\SerializerInterface:
+        alias: jms_serializer
+
+    Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface:
+        alias: security.authorization_checker
+
+    Symfony\Component\Validator\Validator\ValidatorInterface:
+        alias: validator
+
+    Symfony\Component\Security\Core\Role\RoleHierarchyInterface:
+        alias: security.role_hierarchy
+        public: false
+
+    Symfony\Component\HttpFoundation\Session\Session:
+        alias: session
+
+    Symfony\Component\HttpFoundation\Session\SessionInterface:
+        alias: session
+
+    Symfony\Component\Routing\RouterInterface:
+        alias: router
+
+    Symfony\Component\Form\FormFactoryInterface:
+        alias: form.factory
+
+    Symfony\Component\HttpFoundation\RequestStack:
+        alias: request_stack
+
+    Twig_Environment:
+        alias: twig
+
+    # This one doesn't work as of Symfony 3.3.16. I don't know why.
+    Symfony\Component\Templating\EngineInterface:
+        alias: templating

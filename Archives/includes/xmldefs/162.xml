@@ -1,0 +1,23 @@
+<vendor_definition vendor_name='Sakoman'>
+	<start_word value="Date"></start_word>
+	<end_word value="CHARGES"></end_word>
+	<line_id value='1'></line_id>
+
+	<table_definition name='tables'>
+		<field name='date' order='0'></field>
+		<field name='description' order='1~-3'></field>
+		<field name='shipped' order='-3'></field>
+		<field name='each' order='-2'></field>
+		<field name='total' order='-1'></field>
+	</table_definition>
+
+	<globals_definition name='globals'>
+                <global name='purchase_order_no' text='Customer Purchase Order' location='below_2'></global>
+		<global name='invoice_no' text='INVOICE #'  location='below_2' right='eol' ></global>
+		<global name='invoice_date' text='DATE'  location='below_2' right='INVOICE'></global>
+		<global name='freight_charges'></global>
+		<global name='tax_charged' ></global>
+		<global name='grand_total' text='CHARGES' location='right' ></global>
+	</globals_definition>
+
+</vendor_definition>

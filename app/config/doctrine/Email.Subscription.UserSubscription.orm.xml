@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Email\Subscription\UserSubscription"
+            table="UserSubscription">
+
+        <id name="user" association-key="true" />
+        <id name="topic" type="string" />
+
+        <many-to-one
+            field="user"
+            target-entity="Rialto\Security\User\User">
+            <join-column name="userID" referenced-column-name="UserID" />
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>

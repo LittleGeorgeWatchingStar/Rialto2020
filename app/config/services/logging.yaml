@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Rialto\Logging\FlashLogger:
+        public: true
+
+    Rialto\Logging\FlashHandler:
+        calls:
+          - [ setSession, [ "@session" ] ]
+
+    Rialto\Logging\Cli\RecreateMongoLogsCommand: ~

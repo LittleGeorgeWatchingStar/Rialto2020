@@ -1,0 +1,29 @@
+diff --git a/src/Headers.php b/src/Headers.php
+index b8058b9..448b7e4 100644
+--- a/src/Headers.php
++++ b/src/Headers.php
+@@ -92,7 +92,11 @@ class Headers implements Countable, Iterator
+             if (preg_match('/^[\x21-\x39\x3B-\x7E]+:.*$/', $line)) {
+                 if ($currentLine) {
+                     // a header name was present, then store the current complete line
+-                    $headers->addHeaderLine($currentLine);
++
++                    try {
++                        $headers->addHeaderLine($currentLine);
++                    } catch (\Exception $ex) {
++                    }
+                 }
+                 $currentLine = trim($line);
+                 continue;
+@@ -112,7 +116,10 @@ class Headers implements Countable, Iterator
+             ));
+         }
+         if ($currentLine) {
+-            $headers->addHeaderLine($currentLine);
++            try {
++                $headers->addHeaderLine($currentLine);
++            } catch (\Exception $ex) {
++            }
+         }
+         return $headers;
+     }

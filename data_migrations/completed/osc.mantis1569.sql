@@ -1,0 +1,1 @@
+alter table products_features add `category` varchar(50) NOT NULL DEFAULT '';

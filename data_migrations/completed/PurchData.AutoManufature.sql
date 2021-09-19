@@ -1,0 +1,1 @@
+alter table PurchData add column AutoManufacture varchar(100) not null default '';

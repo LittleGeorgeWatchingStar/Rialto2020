@@ -1,0 +1,47 @@
+panelization:
+  no_purch_data: "No purchasing data exists for {{item}} at {{supplier}}."
+  no_pcb: "{{ sku }} has no PCB component."
+  no_dimensions: "{{ sku }} has no dimensions."
+
+stock:
+  shelf:
+    rack:
+      name:
+        length:
+          max: "Name must be short (max {{ limit }}) so that it fits on a label."
+        regex: "Rack name can only consist of letters."
+      removeshelf:
+        occupied: "{{ shelf }} cannot be removed because it is occupied."
+    shelf:
+      binstyles:
+        count:
+          min: "Choose at least one bin style."
+    position:
+      outside: "{{ pos }} cannot be removed because it is occupied."
+  bom.dup_item: The BOM already contains %code%.
+
+sku:
+  regex: A SKU must begin with a letter and contain only uppercase letters and digits.
+  new: The SKU "%sku%" is already in use.
+
+workorder:
+  issue_limit: "There are only allocations enough to issue {{ limit }} units."
+  audit:
+    not_ready: "This work order is not kit-complete."
+
+rework:
+  min_bins: "Please choose at least one bin."
+  active_bin: "Cannot rework version %version% because it is not active."
+  matching_bins: "Selected bins must all have the same version and customization."
+
+stale_order_def:
+  age_min: "Minimum age must be at least {{ limit }}."
+  age_invalid: "Minimum age must be a number."
+  contacts: "Selected location has no kit contacts."
+
+purchasing:
+  cost_break.no_dups: "A cost break already exists with that minimum order quantity and manufacturer lead time."
+  purch_data.unique: "A matching purchasing data record already exists."
+  purch_data_template.variable: "Variable %name% is required."
+  po.delivery_location.conflict: "%item% is needed at %location% by %consumer%."
+  supplier_api.already_exists: "A supplier can only have one API defined."

@@ -1,0 +1,31 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Shipping\Shipment\ShipmentFactory:
+    alias: Rialto\Shipping\Shipment\DelegatingShipmentFactory
+    public: true
+
+  Rialto\Shipping\Shipment\DefaultShipmentFactory: ~
+
+  Rialto\Shipping\Shipment\DelegatingShipmentFactory:
+    arguments:
+        - '@Rialto\Shipping\Shipment\DefaultShipmentFactory'
+    calls:
+      - [ registerImplementation, [ UPS, '@Rialto\Ups\Shipping\UpsShipmentFactory' ] ]
+
+  Rialto\Shipping\Shipment\Web\ShipmentOptionsType: ~
+
+  Rialto\Shipping\Export\AllowedCountryValidator: ~
+
+  Rialto\Shipping\Export\DeniedPartyScreener:
+    public: true
+    class: Rialto\Shipping\Export\ExemptionAwareDeniedPartyScreener
+    arguments:
+      - '@Rialto\Ups\Shipping\Export\UpsDeniedPartyScreener'
+
+  Rialto\Shipping\Method\ShippingTimeEstimator\ShippingTimeEstimatorInterface:
+    public: true
+    class:  Rialto\Shipping\Method\ShippingTimeEstimator\ShippingTimeEstimator

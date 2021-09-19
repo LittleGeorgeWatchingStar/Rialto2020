@@ -1,0 +1,100 @@
+
+
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\$callable of method Rialto\\\\Database\\\\Orm\\\\FilterQueryBuilder\\:\\:add\\(\\) has invalid typehint type Rialto\\\\Database\\\\Orm\\\\callback\\.$#"
+			count: 1
+			path: src/Rialto/Database/Orm/FilterQueryBuilder.php
+
+		-
+			message: "#^Result of function ps_close_image \\(void\\) is used\\.$#"
+			count: 1
+			path: src/Rialto/Filetype/Postscript/PostscriptDocument.php
+
+		-
+			message: "#^Variable \\$Left_Margin might not be defined\\.$#"
+			count: 1
+			path: src/Rialto/Filing/DocumentGenerator.php
+
+		-
+			message: "#^Variable \\$Page_Height might not be defined\\.$#"
+			count: 2
+			path: src/Rialto/Filing/DocumentGenerator.php
+
+		-
+			message: "#^Variable \\$Page_Width might not be defined\\.$#"
+			count: 2
+			path: src/Rialto/Filing/DocumentGenerator.php
+
+		-
+			message: "#^Rialto\\\\Geppetto\\\\FakeGeppettoClient\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Geppetto\\\\GeppettoClient\\.$#"
+			count: 1
+			path: src/Rialto/Geppetto/FakeGeppettoClient.php
+
+		-
+			message: "#^Rialto\\\\Madison\\\\FakeMadisonClient\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Madison\\\\MadisonClient\\.$#"
+			count: 1
+			path: src/Rialto/Madison/FakeMadisonClient.php
+
+		-
+			message: "#^Rialto\\\\Magento2\\\\Api\\\\Rest\\\\FakeInvoiceApi\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Magento2\\\\Api\\\\Rest\\\\BaseApi\\.$#"
+			count: 1
+			path: src/Rialto/Magento2/Api/Rest/FakeInvoiceApi.php
+
+		-
+			message: "#^Rialto\\\\Magento2\\\\Api\\\\Rest\\\\FakeRestApiFactory\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Magento2\\\\Api\\\\Rest\\\\RestApiFactory\\.$#"
+			count: 1
+			path: src/Rialto/Magento2/Api/Rest/FakeRestApiFactory.php
+
+		-
+			message: "#^Rialto\\\\Magento2\\\\Order\\\\FakeImporterDataSource\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Sales\\\\Order\\\\Import\\\\OrderImporterDataSource\\.$#"
+			count: 1
+			path: src/Rialto/Magento2/Order/FakeImporterDataSource.php
+
+		-
+			message: "#^Rialto\\\\Purchasing\\\\Invoice\\\\Reader\\\\Email\\\\FakeAttachmentParser\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Purchasing\\\\Invoice\\\\Reader\\\\Email\\\\AttachmentParser\\.$#"
+			count: 1
+			path: src/Rialto/Purchasing/Invoice/Reader/Email/FakeAttachmentParser.php
+
+		-
+			message: "#^Rialto\\\\Purchasing\\\\Invoice\\\\Reader\\\\Email\\\\FakeMailbox\\:\\:__construct\\(\\) does not call parent constructor from Rialto\\\\Purchasing\\\\Invoice\\\\Reader\\\\Email\\\\SupplierMailbox\\.$#"
+			count: 1
+			path: src/Rialto/Purchasing/Invoice/Reader/Email/FakeMailbox.php
+
+		-
+			message: "#^Access to an undefined property Rialto\\\\Purchasing\\\\Invoice\\\\SupplierPOItemSplit\\:\\:\\$grnItems\\.$#"
+			count: 1
+			path: src/Rialto/Purchasing/Invoice/SupplierPOItemSplit.php
+
+		-
+			message: "#^Rialto\\\\Purchasing\\\\Receiving\\\\Notify\\\\FakeXmppClient\\:\\:__construct\\(\\) does not call parent constructor from Fabiang\\\\Xmpp\\\\Client\\.$#"
+			count: 1
+			path: src/Rialto/Purchasing/Receiving/Notify/FakeXmppClient.php
+
+		-
+			message: "#^Access to an undefined property Rialto\\\\Stock\\\\Consumption\\\\TopLevelStat\\:\\:\\$version\\.$#"
+			count: 4
+			path: src/Rialto/Stock/Consumption/StockConsumptionReport.php
+
+		-
+			message: "#^Access to an undefined property Rialto\\\\Stock\\\\Cost\\\\ItemValuation\\:\\:\\$stockCode\\.$#"
+			count: 1
+			path: src/Rialto/Stock/Cost/ItemValuation.php
+
+		-
+			message: "#^Access to an undefined property Rialto\\\\Stock\\\\Cost\\\\ItemValuation\\:\\:\\$description\\.$#"
+			count: 1
+			path: src/Rialto/Stock/Cost/ItemValuation.php
+
+		-
+			message: "#^Access to an undefined property Rialto\\\\Stock\\\\Cost\\\\ItemValuation\\:\\:\\$quantity\\.$#"
+			count: 2
+			path: src/Rialto/Stock/Cost/ItemValuation.php
+
+		-
+			message: "#^Access to undefined constant Rialto\\\\Web\\\\AbstractTab\\:\\:KEY\\.$#"
+			count: 1
+			path: src/Rialto/Web/IndexController.php
+
+

@@ -1,0 +1,19 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Stock\Transfer\Orm\TransferRepository:
+    shared: false
+    factory: 'doctrine:getRepository'
+    arguments:
+      - Rialto\Stock\Transfer\Transfer
+
+  Rialto\Stock\Transfer\TransferReceiver:
+    public: true
+
+  Rialto\Stock\Transfer\TransferService:
+    public: true
+
+  Rialto\Stock\Transfer\BinEventListener: ~

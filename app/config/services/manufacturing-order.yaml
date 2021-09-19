@@ -1,0 +1,39 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Manufacturing\WorkOrder\WorkOrderFactory:
+    public: true
+
+  Rialto\Manufacturing\WorkOrder\Issue\WorkOrderIssuer:
+    public: true
+
+  Rialto\Manufacturing\PurchaseOrder\Command\OrderPartsHandler:
+    tags:
+    - {name: tactician.handler, typehints: true}
+
+  Rialto\Manufacturing\Allocation\Command\AllocateHandler:
+    tags:
+    - {name: tactician.handler, typehints: true}
+
+  Rialto\Manufacturing\PurchaseOrder\Command\UserSelectManufacturerToOrderHandler:
+    tags:
+    - {name: tactician.handler, typehints: true}
+
+  Rialto\Manufacturing\WorkOrder\WorkOrderPdfGenerator:
+    public: true
+
+  Rialto\Manufacturing\WorkType\ProductLabelPrinter:
+    public: true
+    arguments:
+      $printerId: "product"
+#    calls:
+#      - [setLogoJpegPath, ['%kernel.root_dir%/Resources/postscript/logo.jpeg']]
+
+  Rialto\Manufacturing\WorkOrder\TransferEventListener: ~
+
+  Rialto\Manufacturing\PurchaseOrder\PartsOrderSentListener: ~
+
+  Rialto\Manufacturing\WorkOrder\Cli\AutoBuildCommand: ~

@@ -1,0 +1,32 @@
+parameters:
+  rialto_util.font_dir: "%kernel.project_dir%/fonts"
+
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Filetype\Pdf\PdfGenerator:
+    public: true
+
+  Rialto\Filetype\Postscript\PostscriptConverter: ~
+
+  Rialto\Filetype\Image\QrCodeGenerator: ~
+
+  Rialto\Filetype\FiletypeExtension: ~
+
+  Rialto\Filetype\Pdf\LatexExtension: ~
+
+  Rialto\Filetype\Postscript\FontFilesystem:
+    public: true
+    arguments:
+      - "%rialto_util.font_dir%"
+    tags:
+      - name: kernel.event_listener
+        event: kernel.request
+        method: initPostscriptFonts
+
+  Rialto\Filetype\Pdf\PdfConverter: ~
+
+  Rialto\Filetype\Image\OcrConverter: ~

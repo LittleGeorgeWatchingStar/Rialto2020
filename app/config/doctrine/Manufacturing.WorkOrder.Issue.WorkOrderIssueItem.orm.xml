@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Manufacturing\WorkOrder\Issue\WorkOrderIssueItem"
+        table="WOIssueItems">
+
+        <id name="id" type="integer" column="ID">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="unitQtyIssued" type="decimal"/>
+        <field name="scrapIssued" type="decimal"/>
+        <field name="unitStandardCost" type="decimal" column="UnitStandardCost" />
+
+        <many-to-one
+            field="stockItem"
+            target-entity="Rialto\Stock\Item\StockItem">
+            <join-column
+                name="StockID"
+                referenced-column-name="StockID" />
+        </many-to-one>
+
+        <many-to-one
+            field="workOrderIssue"
+            target-entity="Rialto\Manufacturing\WorkOrder\Issue\WorkOrderIssue"
+            inversed-by="issuedItems">
+            <join-column
+                name="IssueID"
+                referenced-column-name="IssueNo" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

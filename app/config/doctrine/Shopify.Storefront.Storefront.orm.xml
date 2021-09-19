@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Shopify\Storefront\Storefront"
+            repository-class="Rialto\Shopify\Storefront\StorefrontRepository"
+          table="Shopify_Storefront">
+
+        <id name="id" type="bigint">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one
+            target-entity="Rialto\Security\User\User"
+            field="user">
+            <join-column
+                name="userID"
+                referenced-column-name="UserID"
+                nullable="false" />
+        </many-to-one>
+
+        <many-to-one
+                target-entity="Rialto\Payment\PaymentMethod\PaymentMethod"
+                field="paymentMethod">
+            <join-column
+                    name="paymentMethodID"
+                    referenced-column-name="id"
+                    nullable="false" />
+        </many-to-one>
+
+        <many-to-one
+            target-entity="Rialto\Sales\Type\SalesType"
+            field="salesType">
+            <join-column
+                name="salesTypeID"
+                referenced-column-name="TypeAbbrev"
+                nullable="false" />
+        </many-to-one>
+
+        <many-to-one
+            target-entity="Rialto\Sales\Salesman\Salesman"
+            field="salesman">
+            <join-column
+                name="salesmanID"
+                referenced-column-name="SalesmanCode"
+                nullable="false" />
+        </many-to-one>
+
+        <field name="domain" type="string" unique="true" nullable="false"/>
+        <field name="apiKey" type="string" nullable="false" />
+        <field name="apiPassword" type="string" nullable="false" display="none" />
+        <field name="sharedSecret" type="string" nullable="false" display="none" />
+    </entity>
+</doctrine-mapping>

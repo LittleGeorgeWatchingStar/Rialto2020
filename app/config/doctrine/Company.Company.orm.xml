@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="Rialto\Company\Company"
+        repository-class="Rialto\Company\Orm\CompanyRepository"
+        table="Companies">
+
+        <id name="id" type="integer" column="CoyCode">
+            <generator />
+        </id>
+
+        <field name="companyName" type="string" length="50" column="CoyName" />
+        <field name="email" type="string" length="55" column="Email" />
+        <field name="regOffice1" type="string" column="RegOffice1" length="50" />
+        <field name="regOffice2" type="string" column="RegOffice2" length="50" />
+        <field name="regOffice3" type="string" column="RegOffice3" length="50" />
+        <field name="doesDebtorAccounting" type="boolean" column="GLLink_Debtors" />
+        <field name="doesStockAccounting" type="boolean" column="GLLink_Stock" />
+        <field name="doesCreditorAccounting" type="boolean" column="GLLink_Creditors" />
+
+        <many-to-one
+            field="debtorAccount"
+            target-entity="Rialto\Accounting\Ledger\Account\GLAccount" >
+            <join-column
+                    name="DebtorsAct"
+                    referenced-column-name="AccountCode" />
+        </many-to-one>
+
+        <many-to-one
+            field="grnAccount"
+            target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                name="GRNAct"
+                referenced-column-name="AccountCode" />
+        </many-to-one>
+
+        <many-to-one
+            field="glAccount"
+            target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                name="FreightAct"
+                referenced-column-name="AccountCode" />
+        </many-to-one>
+
+        <many-to-one
+            field="creditorsAccount"
+            target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="CreditorsAct"
+                    referenced-column-name="AccountCode" />
+        </many-to-one>
+
+        <many-to-one
+            field="pytDiscountAccount"
+            target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column
+                    name="PytDiscountAct"
+                    referenced-column-name="AccountCode" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

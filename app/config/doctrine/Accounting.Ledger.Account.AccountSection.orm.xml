@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Ledger\Account\AccountSection"
+            table="Accounting_Section">
+
+        <id name="id"
+            type="smallint">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="name"
+               type="string"
+               nullable="false"
+               length="50"/>
+
+        <field name="sign"
+               type="smallint"
+               nullable="false">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <view-roles>
+            <role>ROLE_ACCOUNTING</role>
+        </view-roles>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,83 @@
+cost_break:
+    resource: Rialto\Purchasing\Catalog\Web\CostBreakController
+    type: annotation
+
+parts:
+    resource: Rialto\Purchasing\Parts\Web\PartsController
+    type: annotation
+
+purchase_data:
+    resource: Rialto\Purchasing\Catalog\Web\PurchasingDataController
+    type: annotation
+
+purchase_data_template:
+    resource: Rialto\Purchasing\Catalog\Template\Web\PurchasingDataTemplateController
+    type: annotation
+
+purchase_order:
+    resource: Rialto\Purchasing\Order\Web\PurchaseOrderController
+    type: annotation
+
+purchase_order_build_files:
+  resource: Rialto\Purchasing\Order\Web\POBuildFilesController
+  type: annotation
+
+quotation_request:
+    resource: Rialto\Purchasing\Quotation\Web\QuotationRequestController
+    type: annotation
+
+purchasing_leadtime:
+    resource: Rialto\Purchasing\LeadTime\Web\LeadTimeController
+    type: annotation
+
+purchasing_manufacturer:
+    resource: Rialto\Purchasing\Manufacturer\Web\ManufacturerController
+    type: annotation
+
+purchasing_supplier:
+    resource: Rialto\Purchasing\Supplier\Web\SupplierController
+    type: annotation
+
+receiving_goods_received:
+    resource: Rialto\Purchasing\Receiving\Web\GoodsReceivedController
+    type: annotation
+
+recurring_invoice:
+    resource: Rialto\Purchasing\Recurring\Web\RecurringInvoiceController
+    type: annotation
+
+remote_catalog:
+    resource: Rialto\Purchasing\Catalog\Remote\Web\RemoteCatalogController
+    type: annotation
+
+stock_producer:
+    resource: Rialto\Purchasing\Producer\Web\StockProducerController
+    type: annotation
+
+supplier_api:
+    resource: Rialto\Purchasing\Catalog\Remote\Web\SupplierApiController
+    type: annotation
+
+supplier_attribute:
+    resource: Rialto\Purchasing\Supplier\Attribute\Web\SupplierAttributeController
+    type: annotation
+
+supplier_contact:
+    resource: Rialto\Purchasing\Supplier\Contact\Web\SupplierContactController
+    type: annotation
+
+supplier_email_reader:
+    resource: Rialto\Purchasing\Invoice\Reader\Email\Web\SupplierEmailController
+    type: annotation
+
+supplier_invoice:
+    resource: Rialto\Purchasing\Invoice\Web\SupplierInvoiceController
+    type: annotation
+
+supplier_invoice_item:
+    resource: Rialto\Purchasing\Invoice\Web\SupplierInvoiceItemController
+    type: annotation
+
+supplier_invoice_pattern:
+    resource: Rialto\Purchasing\Invoice\Web\SupplierInvoicePatternController
+    type: annotation

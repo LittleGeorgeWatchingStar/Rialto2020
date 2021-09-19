@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Sales\Order\SalesOrderDetail"
+            repository-class="Rialto\Sales\Order\Orm\SalesOrderDetailRepository"
+            table="SalesOrderDetails">
+
+        <unique-constraints>
+            <unique-constraint columns="OrderNo,StkCode,CustomizationID"/>
+        </unique-constraints>
+
+        <id name="id"
+            type="bigint"
+            column="ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="sourceID"
+               type="string"
+               length="50">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="customerPartNo"
+               type="string"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="qtyOrdered"
+               type="decimal"
+               column="Quantity"
+               precision="16"
+               scale="4"
+               nullable="false"/>
+
+        <field name="qtyInvoiced"
+               type="decimal"
+               column="QtyInvoiced"
+               precision="16"
+               scale="4"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="baseUnitPrice"
+               type="decimal"
+               column="UnitPrice"
+               precision="16"
+               scale="4"
+               nullable="false"/>
+
+        <field name="finalUnitPrice"
+               type="decimal"
+               precision="16"
+               scale="4"
+               nullable="true"/>
+
+        <field name="discountRate"
+               type="decimal"
+               column="DiscountPercent"
+               precision="8"
+               scale="6">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="taxRate"
+               type="decimal"
+               column="SalesTaxRate"
+               precision="8"
+               scale="6">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="chargeForCustomizations"
+               type="boolean"
+               nullable="false">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <field name="completed"
+               type="boolean"
+               column="Completed">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="dateDispatched"
+               type="datetime"
+               column="ActualDispatchDate"
+               nullable="true"/>
+
+        <field name="version"
+               type="string"
+               column="Version"
+               length="31">
+            <options>
+                <option name="default">-any-</option>
+            </options>
+        </field>
+
+        <one-to-many field="requirements"
+                     target-entity="Rialto\Sales\Order\Allocation\Requirement"
+                     mapped-by="orderItem"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="salesOrder"
+                     target-entity="Rialto\Sales\Order\SalesOrder"
+                     inversed-by="lineItems"
+                     display="detail">
+            <join-column name="OrderNo"
+                         referenced-column-name="OrderNo"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="stockItem"
+                     target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="StkCode"
+                         referenced-column-name="StockID"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="discountAccount"
+                     target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column name="DiscountAccount"
+                         referenced-column-name="AccountCode"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="customization"
+                     target-entity="Rialto\Manufacturing\Customization\Customization">
+            <join-column name="CustomizationID"
+                         referenced-column-name="id"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <virtual-field name="stockCode"
+                       display="detail"/>
+
+        <virtual-field name="description"/>
+
+        <virtual-field name="extendedPrice"
+                       format="decimal"
+                       precision="2"/>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+fabenv=$USER
+fab $fabenv delete_cache

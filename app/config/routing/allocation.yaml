@@ -1,0 +1,11 @@
+allocation_dispatch:
+    resource: Rialto\Allocation\Dispatch\Web\DispatchInstructionsController
+    type: annotation
+
+allocation_requirement:
+    resource: Rialto\Allocation\Requirement\Web\RequirementController
+    type: annotation
+
+allocation_stock:
+    resource: Rialto\Allocation\Allocation\Web\StockAllocationController
+    type: annotation

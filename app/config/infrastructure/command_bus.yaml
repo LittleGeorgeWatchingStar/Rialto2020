@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Rialto\Port\CommandBus\CommandBus:
+        class: Infrastructure\CommandBus\TacticianCommandBus
+        public: true
+
+    Infrastructure\CommandBus\DispatchRecordedEventsMiddleware: ~
+
+    Infrastructure\CommandBus\LogCommandMiddleware:
+      arguments:
+        $logger: "@logger"
+      tags:
+        - { name: monolog.logger, channel: automation }
+
+    Rialto\Port\CommandBus\CommandQueue:
+        class: Infrastructure\CommandBus\JmsCommandQueue
+
+    Rialto\Port\CommandBus\HandleCommandConsoleCommand:
+      arguments:
+        $logger: "@logger"
+      tags:
+        - { name: monolog.logger, channel: automation }
+        - { name: console.command }

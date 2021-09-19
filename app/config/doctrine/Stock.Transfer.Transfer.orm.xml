@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Stock\Transfer\Transfer"
+            repository-class="Rialto\Stock\Transfer\Orm\TransferRepository"
+            table="LocTransferHeader">
+
+        <id name="id"
+            type="bigint"
+            column="ID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="dateRequested"
+               type="datetime"
+               nullable="false"/>
+
+        <field name="dateKitted"
+               type="datetime"
+               nullable="true"/>
+
+        <field name="dateShipped"
+               type="datetime"
+               column="DateShipped"
+               nullable="true"/>
+
+        <field name="dateReceived"
+               type="datetime"
+               column="DateReceived"
+               nullable="true"/>
+
+        <field name="pickedUpBy"
+               type="string"
+               nullable="true"/>
+
+        <field name="trackingNumbers"
+               type="json_array"
+               nullable="false"/>
+
+        <field name="shippingMethod"
+               type="string"
+               column="ShippingMethod"
+               length="12"
+               nullable="true"/>
+
+        <one-to-many field="lineItems"
+                     target-entity="Rialto\Stock\Transfer\TransferItem"
+                     mapped-by="transfer">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="origin"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column
+                    name="FromLocation"
+                    referenced-column-name="LocCode"
+                    nullable="false"
+                    on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="destination"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="ToLocation"
+                         referenced-column-name="LocCode"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="shipper"
+                     target-entity="Rialto\Shipping\Shipper\Shipper">
+            <join-column name="shipperId"
+                         referenced-column-name="Shipper_ID"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-many field="purchaseOrders"
+                      target-entity="Rialto\Purchasing\Order\PurchaseOrder">
+            <join-table name="TransferOrder">
+                <join-columns>
+                    <join-column name="transferID"
+                                 referenced-column-name="ID"
+                                 nullable="false"
+                                 on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="purchaseOrderID"
+                                 referenced-column-name="OrderNo"
+                                 nullable="false"
+                                 on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+    </entity>
+</doctrine-mapping>

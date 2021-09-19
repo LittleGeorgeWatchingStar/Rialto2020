@@ -1,0 +1,24 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Printing\Job\PrintQueue:
+    public: true
+
+  Rialto\Printing\Printer\PrintServer:
+    alias: Rialto\Printing\Printer\PrinterRepo
+    public: true
+
+  Rialto\Printing\Printer\PrinterRepo:
+    shared: false
+    factory: 'doctrine:getRepository'
+    arguments:
+      - Rialto\Printing\Printer\Printer
+
+  Rialto\Printing\Job\Cli\FlushPrintQueue: ~
+
+  Rialto\Printing\Job\Cli\DeleteCompletedPrintJobs: ~
+
+  Rialto\Printing\Printer\Cli\DevPrintServer: ~

@@ -1,0 +1,4 @@
+<?php return array (
+  0 => 9223372036854775807,
+  1 => 'a:1:{i:0;O:58:"Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity":10:{s:7:"message";s:28:"That UUID is already in use.";s:7:"service";s:29:"doctrine.orm.validator.unique";s:2:"em";N;s:11:"entityClass";N;s:16:"repositoryMethod";s:6:"findBy";s:6:"fields";s:4:"uuid";s:9:"errorPath";N;s:10:"ignoreNull";b:1;s:7:"payload";N;s:6:"groups";a:1:{i:0;s:7:"Default";}}}',
+);

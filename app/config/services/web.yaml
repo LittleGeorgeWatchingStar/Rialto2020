@@ -1,0 +1,33 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Rialto\Web\RialtoExtension: ~
+
+    Rialto\Web\NumberExtension: ~
+
+    Rialto\Web\LockingParamConverter:
+        tags:
+          - {name: request.param_converter, priority: 10}
+
+    Rialto\Web\Serializer\DateTimeNormalizer:
+        tags:
+            - { name: serializer.normalizer }
+
+    Rialto\Web\Serializer\ViewHandler:
+        autowire: true
+
+    Rialto\Web\Form\JsEntityType: ~
+
+    Rialto\Web\Form\TextEntityType: ~
+
+    Rialto\Web\Form\Validator:
+        public: true
+
+    Rialto\Web\Form\FormExtension: ~
+
+    Rialto\Web\Form\NumberTypeExtension:
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\NumberType }

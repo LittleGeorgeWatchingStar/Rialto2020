@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Rialto\Allocation\Requirement\Requirement"
+            inheritance-type="SINGLE_TABLE">
+
+        <unique-constraints>
+            <unique-constraint columns="consumerType,consumerID,stockCode"
+                               name="consumer_item"/>
+        </unique-constraints>
+
+        <discriminator-column name="consumerType"
+                              type="string"
+                              length="20"/>
+        <discriminator-map>
+            <discriminator-mapping
+                    value="SalesOrderDetail"
+                    class="Rialto\Sales\Order\Allocation\Requirement"/>
+            <discriminator-mapping
+                    value="WorkOrder"
+                    class="Rialto\Manufacturing\Requirement\Requirement"/>
+            <discriminator-mapping
+                    value="missing"
+                    class="Rialto\Manufacturing\Requirement\MissingStockRequirement"/>
+        </discriminator-map>
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="version"
+               type="string"
+               length="31">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="unitQtyNeeded"
+               type="decimal"
+               precision="12"
+               scale="4">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <one-to-many
+                field="allocations"
+                target-entity="Rialto\Allocation\Allocation\StockAllocation"
+                mapped-by="requirement"
+                orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one
+                target-entity="Rialto\Stock\Item\StockItem"
+                field="stockItem">
+            <join-column name="stockCode"
+                         referenced-column-name="StockID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="customization"
+                target-entity="Rialto\Manufacturing\Customization\Customization">
+            <join-column name="customizationID"
+                         referenced-column-name="id"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

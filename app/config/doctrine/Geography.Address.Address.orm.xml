@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Geography\Address\Address"
+            repository-class="Rialto\Geography\Address\Orm\AddressRepository"
+            table="Geography_Address">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+        <field name="street1"
+               type="string"
+               nullable="false"/>
+
+        <field name="street2"
+               type="string"
+               nullable="false"/>
+
+        <field name="mailStop"
+               type="string"
+               nullable="false"/>
+
+        <field name="city"
+               type="string"
+               nullable="false"/>
+
+        <field name="stateCode"
+               type="string"
+               nullable="false"/>
+
+        <field name="postalCode"
+               type="string"
+               nullable="false"
+               length="50"/>
+
+        <field name="countryCode"
+               type="string"
+               nullable="false"/>
+
+        <indexes>
+            <index columns="street1,postalCode,countryCode"/>
+        </indexes>
+
+    </entity>
+</doctrine-mapping>

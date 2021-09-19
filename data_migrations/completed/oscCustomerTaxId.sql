@@ -1,0 +1,1 @@
+ALTER TABLE customers ADD tax_id VARCHAR(200);

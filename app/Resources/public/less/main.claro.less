@@ -1,0 +1,49 @@
+/****************
+ * elements
+ ****************/
+body.main.claro {
+    background-color: #3e5d7b;
+
+    a {
+        color: #003366;
+    }
+
+    .po.notSent {
+        color: red;
+    }
+
+    &.iframe {
+        background: transparent;
+    }
+
+    /****************
+     * layout
+     ****************/
+    > header {
+        border-bottom-color: #CCCCCC;
+
+        > nav a {
+            background: linear-gradient(#d7eaf4, #abc4dd);
+            border-top-color: #CCCCCC;
+            border-right-color: #CCCCCC;
+            border-left-color: #CCCCCC;
+        }
+        > nav a:hover {
+            background: linear-gradient(#91b4ca, #193d78);
+            color: #FFFFFF;
+        }
+    }
+
+    > main,
+    nav#menu {
+        background-image: url('/css/images/base-grade.png');
+    }
+
+    /****************
+     * content
+     ****************/
+    table.standard > thead > tr,
+    table.standard > tbody > tr > th {
+        background-color: #B6CCE2;
+    }
+}

@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Sales\Invoice\SalesInvoiceProcessor:
+    public: true
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: flash}
+
+  Rialto\Sales\Invoice\Label\EciaLabelManager:
+    public: true

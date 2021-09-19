@@ -1,0 +1,1 @@
+ALTER TABLE `SalesOrders` modify `Comments` TEXT not null default '';

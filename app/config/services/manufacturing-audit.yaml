@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Manufacturing\Audit\Adjustment\UseAvailableStock: ~
+
+  Rialto\Manufacturing\Audit\Adjustment\AdjustPlaceholders: ~
+
+  Rialto\Manufacturing\Audit\Adjustment\ReceiveTransfers: ~
+
+  Rialto\Manufacturing\Audit\Adjustment\ReceivePurchaseOrders: ~
+
+  Rialto\Manufacturing\Audit\Adjustment\AdjustCompetitors: ~
+
+  Rialto\Manufacturing\Audit\AuditAdjuster:
+    public: true
+    calls:
+      - [addReleaseStrategy, ['@Rialto\Manufacturing\Audit\Adjustment\AdjustPlaceholders'] ]
+      - [addAcquireStrategy, ['@Rialto\Manufacturing\Audit\Adjustment\UseAvailableStock'] ]
+      - [addAcquireStrategy, ['@Rialto\Manufacturing\Audit\Adjustment\AdjustPlaceholders'] ]
+#      - [addAcquireStrategy, ['@Rialto\Manufacturing\Audit\Adjustment\ReceiveTransfers'] ]
+#      - [addAcquireStrategy, ['@Rialto\Manufacturing\Audit\Adjustment\ReceivePurchaseOrders'] ]
+      - [addAcquireStrategy, ['@Rialto\Manufacturing\Audit\Adjustment\AdjustCompetitors'] ]

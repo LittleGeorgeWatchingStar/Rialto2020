@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Filing\Document\DocumentField"
+            table="Forms">
+        <id name="id" type="bigint" column="FieldID">
+            <generator strategy="AUTO" />
+        </id>
+        <many-to-one
+            target-entity="Rialto\Filing\Document\Document"
+            field="document"
+            inversed-by="fields"
+            display="detail">
+            <join-column name="documentID" referenced-column-name="uuid" />
+        </many-to-one>
+        <field name="value" type="string" column="Text" />
+        <field name="xPosition" type="integer" column="X" />
+        <field name="yPosition" type="integer" column="Y" />
+        <field name="left" type="integer" column="L" />
+        <field name="alignment" type="string" column="A" />
+    </entity>
+
+</doctrine-mapping>

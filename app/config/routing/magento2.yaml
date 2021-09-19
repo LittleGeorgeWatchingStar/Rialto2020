@@ -1,0 +1,7 @@
+magento2_storefront:
+    resource: Rialto\Magento2\Storefront\Web\StorefrontController
+    type: annotation
+
+magento2_oauth:
+    resource: Rialto\Magento2\Api\Web\OAuthController
+    type: annotation

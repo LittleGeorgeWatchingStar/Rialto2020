@@ -1,0 +1,124 @@
+imports:
+    - { resource: config_dev.yaml }
+
+parameters:
+    trusted_hosts:
+        - localhost
+        - mystix.com
+        - '%pcb_ng.storefront.base_uri%'
+    cors_hosts:
+        - http://localhost
+        - ^http://(.+.)?mystix.com
+    default_po_owner: test_admin
+
+doctrine:
+    dbal:
+        dbname: rialto_test
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.filesystem
+    profiler: false
+
+swiftmailer:
+    transport: fake_transport
+
+# Stop Monolog from spewing out debug messages during tests.
+monolog:
+    handlers:
+        sentry:
+            type: error_log
+            level: critical
+        doctrine: false
+        production:
+            type: "null"
+        automation:
+            type: "null"
+        email:
+            type: "null"
+        # Print PHP errors, warnings, deprecations, etc to error_log()
+        php:
+            type: error_log
+            level: info
+            channels: php
+        syslog:
+            type: syslog
+            level: error
+        testlog:
+            type: stream
+            path: "%kernel.logs_dir%/test.log"
+            level: info
+
+nelmio_security:
+    forced_ssl:
+        enabled: false
+
+
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    #
+    # Stubs, fakes, etc...
+    #
+    Gumstix\SSO\Service\CredentialStorage:
+        class: Gumstix\SSO\Service\FakeCredentialStorage
+        public: false
+        calls:
+            - [createAndStoreCredential]
+
+    Gumstix\SSO\Service\SingleSignOn:
+        class: Rialto\Security\FakeSingleSignOn
+
+    Rialto\Shipping\Shipment\ShipmentFactory:
+        alias: Rialto\Shipping\Shipment\DefaultShipmentFactory
+
+    form.csrf_provider:
+        class: Rialto\Security\FakeCsrfTokenProvider
+
+    TaxJar\Client:
+        class: Rialto\Tax\FakeTaxJarApi
+
+    Gumstix\Storage\FileStorage:
+        class: Gumstix\Storage\GaufretteStorage
+        factory: [Gumstix\Storage\GaufretteStorage, memory]
+
+    Rialto\Madison\MadisonClient:
+        class: Rialto\Madison\FakeMadisonClient
+
+    Rialto\Magento2\Api\Rest\RestApiFactory:
+        class: Rialto\Magento2\Api\Rest\FakeRestApiFactory
+
+    Fabiang\Xmpp\Client:
+        class: Rialto\Purchasing\Receiving\Notify\FakeXmppClient
+
+    Rialto\Catalina\CatalinaClient:
+        class: Rialto\Catalina\FakeCatalinaClient
+
+    Rialto\Printing\Printer\FakePrinterSocket: ~
+
+    Rialto\Printing\Printer\PrintServer:
+        class: Rialto\Printing\Printer\TestPrintServer
+
+    Rialto\Purchasing\Invoice\Reader\Email\SupplierMailbox:
+        class: Rialto\Purchasing\Invoice\Reader\Email\FakeMailbox
+
+    Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocator:
+        class: Rialto\Purchasing\Invoice\Reader\Email\FakeAttachmentLocator
+
+    Rialto\Geppetto\GeppettoClient:
+        class: Rialto\Geppetto\FakeGeppettoClient
+
+    #
+    # Make private services public for testing...
+    #
+    Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface:
+        alias: security.token_storage
+
+    Rialto\Sales\Order\SoftwareInvoicer:
+      public: true
+
+    Rialto\Geppetto\Design\DesignStockItemFactory:

@@ -1,0 +1,1 @@
+alter table WorksOrders add column OpenForAllocation boolean not null default 0;

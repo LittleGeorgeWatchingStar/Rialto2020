@@ -1,0 +1,18 @@
+ALTER TABLE PaymentMethod DROP FOREIGN KEY PaymentMethod_fk_groupID;
+ALTER TABLE PaymentMethodGroup DROP FOREIGN KEY PaymentMethodGroup_fk_feeAccountID;
+
+ALTER TABLE PaymentMethod CHANGE id id VARCHAR(4) NOT NULL, CHANGE groupID groupID VARCHAR(4) NOT NULL, CHANGE name name VARCHAR(50) NOT NULL;
+ALTER TABLE PaymentMethodGroup ADD depositAccountID INT UNSIGNED NOT NULL, CHANGE id id VARCHAR(4) NOT NULL, CHANGE type type VARCHAR(20) NOT NULL, CHANGE feeAccountID feeAccountID INT UNSIGNED NOT NULL, CHANGE baseFee baseFee NUMERIC(12, 4) NOT NULL, CHANGE feeRate feeRate NUMERIC(12, 4) NOT NULL;
+
+show warnings;
+
+update PaymentMethodGroup set feeAccountID = 21000, depositAccountID = 10600;
+
+ALTER TABLE CardTrans ADD CONSTRAINT FK_8207C1A342BEFDB2 FOREIGN KEY (CardID) REFERENCES PaymentMethod (id);
+ALTER TABLE PaymentMethod ADD CONSTRAINT FK_37FAAE8DD6EFA878 FOREIGN KEY (groupID) REFERENCES PaymentMethodGroup (id);
+ALTER TABLE PaymentMethodGroup ADD CONSTRAINT FK_609727E69391665 FOREIGN KEY (depositAccountID) REFERENCES ChartMaster (AccountCode);
+ALTER TABLE PaymentMethodGroup ADD CONSTRAINT FK_609727E697BFFFE4 FOREIGN KEY (feeAccountID) REFERENCES ChartMaster (AccountCode);
+
+ALTER TABLE Shopify_Storefront ADD paymentMethodID VARCHAR(4) NOT NULL;
+ALTER TABLE Shopify_Storefront ADD CONSTRAINT FK_E39263E265502B7 FOREIGN KEY (paymentMethodID) REFERENCES PaymentMethod (id);
+CREATE INDEX IDX_E39263E265502B7 ON Shopify_Storefront (paymentMethodID);

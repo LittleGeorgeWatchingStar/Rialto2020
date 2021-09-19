@@ -1,0 +1,1 @@
+alter table WWW_Users add column uuid char(36) unique key after UserID;

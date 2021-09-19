@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Debtor\DebtorInvoice"
+            repository-class="Rialto\Accounting\Debtor\Orm\DebtorTransactionRepository"
+            superclass="Rialto\Accounting\Debtor\DebtorTransaction"
+            table="DebtorTrans">
+
+        <field name="consignment"
+               type="string"
+               column="Consignment"
+               length="22"
+               nullable="false"
+               display="detail">
+            <options>
+                <option name="default" />
+            </options>
+        </field>
+
+        <one-to-many field="allocations"
+                     target-entity="Rialto\Accounting\Debtor\DebtorAllocation"
+                     mapped-by="invoice"
+                     orphan-removal="true"
+                     display="none">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many
+                field="lineItems"
+                target-entity="Rialto\Sales\Invoice\SalesInvoiceItem"
+                mapped-by="debtorTrans">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="salesOrder"
+                     target-entity="Rialto\Sales\Order\SalesOrder"
+                     inversed-by="invoices">
+            <join-column name="Order_"
+                         referenced-column-name="OrderNo"
+                         nullable="true"/>
+        </many-to-one>
+
+        <many-to-one field="shipper"
+                target-entity="Rialto\Shipping\Shipper\Shipper">
+            <join-column name="ShipVia"
+                         referenced-column-name="Shipper_ID"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

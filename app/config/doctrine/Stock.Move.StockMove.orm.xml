@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Stock\Move\StockMove"
+            repository-class="Rialto\Stock\Move\Orm\StockMoveRepository"
+            table="StockMove">
+
+        <indexes>
+            <index columns="systemTypeID,systemTypeNumber"/>
+        </indexes>
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="systemTypeNumber"
+               type="bigint"
+               nullable="false"/>
+
+        <field name="date"
+               type="datetime"
+               column="dateMoved"
+               nullable="false"/>
+
+        <field name="reference"
+               type="text"
+               nullable="false"/>
+
+        <field name="quantity"
+               type="decimal"
+               precision="18"
+               scale="4"
+               nullable="false"/>
+
+        <field name="standardCost"
+               type="decimal"
+               column="unitStandardCost"
+               precision="16"
+               scale="4"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="showOnInvoice"
+               type="boolean"
+               nullable="false">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+
+        <many-to-one target-entity="Rialto\Accounting\Transaction\Transaction"
+                     field="transaction"
+                     inversed-by="stockMoves">
+            <join-column name="transactionId"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="systemType"
+                target-entity="Rialto\Accounting\Transaction\SystemType">
+            <join-column name="systemTypeID"
+                         referenced-column-name="TypeID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="stockItem"
+                target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="stockCode"
+                         referenced-column-name="StockID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="facility"
+                target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="locationID"
+                         referenced-column-name="LocCode"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one
+                field="transfer"
+                target-entity="Rialto\Stock\Transfer\Transfer">
+            <join-column name="transferId"
+                         referenced-column-name="ID"
+                         nullable="true"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one
+                field="stockBin"
+                target-entity="Rialto\Stock\Bin\StockBin">
+            <join-column
+                    name="binID"
+                    referenced-column-name="SerialNo"
+                    nullable="true"/><!-- for backward-compatibility only -->
+        </many-to-one>
+
+        <many-to-one
+                field="period"
+                target-entity="Rialto\Accounting\Period\Period">
+            <join-column name="periodID"
+                         referenced-column-name="PeriodNo"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="parentItem"
+                target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="parentItem"
+                         referenced-column-name="StockID"
+                         nullable="true"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

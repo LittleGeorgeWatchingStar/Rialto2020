@@ -1,0 +1,3 @@
+catalina_job:
+    resource: Rialto\Catalina\Web\JobController
+    type: annotation

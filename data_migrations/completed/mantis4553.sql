@@ -1,0 +1,46 @@
+
+ALTER TABLE SalesOrders drop FOREIGN KEY SalesOrders_fk_billingAddressID;
+ALTER TABLE SalesOrders drop FOREIGN KEY SalesOrders_fk_shippingAddressID;
+ALTER TABLE CustBranch DROP FOREIGN KEY CustBranch_fk_addressID;
+ALTER TABLE DebtorsMaster DROP FOREIGN KEY DebtorsMaster_fk_addressID;
+
+ALTER TABLE Geography_Address CHANGE id id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, CHANGE postalCode postalCode VARCHAR(50) NOT NULL;
+ALTER TABLE SalesOrders DROP Addr1, DROP Addr2, DROP MailStop, DROP City, DROP State, DROP Zip, DROP Country, DROP PrintedPackingSlip,
+CHANGE billingAddressID billingAddressID BIGINT UNSIGNED NOT NULL, CHANGE shippingAddressID shippingAddressID BIGINT UNSIGNED NOT NULL,
+CHANGE CustomerRef CustomerRef VARCHAR(255) NOT NULL, CHANGE CustomerTaxID CustomerTaxID VARCHAR(255) NOT NULL,
+CHANGE BuyerName BuyerName VARCHAR(255) NOT NULL, CHANGE Comments Comments LONGTEXT NOT NULL, CHANGE OrdDate OrdDate DATETIME NOT NULL,
+CHANGE OrderType OrderType VARCHAR(2) NOT NULL, CHANGE ContactPhone ContactPhone VARCHAR(50) NOT NULL, CHANGE ContactEmail ContactEmail VARCHAR(255) NOT NULL,
+CHANGE DeliverTo DeliverTo VARCHAR(255) NOT NULL, CHANGE FromStkLoc FromStkLoc VARCHAR(5) NOT NULL,
+CHANGE SalesStage SalesStage VARCHAR(255) NOT NULL, CHANGE CreatedBy CreatedBy VARCHAR(20) NOT NULL;
+
+ALTER TABLE CustBranch DROP BrAddr1, DROP BrAddr2, DROP BrMailStop, DROP BrCity, DROP BrState, DROP BrZip, DROP BrCountry, DROP EstDeliveryDays,
+DROP FwdDate, DROP DisableTrans, DROP BrPostAddr1, DROP BrPostAddr2, DROP BrPostMailStop, DROP BrPostCity, DROP BrPostState, DROP BrPostZip,
+DROP BrPostCountry, CHANGE BranchCode BranchCode VARCHAR(10) NOT NULL, CHANGE DebtorNo DebtorNo BIGINT UNSIGNED NOT NULL,
+CHANGE BrName BrName VARCHAR(255) NOT NULL, CHANGE addressID addressID BIGINT UNSIGNED NOT NULL, CHANGE Area Area VARCHAR(2) NOT NULL,
+CHANGE Salesman Salesman VARCHAR(3) NOT NULL, CHANGE ContactName ContactName VARCHAR(255) NOT NULL, CHANGE Email Email VARCHAR(255) NOT NULL,
+CHANGE DefaultLocation DefaultLocation VARCHAR(5) NOT NULL, CHANGE CustBranchCode CustBranchCode VARCHAR(255) NOT NULL;
+DROP INDEX custbranch_fk_addressid ON CustBranch;
+CREATE INDEX IDX_1B238F8EEE46BBB7 ON CustBranch (addressID);
+DROP INDEX custbranch_fk_debtorno ON CustBranch;
+CREATE INDEX IDX_1B238F8EDFD2DD4B ON CustBranch (DebtorNo);
+
+ALTER TABLE DebtorsMaster DROP FOREIGN KEY DebtorsMaster_fk_SalesType;
+DROP INDEX DebtorNo ON DebtorsMaster;
+DROP INDEX Name ON DebtorsMaster;
+DROP INDEX EDIInvoices ON DebtorsMaster;
+DROP INDEX EDIOrders ON DebtorsMaster;
+DROP INDEX EDIReference ON DebtorsMaster;
+
+ALTER TABLE DebtorsMaster DROP Addr1, DROP Addr2, DROP MailStop, DROP City, DROP State, DROP Zip, DROP Country, CHANGE Name Name VARCHAR(255) NOT NULL,
+CHANGE addressID addressID BIGINT UNSIGNED NOT NULL, CHANGE FederalTaxID FederalTaxID VARCHAR(100) NOT NULL DEFAULT '',
+CHANGE SalesType SalesType VARCHAR(2) DEFAULT NULL, CHANGE ClientSince ClientSince DATETIME NOT NULL, CHANGE HoldReason HoldReason SMALLINT NOT NULL,
+CHANGE PaymentTerms PaymentTerms VARCHAR(2) NOT NULL, CHANGE InvAddrBranch InvAddrBranch VARCHAR(255) NOT NULL, CHANGE EDIAddress EDIAddress VARCHAR(255) NOT NULL;
+ALTER TABLE DebtorsMaster ADD CONSTRAINT FK_1EE3B9D12DF42CE2 FOREIGN KEY (PaymentTerms) REFERENCES PaymentTerms (TermsIndicator);
+ALTER TABLE DebtorsMaster ADD CONSTRAINT FK_1EE3B9D14FFBBA34 FOREIGN KEY (CurrCode) REFERENCES Currencies (CurrAbrev);
+ALTER TABLE DebtorsMaster ADD CONSTRAINT FK_1EE3B9D11662CC54 FOREIGN KEY (SalesType) REFERENCES SalesTypes (TypeAbbrev);
+ALTER TABLE DebtorsMaster ADD CONSTRAINT FK_1EE3B9D1985690CC FOREIGN KEY (HoldReason) REFERENCES HoldReasons (ReasonCode);
+
+ALTER TABLE SalesOrders ADD CONSTRAINT FK_18632A255AAB1588 FOREIGN KEY (billingAddressID) REFERENCES Geography_Address (id);
+ALTER TABLE SalesOrders ADD CONSTRAINT FK_18632A25DE9832DB FOREIGN KEY (shippingAddressID) REFERENCES Geography_Address (id);
+ALTER TABLE DebtorsMaster ADD CONSTRAINT FK_1EE3B9D1EE46BBB7 FOREIGN KEY (addressID) REFERENCES Geography_Address (id);
+ALTER TABLE CustBranch ADD CONSTRAINT FK_1B238F8EEE46BBB7 FOREIGN KEY (addressID) REFERENCES Geography_Address (id);

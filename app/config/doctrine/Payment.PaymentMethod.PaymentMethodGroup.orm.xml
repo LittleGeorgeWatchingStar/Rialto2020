@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Payment\PaymentMethod\PaymentMethodGroup"
+            table="PaymentMethodGroup">
+
+        <id name="id"
+            type="string"
+            length="4"/>
+
+        <field name="type"
+               type="string"
+               length="20"/>
+
+        <field name="baseFee"
+               type="decimal"
+               precision="12"
+               scale="4"/>
+
+        <field name="feeRate"
+               type="decimal"
+               precision="12"
+               scale="4"/>
+
+        <field name="sweepFeesDaily"
+               type="boolean"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <many-to-one field="depositAccount"
+                     target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column name="depositAccountID"
+                         referenced-column-name="AccountCode"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="feeAccount"
+                     target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column name="feeAccountID"
+                         referenced-column-name="AccountCode"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

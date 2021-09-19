@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Rialto\Catalina\CatalinaClient:
+        public: true
+        arguments:
+            - "@gumstix_sso.http_client_factory"
+            - "%catalina.base_url%"
+
+    Rialto\Catalina\Web\CatalinaExtension:
+        arguments:
+            - "%catalina.base_url%"
+
+    Rialto\Catalina\ProductionTaskListener:
+        arguments:
+            $logger: "@logger"
+        tags:
+            - {name: monolog.logger, channel: manufacturing}

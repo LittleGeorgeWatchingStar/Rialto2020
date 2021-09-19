@@ -1,0 +1,61 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Purchasing\Order\Web\PurchaseOrderController:
+    tags: ['controller.service_arguments']
+
+  Rialto\Purchasing\Order\Web\EditPurchaseOrderType: ~
+
+  Rialto\Purchasing\Order\Web\CreatePurchaseOrderType: ~
+
+  Rialto\Purchasing\Order\Cli\AutoOrderCommand: ~
+
+  Rialto\Purchasing\Order\PurchaseOrderFactory:
+    public: true
+    arguments:
+      $defaultOwner: "%default_po_owner%"
+    calls:
+      - [ loadCurrentUser, [ "@security.token_storage" ] ]
+
+  Rialto\Purchasing\Order\OrderPdfGenerator:
+    public: true
+
+  Rialto\Purchasing\Order\Attachment\PurchaseOrderAttachmentLocator:
+    public: true
+
+  Rialto\Purchasing\Order\Attachment\PurchaseOrderAttachmentGenerator: ~
+
+  Rialto\Purchasing\Producer\DependencyUpdater:
+    public: true
+    calls:
+      - [setLogger, ["@logger"]]
+    tags:
+      - {name: monolog.logger, channel: flash}
+
+  Rialto\Purchasing\Order\PurchaseOrderSender:
+    public: true
+    calls:
+      - [setTokenStorage, ["@security.token_storage"] ]
+
+  Rialto\Purchasing\EmailEventSubscriber: ~
+
+  Rialto\Purchasing\Order\AutoSendReworkOrderSubscriber:
+    public: true
+
+  Rialto\Purchasing\PurchasingErrorHandler: ~
+
+  Rialto\Purchasing\Order\PurchaseOrderVoter: ~
+
+  Rialto\Purchasing\Order\StockItemVoter: ~
+
+  Rialto\Purchasing\Producer\StockProducerVoter: ~
+
+  Rialto\Purchasing\Producer\CommitmentDateEstimator\StockProducerCommitmentDateEstimator:
+    public: true
+
+  Rialto\Purchasing\Order\Command\MergePurchaseOrdersHandler:
+    tags:
+      - {name: tactician.handler, typehints: true}

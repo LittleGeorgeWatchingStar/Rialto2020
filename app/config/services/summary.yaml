@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Summary\Menu\SummaryVoter: ~
+
+  Rialto\Summary\Menu\Web\SummaryExtension: ~

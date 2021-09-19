@@ -1,0 +1,31 @@
+parameters:
+  rialto_purchasing.supplier_mailbox_server: imap.gmail.com
+  rialto_purchasing.supplier_mailbox_username: engine@altium.com
+
+  default_po_owner: andrew.simpson
+
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Purchasing\Quotation\QuotationCsvMapping: ~
+
+  Rialto\Purchasing\Web\PurchasingRouter:
+    public: true
+
+  Rialto\Purchasing\Web\PurchasingExtension: ~
+
+  Rialto\Purchasing\Producer\StockProducerFactory:
+    public: true
+
+  Rialto\Purchasing\Supplier\Web\ActionsController:
+    public: true
+
+  Rialto\Purchasing\LeadTime\LeadTimeCalculator:
+    public: true
+
+  Rialto\Purchasing\LeadTime\LeadTimeGateway: ~
+
+  Rialto\Purchasing\Producer\Web\StockProducerType: ~

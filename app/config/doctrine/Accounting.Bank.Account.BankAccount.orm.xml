@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Accounting\Bank\Account\BankAccount"
+            table="BankAccounts">
+
+        <id name="glAccount"
+            association-key="true"/>
+
+        <field name="name"
+               type="string"
+               column="BankAccountName"
+               length="100"/>
+
+        <field name="nextChequeNumber"
+               type="integer"
+               column="NextCheckNumber">
+            <options>
+                <option name="unsigned">true</option>
+                <option name="default">1500</option>
+            </options>
+        </field>
+
+        <one-to-one
+                field="glAccount"
+                target-entity="Rialto\Accounting\Ledger\Account\GLAccount">
+            <join-column name="AccountCode"
+                         referenced-column-name="AccountCode"/>
+        </one-to-one>
+    </entity>
+</doctrine-mapping>

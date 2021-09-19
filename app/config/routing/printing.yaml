@@ -1,0 +1,11 @@
+printing_job:
+    resource: Rialto\Printing\Job\Web\PrintJobController
+    type: annotation
+
+printing_printer:
+    resource: Rialto\Printing\Printer\Web\PrinterController
+    type: annotation
+
+printing_label_printer:
+    resource: Rialto\Printing\Printer\Web\LabelPrinterController
+    type: annotation

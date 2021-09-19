@@ -1,0 +1,153 @@
+# Configuration for local development environment (mystix.com)
+
+imports:
+    - { resource: config.yaml }
+
+parameters:
+    db_host: 127.0.0.1
+    mongo_host: 127.0.0.1
+    data_bucket: devstix-rialto-files
+
+    # Set the default request context for generatings URLs in console commands
+    router.request_context.host: rialto.mystix.com
+    router.request_context.scheme: http
+    router.request_context.base_url: /index.php
+
+    trusted_hosts:
+        - mystix.com
+        - '%pcb_ng.storefront.base_uri%'
+    cors_hosts:
+        - ^http://(.+.)?mystix.com
+    use_ssl: false
+
+    user.admin: ianfp
+    user.webmaster: ianfp
+
+    email.transport: smtp
+    email.host: email-smtp.us-west-2.amazonaws.com
+    email.port: 587
+    email.encryption: tls
+    email.username: AKIAI5WM7Y2VUODDW23Q
+
+    ups.webservices.uri: https://wwwcie.ups.com
+    ups.user_id: craighughes
+    ups.invoice_host: ftp2.ups.com
+    ups.invoice_username: gumstix0316
+
+    authorizenet.login: 6e79LeRw
+    authorizenet.sandbox: 1
+
+    pcb_ng.storefront.base_uri: 'https://dev-storefront.pcbng.com/'
+    pcb_ng.api.base_uri: 'https://api-dev.pcbng.com/api/'
+
+    gumstix_sso.service.server: http://accounts.mystix.com/
+    rialto_wordpress.base_url: http://www.mystix.com
+    rialto_madison.madison_url: http://madison.mystix.com/app.php
+    catalina.base_url: http://catalina.mystix.com
+    geppetto.base_url: http://geppetto.mystix.com
+
+framework:
+    router: { resource: "%kernel.root_dir%/config/routing_dev.yaml" }
+    profiler: "%enable_profiler%"
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+swiftmailer:
+    transport: fake_transport
+
+monolog:
+    handlers:
+        sentry:
+            # Don't actually use sentry on dev environments
+            type: error_log
+            level: error
+        production:
+            type: stream
+            path: "%kernel.logs_dir%/production.log"
+            level: info
+            channels:
+                - supplier
+                - manufacturing
+                - receiving
+        automation:
+            type: stream
+            path: "%kernel.logs_dir%/automation.log"
+            level: info
+            channels:
+                - automation
+        email:
+            type: stream
+            path: "%kernel.logs_dir%/email.log"
+            level: info
+            channels:
+                - email
+        doctrine:
+            type: stream
+            path: "%kernel.logs_dir%/doctrine.log"
+            channels: doctrine
+        ups:
+            type: stream
+            path: "%kernel.logs_dir%/ups.log"
+            channels: ups
+        flash:
+            type: service
+            id: Rialto\Logging\FlashHandler
+            channels: flash
+        # Print PHP errors, warnings, deprecations, etc to error_log()
+        php:
+            type: error_log
+            level: notice
+            channels: php
+        console:
+            type: console
+            level: info
+            channels: ["!doctrine", "!translation"]
+
+jms_serializer:
+    metadata:
+        cache: false
+    property_naming:
+        enable_cache: false
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Rialto\Purchasing\Invoice\Reader\Email\SupplierMailbox:
+        class: Rialto\Purchasing\Invoice\Reader\Email\FakeMailbox
+
+    Rialto\Purchasing\Invoice\Reader\Email\AttachmentLocator:
+        class: Rialto\Purchasing\Invoice\Reader\Email\FakeAttachmentLocator
+
+    Rialto\Shipping\Export\DeniedPartyScreener:
+        class: Rialto\Shipping\Export\FakeDeniedPartyScreener
+        public: true
+        arguments:
+          $deny: false
+          $enabled: true
+
+    Rialto\Payment\FakeGateway: ~
+
+    # Store the SSO credential in a file so we don't have to regenerate it
+    # every time we refresh the database.
+    Gumstix\SSO\Service\CredentialStorage:
+        alias: Gumstix\SSO\Service\FileCredentialStorage
+
+    # Uncomment this to use the fake gateway instead of the real one.
+#    Rialto\Payment\PaymentGateway:
+#        alias: Rialto\Payment\FakeGateway
+
+    swiftmailer.mailer.transport.fake_transport:
+        alias: Rialto\Email\FakeTransport
+
+    Rialto\Email\FakeTransport:
+        public: true
+
+    Rialto\Ups\Shipping\Webservice\UpsApiService:
+        arguments:
+            $http: '@rialto_ups.http_client'
+        tags:
+            - {name: monolog.logger, channel: ups}

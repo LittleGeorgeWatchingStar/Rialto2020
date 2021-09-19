@@ -1,0 +1,46 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  pcb_ng_http_client:
+    class: GuzzleHttp\Client
+    arguments:
+      $config:
+        base_uri: "%pcb_ng.api.base_uri%"
+        http_errors: false
+
+  Rialto\PcbNg\Service\PcbNgClient:
+    public: true
+    arguments:
+      $storefrontBaseUrl: "%pcb_ng.storefront.base_uri%"
+      $pcbNgHttpClient: "@pcb_ng_http_client"
+      $user: "%pcb_ng.api.user%"
+      $password: "%pcb_ng.api.password%"
+
+  Rialto\PcbNg\Service\PcbNgPurchasingDataFactory: ~
+
+  Rialto\PcbNg\Service\PcbNgSubmitter: ~
+
+  Rialto\PcbNg\Service\GerbersConverter: ~
+
+  Rialto\PcbNg\Service\LocationsConverter: ~
+
+  Rialto\PcbNg\Service\PickAndPlaceFactory: ~
+
+  Rialto\PcbNg\Command\CreateManufacturedStockItemPcbNgPurchasingDataHandler:
+    tags:
+    - {name: tactician.handler, typehints: true}
+
+  Rialto\PcbNg\Service\PcbNgNotificationEmailer: ~
+
+  Rialto\PcbNg\Service\PcbNgMailbox:
+    arguments:
+      $host: "%rialto_purchasing.supplier_mailbox_server%"
+      $username: "%rialto_purchasing.supplier_mailbox_username%"
+      $password: "%rialto_purchasing.supplier_mailbox_password%"
+
+  Rialto\PcbNg\Command\ProcessPcbNgEmailsHandler:
+    tags:
+    - {name: tactician.handler, typehints: true}

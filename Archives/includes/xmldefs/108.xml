@@ -1,0 +1,28 @@
+<vendor_definition vendor_name=''>
+	<start_word value="Idx"></start_word>
+	<end_word value="BOX"></end_word>
+
+	<table_definition name='tables'>
+		<field name='line' order='0'></field>
+		<field name='box' order='1'></field>
+		<field name='ordered' order='2'></field>
+		<field name='cancelled' order='3'></field>
+		<field name='shipped' order='4'></field>
+		<field name='description' order='5'></field>
+		<field name='each' order='6'></field>
+		<field name='total' order='7'></field>
+	</table_definition>
+
+	<globals_definition name='globals'>
+		<global name='purchase_order_no' text='Customer Purchase Order' location='below_2'></global>
+		<global name='invoice_no' text='Invoice #' location='right'></global>
+		<global name='sales_order_no' text='Sales Order' right='eol' location='below_2'></global>
+		<global name='invoice_date' text='Invoice Date' location='below_3'></global>
+		<global name='terms' ></global>
+		<global name='tracking_number' text='BOX ID' location='right'>></global>
+		<global name='freight_charges'></global>
+		<global name='tax_charged' ></global>
+		<global name='grand_total' text='TOTAL INVOICED' location='right' ></global>
+	</globals_definition>
+
+</vendor_definition>

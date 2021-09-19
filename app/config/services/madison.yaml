@@ -1,0 +1,33 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Madison\MadisonClient:
+    arguments:
+      - "@gumstix_sso.http_client_factory"
+      - "%rialto_madison.madison_url%"
+
+  Rialto\Madison\Feature\Web\FeatureType: ~
+
+  Rialto\Madison\Feature\FeatureInjector:
+    public: true
+
+  Rialto\Madison\Version\VersionChangeCache: ~
+
+  Rialto\Madison\Version\VersionChangeListener:
+    tags:
+      - {name: doctrine.event_listener, event: preUpdate}
+
+  Rialto\Madison\Version\VersionChangeNotifier:
+    public: true
+
+  Rialto\Madison\Feature\Repository\StockItemFeatureRepository:
+    class: Rialto\Madison\Feature\Repository\DQL\DqlStockItemFeatureRepository
+    public: true
+
+  Rialto\Madison\Feature\StockItemFeatureCalculator:
+    public: true
+
+  Rialto\Madison\Link\LinkFactory: ~

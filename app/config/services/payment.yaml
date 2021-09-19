@@ -1,0 +1,32 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Payment\AuthorizeNetFactory:
+    arguments:
+      - '%authorizenet.login%'
+      - '%authorizenet.trans_key%'
+
+  Rialto\Payment\AuthorizeNet:
+    public: true
+    calls:
+      - [ setSandbox, [ '%authorizenet.sandbox%' ] ]
+
+  Rialto\Payment\PaymentGateway:
+    alias: Rialto\Payment\AuthorizeNet
+    public: true
+
+  Rialto\Payment\Sweep\CardTransactionSweep:
+    public: true
+
+  Rialto\Payment\PaymentProcessor:
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: flash}
+
+  Rialto\Payment\Sweep\Orm\SweepGateway: ~
+
+  Rialto\Payment\Sweep\Cli\SweepCardTransactionsCommand: ~

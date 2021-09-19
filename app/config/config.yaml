@@ -1,0 +1,199 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yaml }
+    - { resource: easy_admin.yaml }
+    - { resource: services/*.yaml }
+    - { resource: infrastructure/*.yaml }
+
+parameters:
+    # ALWAYS throw exceptions for notices, warnings, etc.
+    debug.error_handler.throw_at: -1
+
+    db_driver: pdo_mysql
+    db_name: rialto
+    db_user: rialto
+
+    bugtracker.uri: https://mantis.gumstix.com
+    bugtracker.default_category: 1
+    bugtracker.project_id: 1
+
+    rialto_wordpress.username: rialto
+    rialto_wordpress.post_type: pcn
+
+    locale: en
+    rialto.root_dir: "%kernel.root_dir%/.."
+    aws_region: us-west-2
+
+framework:
+    translator: { fallback: "%locale%" }
+    profiler: false
+    secret: "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yaml"
+    form:
+        enabled: true
+    csrf_protection:
+        enabled: true
+    validation:
+        enabled: true
+        enable_annotations: true
+    templating:
+        engines: ["twig"]
+    session:
+        cookie_secure: "%use_ssl%"
+        cookie_httponly: true
+    trusted_hosts: "%trusted_hosts%"
+    assets:
+        version: "%assets_version%"
+    serializer:
+        enabled: true
+
+doctrine:
+    dbal:
+        driver:   "%db_driver%"
+        host:     "%db_host%"
+        dbname:   "%db_name%"
+        user:     "%db_user%"
+        password: "%db_password%"
+        server_version: '5.6'
+        charset:  utf8mb4
+        logging:  "%kernel.debug%"
+        types:
+            vector2d: Gumstix\Geometry\Orm\Vector2DType
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+        mappings:
+            Rialto:
+                type: xml
+                dir: "%kernel.root_dir%/config/doctrine"
+                prefix: Rialto
+                is_bundle: false
+        connection: ~
+        dql:
+            string_functions:
+                IFNULL: DoctrineExtensions\Query\Mysql\IfNull
+                IF: DoctrineExtensions\Query\Mysql\IfElse
+                GROUP_CONCAT: DoctrineExtensions\Query\Mysql\GroupConcat
+                REPLACE: DoctrineExtensions\Query\Mysql\Replace
+            datetime_functions:
+                DATE: DoctrineExtensions\Query\Mysql\Date
+                TIMESTAMPDIFF: DoctrineExtensions\Query\Mysql\TimestampDiff
+
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/migrations"
+    namespace: Rialto\Migrations
+    table_name: database_migration
+    name: Database Migrations
+
+
+twig:
+    debug: "%kernel.debug%"
+    strict_variables: true
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
+    paths: ["%kernel.root_dir%/../templates"]
+    globals:
+        dojo_base: //ajax.googleapis.com/ajax/libs/dojo/1.11.2
+        latex_image_path: "%kernel.root_dir%/Resources/latex"
+        bugtracker:
+            uri: "%bugtracker.uri%"
+            default_category: "%bugtracker.default_category%"
+            project_id: "%bugtracker.project_id%"
+    form_theme:
+        - "GumstixFormBundle:Form:fields.html.twig"
+        - "form/fields.html.twig"
+        - "payment/PaymentMethod/fields.html.twig"
+
+
+swiftmailer:
+    transport: smtp
+    host: email-smtp.us-west-2.amazonaws.com
+    port: 587
+    encryption: tls
+    username: AKIAI5WM7Y2VUODDW23Q
+    password: "%email.password%"
+
+sensio_framework_extra:
+    cache: { annotations: false }
+    security: { annotations: false }
+    view: { annotations: true }
+
+fos_rest:
+    body_listener:
+        decoders:
+            json: fos_rest.decoder.json
+    exception:
+        enabled: true
+    format_listener:
+        rules:
+            - path: "^/api"
+              priorities: ["json", "html"]
+              fallback_format: json
+              prefer_extension: true
+            - path: "^/css"
+              priorities: ["css"]
+            - path: "^/js"
+              priorities: ["js"]
+            - path: "^/"
+              priorities: ["html", "json"]
+              fallback_format: html
+              prefer_extension: true
+    serializer:
+        serialize_null: true
+    service:
+        serializer: fos_rest.serializer.symfony
+        view_handler: Rialto\Web\Serializer\ViewHandler
+    view:
+        view_response_listener: true
+        formats:
+            json: true
+        templating_formats:
+            html: true
+
+nelmio_security:
+    clickjacking:
+        paths:
+            "^/.*": SAMEORIGIN
+    external_redirects:
+        log: false
+        abort: true
+        whitelist: "%trusted_hosts%"
+    forced_ssl:
+        enabled: "%use_ssl%"
+        hsts_max_age: 2592000 # 30 days
+        hsts_subdomains: false
+
+nelmio_cors:
+    defaults:
+         allow_credentials: true
+         allow_origin: []
+         allow_headers: []
+         allow_methods: []
+         expose_headers: []
+         max_age: 0
+         hosts: []
+    paths:
+        '^/api/':
+            origin_regex: true
+            allow_origin: "%cors_hosts%"
+            allow_headers: ['origin', 'content-type']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS', 'PATCH']
+            max_age: 3600
+
+tactician:
+  commandbus:
+    default:
+      middleware:
+      - Infrastructure\CommandBus\LogCommandMiddleware
+      - Infrastructure\CommandBus\DispatchRecordedEventsMiddleware
+      - tactician.middleware.locking
+      - tactician.middleware.doctrine_rollback_only
+      - tactician.middleware.command_handler
+
+jms_job_queue:
+  queue_options_defaults:
+    max_concurrent_jobs: 3
+
+webpack_encore:
+  output_path: '%kernel.project_dir%/web/build'

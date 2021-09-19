@@ -1,0 +1,38 @@
+parameters:
+  rialto.sales.email.bcc: "jack@gumstix.com"
+
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Sales\Web\SalesExtension: ~
+
+  Rialto\Sales\Web\SalesRouter:
+    public: true
+
+  Rialto\Sales\SalesPdfGenerator:
+    public: true
+
+  Rialto\Sales\SalesPrintManager:
+    public: true
+    arguments:
+      $printerId: "standard"
+
+  Rialto\Sales\SalesLogger:
+    public: true
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: sales}
+
+  Rialto\Sales\EmailEventListener:
+    public: true
+
+  Rialto\Sales\DocumentEventListener:
+    public: true
+    arguments:
+      $logger: "@logger"
+    tags:
+      - {name: monolog.logger, channel: flash}

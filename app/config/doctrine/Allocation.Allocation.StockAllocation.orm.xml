@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Allocation\Allocation\StockAllocation"
+            repository-class="Rialto\Allocation\Allocation\Orm\StockAllocationRepository"
+            table="StockAllocation"
+            inheritance-type="SINGLE_TABLE">
+
+        <unique-constraints>
+            <unique-constraint columns="requirementID,SourceType,SourceNo"
+                               name="requirement_source"/>
+        </unique-constraints>
+
+        <discriminator-column name="SourceType"
+                              type="string"
+                              length="30"/>
+        <discriminator-map>
+            <discriminator-mapping
+                    value="StockBin"
+                    class="Rialto\Allocation\Allocation\BinAllocation"/>
+            <discriminator-mapping
+                    value="StockProducer"
+                    class="Rialto\Allocation\Allocation\ProducerAllocation"/>
+        </discriminator-map>
+
+        <id name="id"
+            type="bigint"
+            column="AllocationID">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="qtyAllocated"
+               type="integer"
+               column="Qty"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="frozen"
+               type="boolean"
+               column="IsFrozen"
+               nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <many-to-one field="requirement"
+                     target-entity="Rialto\Allocation\Requirement\Requirement"
+                     inversed-by="allocations">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="requirementID"
+                         referenced-column-name="id"
+                         nullable="false"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+
+        <many-to-one field="stockItem"
+                     target-entity="Rialto\Stock\Item\StockItem">
+            <join-column name="StockID"
+                         referenced-column-name="StockID"
+                         nullable="false"
+                         on-delete="CASCADE"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

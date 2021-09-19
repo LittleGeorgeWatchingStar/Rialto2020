@@ -1,0 +1,79 @@
+account_balance:
+    resource: Rialto\Accounting\Balance\Web\AccountBalanceController
+    type: annotation
+
+bank_account:
+    resource: Rialto\Accounting\Bank\Account\Web\BankAccountController
+    type: annotation
+
+bank_statement:
+    resource: Rialto\Accounting\Bank\Statement\Web\BankStatementController
+    type: annotation
+
+bank_statement_match:
+    resource: Rialto\Accounting\Bank\Statement\Web\BankStatementMatchController
+    type: annotation
+
+bank_statement_pattern:
+    resource: Rialto\Accounting\Bank\Statement\Web\BankStatementPatternController
+    type: annotation
+
+bank_transaction:
+    resource: Rialto\Accounting\Bank\Transaction\Web\BankTransactionController
+    type: annotation
+
+bank_transfer:
+    resource: Rialto\Accounting\Bank\Transfer\BankTransferController
+    type: annotation
+
+card_transaction:
+    resource: Rialto\Accounting\Card\Web\CardTransactionController
+    type: annotation
+
+debtor_credit_note:
+    resource: Rialto\Accounting\Debtor\Credit\Web\CreditNoteController
+    type: annotation
+
+debtor_receipt:
+    resource: Rialto\Accounting\Debtor\Receipt\Web\ReceiptController
+    type: annotation
+
+debtor_transaction:
+    resource: Rialto\Accounting\Debtor\Web\DebtorTransactionController
+    type: annotation
+
+debtor_transaction_match:
+    resource: Rialto\Accounting\Debtor\Match\Web\TransactionMatchController
+    type: annotation
+
+gl_account:
+    resource: Rialto\Accounting\Ledger\Account\Web\GLAccountController
+    type: annotation
+
+gl_entry:
+    resource: Rialto\Accounting\Ledger\Entry\Web\GLEntryController
+    type: annotation
+
+payment_allocation:
+    resource: Rialto\Accounting\PaymentTransaction\Web\PaymentAllocationController
+    type: annotation
+
+payment_terms:
+    resource: Rialto\Accounting\Terms\Web\PaymentTermsController
+    type: annotation
+
+period:
+    resource: Rialto\Accounting\Period\Web\PeriodController
+    type: annotation
+
+supplier_creditnote:
+    resource: Rialto\Accounting\Supplier\Web\SupplierCreditNoteController
+    type: annotation
+
+supplier_transaction:
+    resource: Rialto\Accounting\Supplier\Web\SupplierTransactionController
+    type: annotation
+
+transaction:
+    resource: Rialto\Accounting\Transaction\Web\TransactionController
+    type: annotation

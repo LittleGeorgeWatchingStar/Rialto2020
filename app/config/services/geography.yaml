@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Geography\Address\Web\AddressToArrayTransformer: ~
+
+  Rialto\Geography\Address\Web\AddressEntityType: ~

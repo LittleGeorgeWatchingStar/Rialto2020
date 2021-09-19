@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Purchasing\Catalog\Template\PurchasingDataTemplate"
+            repository-class="Rialto\Purchasing\Catalog\Template\Orm\PurchasingDataTemplateRepository"
+            table="PurchasingDataTemplate">
+
+        <id name="id"
+            type="bigint">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="strategy"
+               type="string"
+               length="50"
+               nullable="false"/>
+
+        <field name="incrementQty"
+               type="integer"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="binSize"
+               type="integer"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </field>
+
+        <field name="variables"
+               type="json_array"
+               nullable="false"/>
+
+        <many-to-one field="supplier"
+                     target-entity="Rialto\Purchasing\Supplier\Supplier">
+            <join-column name="supplierID"
+                         referenced-column-name="SupplierID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="binStyle"
+                     target-entity="Rialto\Stock\Bin\BinStyle">
+            <join-column name="binStyle"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

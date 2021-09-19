@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Rialto\Sales\Order\SalesOrder"
+            repository-class="Rialto\Sales\Order\Orm\SalesOrderRepository"
+            table="SalesOrders">
+
+        <id name="id"
+            type="bigint"
+            column="OrderNo">
+            <generator strategy="AUTO"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="customerReference"
+               type="string"
+               column="CustomerRef"/>
+
+        <field name="customerTaxId"
+               type="string"
+               column="CustomerTaxID"/>
+
+        <field name="billingName"
+               type="string"
+               column="BuyerName"/>
+
+        <field name="comments"
+               type="text"
+               column="Comments"
+               nullable="true"/>
+
+        <field name="productionNotes"
+               type="text"
+               column="ProductionNotes"
+               nullable="true"/>
+
+        <field name="dateOrdered"
+               type="datetime"
+               column="OrdDate"
+               nullable="false"/>
+
+        <field name="targetShipDate"
+               type="date"
+               nullable="true"/>
+
+        <field name="deliveryDate"
+               type="date"
+               column="DeliveryDate"
+               nullable="true"/>
+
+        <field name="dateToShip"
+               type="datetime"
+               column="DateToShip"
+               nullable="true"/>
+
+        <field name="datePrinted"
+               type="datetime"
+               nullable="true"/>
+
+        <field name="shipmentType"
+               type="string"
+               column="ShipmentType"
+               length="12">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="deliveryCompany"
+               type="string"
+               column="CompanyName"/>
+
+        <field name="deliveryName"
+               type="string"
+               column="DeliverTo"/>
+
+        <field name="contactPhone"
+               type="string"
+               column="ContactPhone"
+               length="50"/>
+
+        <field name="contactEmail"
+               type="string"
+               column="ContactEmail"/>
+
+        <field name="shippingPrice"
+               type="decimal"
+               column="FreightCost"
+               precision="10"
+               scale="2">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="salesTaxes"
+               type="decimal"
+               column="SalesTaxes"
+               precision="10"
+               scale="2">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="depositAmount"
+               type="decimal"
+               column="Prepayment"
+               precision="10"
+               scale="2">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="salesStage"
+               type="string"
+               column="SalesStage"/>
+
+        <field name="reasonForShipping"
+               type="string"
+               length="255"
+               nullable="false">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+
+        <field name="sourceID"
+               type="bigint"
+               column="SourceID"
+               nullable="false">
+            <options>
+                <option name="unsigned">true</option>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="priority"
+               type="boolean"
+               column="Priority">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="reasonNotToShip"
+               type="string"
+               nullable="false"/>
+
+        <one-to-many field="lineItems"
+                     target-entity="Rialto\Sales\Order\SalesOrderDetail"
+                     mapped-by="salesOrder"
+                     orphan-removal="true"
+                     index-by="id">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="invoices"
+                     target-entity="Rialto\Accounting\Debtor\DebtorInvoice"
+                     mapped-by="salesOrder"/>
+
+        <one-to-many field="cardTransactions"
+                     target-entity="Rialto\Accounting\Card\CardTransaction"
+                     mapped-by="salesOrder"/>
+
+        <one-to-many field="creditAllocations"
+                     target-entity="Rialto\Accounting\Debtor\OrderAllocation"
+                     mapped-by="salesOrder"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="billingAddress"
+                     target-entity="Rialto\Geography\Address\Address">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="billingAddressID"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="shippingAddress"
+                     target-entity="Rialto\Geography\Address\Address">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="shippingAddressID"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="customerBranch"
+                     target-entity="Rialto\Sales\Customer\CustomerBranch">
+            <join-column name="branchID"
+                         referenced-column-name="id"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="createdBy"
+                     target-entity="Rialto\Security\User\User">
+            <join-column name="CreatedBy"
+                         referenced-column-name="UserID"
+                         nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="salesType"
+                     target-entity="Rialto\Sales\Type\SalesType">
+            <join-column name="OrderType"
+                         referenced-column-name="TypeAbbrev"
+                         nullable="false"
+                         on-delete="RESTRICT"/>
+        </many-to-one>
+
+        <many-to-one field="shipper"
+                     target-entity="Rialto\Shipping\Shipper\Shipper">
+            <join-column name="ShipVia"
+                         referenced-column-name="Shipper_ID"/>
+        </many-to-one>
+
+        <many-to-one field="shipFromFacility"
+                     target-entity="Rialto\Stock\Facility\Facility">
+            <join-column name="FromStkLoc"
+                         referenced-column-name="LocCode"
+                         nullable="false"/>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

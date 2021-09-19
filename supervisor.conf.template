@@ -1,0 +1,9 @@
+[program:rialto_jms_job]
+directory=%(appdir)s
+autostart=true
+autorestart=true
+user=www-data
+command=%(appdir)s/bin/console jms-job-queue:run --env=%(app_env)s --max-concurrent-jobs=1 --max-runtime=300 --idle-time=5 %(verbosity)s
+numprocs=1
+stderr_logfile=%(logdir)s/nginx/jms_job.errors.log
+stdout_logfile=%(logdir)s/nginx/jms_job.output.log

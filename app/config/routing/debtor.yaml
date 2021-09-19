@@ -1,0 +1,3 @@
+debtor_refund:
+    resource: Rialto\Accounting\Debtor\Refund\Web\RefundController
+    type: annotation

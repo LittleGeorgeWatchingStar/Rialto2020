@@ -1,0 +1,12 @@
+grn_waste:
+  charge_for_labour: "Check this box if the CM is going to charge for labour on the wasted parts:"
+
+csv_stock_count:
+  location: "At what location was the stock count done?"
+  asOf: "On what date was the stock count done?"
+  uploadedFile: "Select the CSV file to upload:"
+  columnHeadings: "You can change the column headings to match the file:"
+  viewDetail: "How much detail do you want to see when reviewing the changes?"
+
+returned_item:
+  otherBins: "You can adjust these other bins to offset the returned one."

@@ -1,0 +1,247 @@
+body.dashboard {
+    background: black;
+    font-family: sans-serif;
+    color: white;
+
+    a {
+        color: white;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    button {
+        font-size: 11pt;
+    }
+
+    header {
+        margin-bottom: 20px;
+
+        > nav {
+            display: inline-block;
+            margin-left: 10px;
+
+            > div {
+                padding: 5px;
+                border-color: #ccc;
+                border-width: 0 0 1px 0;
+
+                &.tab {
+                    border-radius: 0 0 10px 10px;
+                    display: inline-block;
+                    border-width: 1px 1px 1px 1px;
+
+                    a {
+                        color: #ccc;
+                    }
+                    &.active {
+                        background: #ccc;
+                        border-width: 1px 1px 0 1px;
+
+                        a {
+                            color: black;
+                        }
+                    }
+                }
+            }
+
+            &.user {
+                float: right;
+                margin-top: 5px;
+                margin-left: 20px;
+                margin-right: 20px;
+                text-align: right;
+            }
+        }
+    }
+
+    .h2() {
+        text-transform: uppercase;
+        font-size: larger;
+        font-weight: bold;
+    }
+
+    h2 {
+        .h2();
+    }
+
+    table.dashboard {
+        border-collapse: collapse;
+
+        > thead > tr,
+        > thead > tr > th,
+        > thead > tr > th > div {
+            height: 100%;
+        }
+        > thead > tr > th > div {
+            background: #ccc;
+            color: black;
+            height: 100%;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        th {
+            padding: 2.5px 5px;
+        }
+        td {
+            padding: 2.5px 8px;
+        }
+
+        > tbody > tr:hover {
+            background-color: #111;
+        }
+
+        &.production-orders {
+            .elapsed {
+                white-space: nowrap;
+                text-align: right;
+                display: inline-block;
+                background: #222;
+                border-radius: 15px;
+                padding: 5px 10px;
+            }
+
+            .elapsed.overdue {
+                color: black;
+                background-image: url('/css/images/pulse-background.gif');
+            }
+
+            tr.status > td {
+                text-align: left;
+                padding-top: 2em;
+                .h2();
+            }
+
+            tr.po td {
+                padding: 7.5px 8px;
+            }
+
+            td.priority {
+                padding-right: 1em;
+            }
+
+            table.orders td.tasks {
+                white-space: nowrap;
+                min-width: 300px;
+            }
+            body.dashboard table.dashboard.orders > tbody > tr.status:hover > td {
+                background-color: black; /* Override the default hover background. */
+            }
+
+            table.standard > tbody > tr > td.tasks {
+                background: transparent;
+            }
+
+            .sku {
+                white-space: nowrap;
+            }
+            .po-number {
+                font-weight: bold;
+            }
+            .supplierReference {
+                font-weight: normal;
+                font-style: italic;
+                font-size: smaller;
+            }
+        }
+    }
+
+    table.standard {
+        > thead > tr > th,
+        > tbody > tr > th {
+            color: white;
+            background: #444;
+            padding-left: 5px;
+            padding-right: 5px;
+            font-weight: normal;
+        }
+
+        > tbody > tr > td {
+            vertical-align: top;
+            padding-left: 5px;
+            padding-right: 5px;
+            color: black;
+        }
+
+        > tbody > tr:nth-child(odd) td {
+            background: #ddd;
+        }
+
+        > tbody > tr:nth-child(even) td {
+            background: #ccc;
+        }
+
+        td a {
+            color: #222;
+        }
+        td a:hover {
+            color: black;
+        }
+    }
+
+    &.action {
+        header, main {
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+        header {
+            margin-top: 40px;
+            margin-bottom: 0;
+        }
+        header > h1 {
+            color: black;
+            background: darkgray;
+            border-bottom: 1px solid black;
+            margin: 0;
+            padding: 10px 20px;
+        }
+
+        main {
+            background: #eee;
+            margin-top: 0;
+            margin-bottom: 40px;
+            padding: 20px;
+            color: black;
+        }
+
+        a {
+            color: #222;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: black;
+            text-decoration: underline;
+        }
+    }
+
+    .tasks {
+        .task {
+            border-radius: 5px;
+            padding: 5px;
+            white-space: nowrap;
+            text-align: center;
+            display: inline-block;
+        }
+        .required,
+        .required a,
+        .required span {
+            background: yellow;
+            color: black;
+        }
+        .waiting {
+            background: #500;
+            color: white;
+        }
+        .optional {
+            background: #030;
+            color: white;
+        }
+    }
+    ul.tasks {
+        padding: 0;
+        list-style: none;
+    }
+
+}

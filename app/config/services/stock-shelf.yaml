@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Rialto\Stock\Shelf\Position\AssignmentListener: ~
+
+  Rialto\Stock\Shelf\Position\PositionAssigner:
+    public: true
+
+  Rialto\Stock\Shelf\Velocity\VelocityCalculator: ~

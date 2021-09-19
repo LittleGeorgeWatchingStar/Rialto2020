@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="Rialto\Manufacturing\Bom\TurnkeyExclusion"
+        repository-class="Rialto\Manufacturing\Bom\Orm\TurnkeyExclusionRepository"
+        table="TurnkeyExclusions">
+
+        <id name="parent" association-key="true" />
+        <id name="component" association-key="true" />
+        <id name="location" association-key="true" />
+
+        <many-to-one
+            field="parent"
+            target-entity="Rialto\Stock\Item\StockItem">
+            <join-column
+                name="Parent"
+                referenced-column-name="StockID" />
+        </many-to-one>
+
+        <many-to-one
+            field="component"
+            target-entity="Rialto\Stock\Item\StockItem">
+            <join-column
+                name="Component"
+                referenced-column-name="StockID" />
+        </many-to-one>
+
+        <many-to-one
+            field="location"
+            target-entity="Rialto\Stock\Facility\Facility">
+            <join-column
+                name="LocCode"
+                referenced-column-name="LocCode" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>
